@@ -1,0 +1,112 @@
+{
+  "color": "#645893",
+  "google_analytics_ID": "UA-54037920-12",
+  "sub_title": "Ph.D. candidate at Universidad Andrés Bello",
+  "tabs": [
+    "home",
+    "cv"
+  ],
+  "home": {
+    "description": "I am a Ph.D. candidate in Astrophysics at Universidad Andrés Bello. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "highlight": "",
+    "contact": [
+      {
+        "text": "Universidad Andrés Bello"
+      },
+      {
+        "type": "link",
+        "text": "Department of Astronomy",
+        "link": "https://astrounab.cl"
+      },
+      {
+        "text": "Fernandez Concha 700"
+      },
+      {
+        "text": "Las Condes"
+      },
+      {
+        "text": "Santiago, Chile"
+      },
+      {
+        "type": "email",
+        "text": "yordanka.apostolovski@gmail.com"
+      },
+      {
+        "type": "phone",
+        "text": "+56 9 626 88539"
+      }
+    ],
+    "fields": [
+      "Radio Astronomy",
+      "Sub-milimeter Galaxies",
+      "Gravitational Lensing",
+      "High Redshift Galaxies",
+      "Starburst Galaxies"
+    ],
+    "links": [
+      {
+        "text": "LinkedIn",
+        "link": "https://www.linkedin.com/in/yordanka-apostolovski-05715763"
+      }
+    ]
+  },
+  "cv": {
+    "link": "assets/cv_yordanka_apostolovski.pdf",
+    "sections": [
+      {
+        "title": "Education",
+        "items": [
+          {
+            "date": "2015 - Present",
+            "text": "Ph.D. in Astrophysics",
+            "fields": [
+              {
+                "text": "Universidad Andrés Bello"
+              },
+              {
+                "text": "Thesis Project: Studies of the Interstellar Medium in Distant, Gravitationally Lensed Star Forming Galaxies"
+              }
+            ]
+          },
+          {
+            "date": "Spring 2018",
+            "text": "Visitor Student",
+            "fields": [
+              {
+                "text": "ESO - Garching bei München, Germany"
+              },
+              {
+                "text": "Project: Analysing MUSE data of SPT2349-56"
+              }
+            ]
+          },
+          {
+            "date": "Spring 2016",
+            "text": "Visitor Student",
+            "fields": [
+              {
+                "text": "Yale University"
+              },
+              {
+                "text": "Project: Outflow-Infall interaction in B335"
+              }
+            ]
+          },
+          {
+            "date": "2011 - 2014",
+            "text": "Licenciatura en Astronomía",
+            "fields": [
+              {
+                "text": "Universidad Andrés Bello"
+              },
+              {
+                "text": "Graduated with Distinction",
+                "highlighted": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
