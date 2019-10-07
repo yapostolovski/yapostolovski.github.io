@@ -103,6 +103,59 @@
                 "text": "Graduated with Distinction",
                 "highlighted": true
               }
+ "Research": {
+    "link": "assets/cv_yordanka_apostolovski.pdf",
+    "sections": [
+      {
+        "title": "Education",
+        "items": [
+          {
+            "date": "2015 - Present",
+            "text": "Ph.D. in Astrophysics",
+            "fields": [
+              {
+                "text": "Universidad Andrés Bello"
+              },
+              {
+                "text": "Thesis Project: Studies of the Interstellar Medium in Distant, Gravitationally Lensed Star Forming Galaxies"
+              }
+            ]
+          },
+          {
+            "date": "Spring 2018",
+            "text": "Visitor Student",
+            "fields": [
+              {
+                "text": "ESO - Garching bei München, Germany"
+              },
+              {
+                "text": "Project: Analysing MUSE data of SPT2349-56"
+              }
+            ]
+          },
+          {
+            "date": "Spring 2016",
+            "text": "Visitor Student",
+            "fields": [
+              {
+                "text": "Yale University"
+              },
+              {
+                "text": "Project: Outflow-Infall interaction in B335"
+              }
+            ]
+          },
+          {
+            "date": "2011 - 2014",
+            "text": "Licenciatura en Astronomía",
+            "fields": [
+              {
+                "text": "Universidad Andrés Bello"
+              },
+              {
+                "text": "Graduated with Distinction",
+                "highlighted": true
+              } 
             ]
           }
         ]
