@@ -104,11 +104,147 @@
               {
                 "text": "Graduated with Distinction",
                 "highlighted": true
-              } 
+              }
             ]
           }
         ]
       }
     ]
-  }
+  },
+  "research": [
+    {
+      "title": "Topic 1",
+      "sub_title": "Subtitle 1",
+      "papers": [
+        {
+          "title": "Paper 1 title example",
+          "always_expanded": true,
+          "authors": ["Author 1", "Author 2", "Author 3"],
+          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
+          "more_info": [
+            {
+              "text": "More links:",
+              "links": [
+                {
+                  "text": "Link 1",
+                  "link": "https://example.com/link_1"
+                },
+                {
+                  "text": "Link 2",
+                  "link": "https://example.com/link_2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Paper 2 title example",
+          "link": "http://example.com/paper_2",
+          "authors": ["Author 1", "Author 2", "Author 3"],
+          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
+          "more_info": [
+            {
+              "text": "More links:",
+              "links": [
+                {
+                  "text": "Link 1",
+                  "link": "https://example.com/link_1"
+                },
+                {
+                  "text": "Link 2",
+                  "link": "https://example.com/link_2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Topic 2",
+      "sub_title": "Subtitle 2 (optional)",
+      "papers": [
+        {
+          "title": "Paper 3 title example",
+          "authors": ["Author 1", "Author 2", "Author 3"],
+          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
+          "more_info": [
+            {
+              "text": "More links:",
+              "links": [
+                {
+                  "text": "Link 1",
+                  "link": "https://example.com/link_1"
+                },
+                {
+                  "text": "Link 2",
+                  "link": "https://example.com/link_2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Topic 3",
+      "sub_title": "example of just text",
+      "papers": [
+        {
+          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud."
+        }
+      ]
+    }
+  ],
+  "teaching": [
+    {
+      "title": "University X",
+      "items": [
+        {
+          "date": "Spring 2019",
+          "text": "Course title X1",
+          "fields": [
+            {
+              "text": "Instructor: Name X1",
+              "highlighted": true
+            },
+            {
+              "text": "Teaching Assistant"
+            }
+          ]
+        },
+        {
+          "date": "Fall 2017",
+          "text": "Course title X2",
+          "fields": [
+            {
+              "text": "Instructor: Name X2",
+              "highlighted": true
+            },
+            {
+              "text": "Teaching Assistant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "University Y",
+      "items": [
+        {
+          "date": "Spring 2019",
+          "text": "Course title Y1",
+          "fields": [
+            {
+              "text": "Instructor: Name Y1",
+              "highlighted": true
+            },
+            {
+              "text": "Teaching Assistant"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
