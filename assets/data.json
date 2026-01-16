@@ -1,34 +1,13 @@
 {
   "color": "#645893",
   "google_analytics_ID": "UA-54037920-12",
-  "sub_title": "Ph.D. candidate at Universidad Andrés Bello",
-  "tabs": [
-    "home",
-    "research",
-    "teaching",
-    "cv"
-  ],
+  "sub_title": "Ph.D. in Astrophysics | Applied R&D & Innovation (BLE, Edge AI)",
+  "tabs": ["home", "research", "teaching", "cv"],
   "home": {
-    "description": "I am a Ph.D. candidate in Astrophysics at Universidad Andrés Bello, Chile. Currently I'm working under the supervision of Timo Anguita (UNAB) and Manuel Aravena (UDP) in dusty star-forming galaxies al high redshift from the SPT-SMG sample, studying their interstellar medium. I got my B.Sc. in Astronomy (2014) degree at Universidad Andrés Bello, Chile.",
-    "highlight": "",
+    "description": "I am a Ph.D. in Astrophysics based in Santiago, Chile, with experience spanning both academic research and applied R&D. My research background includes the interstellar medium in distant, gravitationally lensed dusty star-forming galaxies at high redshift (e.g., SPT-SMG sample) using multi-wavelength data and interferometry. From 2024 to September 2025, I worked as a Project Manager in an innovation company (iGo Technologies), leading projects that combine BLE-based positioning and machine learning to improve worker safety and operational efficiency in harsh environments such as mines and industrial facilities.",
+    "highlight": "Bridging academia and industry: from extragalactic astronomy & interferometry to BLE positioning and edge AI for safety-critical environments.",
     "contact": [
-      {
-        "text": "Universidad Andrés Bello"
-      },
-      {
-        "type": "link",
-        "text": "Department of Astronomy",
-        "link": "https://astrounab.cl"
-      },
-      {
-        "text": "Fernandez Concha 700"
-      },
-      {
-        "text": "Las Condes"
-      },
-      {
-        "text": "Santiago, Chile"
-      },
+      { "text": "Santiago, Chile" },
       {
         "type": "email",
         "text": "yordanka.apostolovski@gmail.com"
@@ -39,16 +18,21 @@
       }
     ],
     "fields": [
-      "Radio Astronomy",
-      "Sub-milimeter Galaxies",
+      "Extragalactic Astronomy",
+      "Dusty Star-Forming Galaxies (DSFGs)",
       "Gravitational Lensing",
-      "High Redshift Galaxies",
-      "Starburst Galaxies"
+      "Interstellar Medium (ISM)",
+      "Radio/Sub-mm Interferometry (ALMA, etc.)",
+      "Applied R&D: BLE Positioning, Edge AI/ML"
     ],
     "links": [
       {
         "text": "LinkedIn",
         "link": "https://www.linkedin.com/in/yordanka-apostolovski-05715763"
+      },
+      {
+        "text": "NASA/ADS Publications",
+        "link": "https://ui.adsabs.harvard.edu/public-libraries/slD0IhuuR2-kJJ8tPmevaA"
       }
     ]
   },
@@ -59,51 +43,65 @@
         "title": "Education",
         "items": [
           {
-            "date": "2015 - Present",
+            "date": "Ph.D. (completed 2020)",
             "text": "Ph.D. in Astrophysics",
             "fields": [
+              { "text": "Universidad Andrés Bello (UNAB), Chile" },
               {
-                "text": "Universidad Andrés Bello"
+                "text": "Thesis: Studies of the Interstellar Medium in Distant, Gravitationally Lensed Star-Forming Galaxies"
               },
-              {
-                "text": "Thesis Project: Studies of the Interstellar Medium in Distant, Gravitationally Lensed Star Forming Galaxies"
-              }
+              { "text": "Advisors: Dr. Timo Anguita (UNAB) and Dr. Manuel Aravena (UDP)" }
             ]
           },
           {
             "date": "Spring 2018",
-            "text": "Visitor Student",
+            "text": "Visiting Student / Research Stay",
             "fields": [
-              {
-                "text": "ESO - Garching bei München, Germany"
-              },
-              {
-                "text": "Project: Analysing MUSE data of SPT2349-56"
-              }
+              { "text": "ESO — Garching bei München, Germany" },
+              { "text": "Project: Analysis of MUSE data (e.g., SPT2349-56)" }
             ]
           },
           {
             "date": "Spring 2016",
-            "text": "Visitor Student",
+            "text": "Visiting Student / Research Stay",
             "fields": [
-              {
-                "text": "Yale University"
-              },
-              {
-                "text": "Project: Outflow-Infall interaction in B335"
-              }
+              { "text": "Yale University, USA" },
+              { "text": "Project: Outflow–Infall interaction in B335" }
             ]
           },
           {
             "date": "2011 - 2014",
-            "text": "Licenciatura en Astronomía",
+            "text": "B.Sc. in Astronomy",
             "fields": [
+              { "text": "Universidad Andrés Bello (UNAB), Chile" },
+              { "text": "Graduated with Distinction", "highlighted": true }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Experience",
+        "items": [
+          {
+            "date": "2024-01-01 — 2025-09-30",
+            "text": "Project Manager / Innovation & Applied R&D",
+            "fields": [
+              { "text": "iGo Technologies, Chile" },
               {
-                "text": "Universidad Andrés Bello"
+                "text": "Led interdisciplinary projects combining BLE-based positioning and ML/AI to track and protect workers in demanding environments (mines, ships, industrial plants)."
               },
               {
-                "text": "Graduated with Distinction",
-                "highlighted": true
+                "text": "Coordinated hardware, firmware, Android, and data/ML pipelines; focused on safety and operational efficiency."
+              }
+            ]
+          },
+          {
+            "date": "2020 — 2022",
+            "text": "Postdoctoral Researcher",
+            "fields": [
+              { "text": "Universidad de Valparaíso, Chile" },
+              {
+                "text": "Research on star formation efficiency in galaxies across redshift using ALMA archival data and multi-wavelength analysis."
               }
             ]
           }
@@ -113,46 +111,21 @@
   },
   "research": [
     {
-      "title": "Topic 1",
-      "sub_title": "Subtitle 1",
+      "title": "Astrophysics",
+      "sub_title": "High-redshift galaxies, ISM, and interferometry",
       "papers": [
         {
-          "title": "Paper 1 title example",
+          "title": "Selected publications (see ADS library)",
           "always_expanded": true,
-          "authors": ["Author 1", "Author 2", "Author 3"],
-          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
+          "authors": ["Y. Apostolovski", "Co-authors (see ADS)"],
+          "abstract": "My research focuses on the interstellar medium and star formation in distant, gravitationally lensed dusty star-forming galaxies. I use multi-wavelength datasets and interferometric observations (e.g., ALMA) to constrain gas, dust, and star formation properties and their evolution across cosmic time.",
           "more_info": [
             {
-              "text": "More links:",
+              "text": "Publication list:",
               "links": [
                 {
-                  "text": "Link 1",
-                  "link": "https://example.com/link_1"
-                },
-                {
-                  "text": "Link 2",
-                  "link": "https://example.com/link_2"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "title": "Paper 2 title example",
-          "link": "http://example.com/paper_2",
-          "authors": ["Author 1", "Author 2", "Author 3"],
-          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
-          "more_info": [
-            {
-              "text": "More links:",
-              "links": [
-                {
-                  "text": "Link 1",
-                  "link": "https://example.com/link_1"
-                },
-                {
-                  "text": "Link 2",
-                  "link": "https://example.com/link_2"
+                  "text": "NASA/ADS library",
+                  "link": "https://ui.adsabs.harvard.edu/public-libraries/slD0IhuuR2-kJJ8tPmevaA"
                 }
               ]
             }
@@ -161,87 +134,38 @@
       ]
     },
     {
-      "title": "Topic 2",
-      "sub_title": "Subtitle 2 (optional)",
+      "title": "Applied R&D",
+      "sub_title": "BLE positioning, edge ML, and safety analytics",
       "papers": [
         {
-          "title": "Paper 3 title example",
-          "authors": ["Author 1", "Author 2", "Author 3"],
-          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud.",
+          "title": "BLE positioning + ML for harsh environments",
+          "authors": ["Y. Apostolovski", "Engineering teams"],
+          "abstract": "In industry, I led projects that integrate BLE beacons and mobile devices to provide accurate worker positioning where GPS and connectivity are limited. The work combines empirical testing, RF considerations, and ML pipelines for positioning models that can run on mobile devices (edge inference).",
           "more_info": [
             {
-              "text": "More links:",
+              "text": "Notes:",
               "links": [
                 {
-                  "text": "Link 1",
-                  "link": "https://example.com/link_1"
-                },
-                {
-                  "text": "Link 2",
-                  "link": "https://example.com/link_2"
+                  "text": "LinkedIn (project highlights)",
+                  "link": "https://www.linkedin.com/in/yordanka-apostolovski-05715763"
                 }
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "title": "Topic 3",
-      "sub_title": "example of just text",
-      "papers": [
-        {
-          "abstract": "Lorem ipsum cupidatat ea eiusmod ullamco quis aliquip nisi non dolore officia culpa esse minim minim occaecat ea est aute mollit occaecat ut aute veniam consequat laboris do. Elit sit eiusmod laborum exercitation pariatur enim officia incididunt laborum est sit non ullamco eu sed irure sint dolor officia anim laboris commodo sit nostrud culpa amet fugiat nisi duis ad commodo dolor voluptate officia in dolore ut voluptate cillum commodo tempor dolore laborum ut laboris sed sint consectetur id sint deserunt in culpa consectetur sint adipisicing fugiat nisi eu officia sint dolor mollit veniam aliquip officia velit veniam aute deserunt ea adipisicing ullamco ut consectetur proident dolore excepteur incididunt dolor proident nisi consequat commodo sint quis pariatur minim duis officia pariatur eiusmod commodo ut labore est occaecat cillum deserunt dolor officia eu quis aliquip mollit ut ut commodo deserunt elit ea in esse sunt pariatur exercitation nostrud sunt laborum ad dolor mollit nulla aliqua aute minim adipisicing ex consectetur ut est laborum mollit id cupidatat laborum consectetur minim sed tempor labore irure in incididunt fugiat deserunt nostrud anim eiusmod magna proident nisi eiusmod sint pariatur commodo cupidatat proident consectetur laboris nulla dolore mollit laboris esse veniam occaecat fugiat velit dolore dolore ut ut duis in excepteur ullamco cupidatat in laboris ut incididunt ut ullamco do duis in elit anim in minim cupidatat nisi tempor ut velit excepteur reprehenderit eu est ad dolor dolore reprehenderit in veniam nostrud."
         }
       ]
     }
   ],
   "teaching": [
     {
-      "title": "University X",
+      "title": "Teaching",
       "items": [
         {
-          "date": "Spring 2019",
-          "text": "Course title X1",
+          "date": "YYYY — YYYY",
+          "text": "Course title (replace with your real course)",
           "fields": [
-            {
-              "text": "Instructor: Name X1",
-              "highlighted": true
-            },
-            {
-              "text": "Teaching Assistant"
-            }
-          ]
-        },
-        {
-          "date": "Fall 2017",
-          "text": "Course title X2",
-          "fields": [
-            {
-              "text": "Instructor: Name X2",
-              "highlighted": true
-            },
-            {
-              "text": "Teaching Assistant"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "University Y",
-      "items": [
-        {
-          "date": "Spring 2019",
-          "text": "Course title Y1",
-          "fields": [
-            {
-              "text": "Instructor: Name Y1",
-              "highlighted": true
-            },
-            {
-              "text": "Teaching Assistant"
-            }
+            { "text": "Institution (replace)", "highlighted": true },
+            { "text": "Role: Instructor / Teaching Assistant (replace)" }
           ]
         }
       ]
