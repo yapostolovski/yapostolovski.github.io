@@ -1,174 +1,39 @@
-{
-  "color": "#645893",
-  "google_analytics_ID": "UA-54037920-12",
-  "sub_title": "Ph.D. in Astrophysics | Applied R&D & Innovation (BLE, Edge AI)",
-  "tabs": ["home", "research", "teaching", "cv"],
-  "home": {
-    "description": "I am a Ph.D. in Astrophysics based in Santiago, Chile, with experience spanning both academic research and applied R&D. My research background includes the interstellar medium in distant, gravitationally lensed dusty star-forming galaxies at high redshift (e.g., SPT-SMG sample) using multi-wavelength data and interferometry. From 2024 to September 2025, I worked as a Project Manager in an innovation company (iGo Technologies), leading projects that combine BLE-based positioning and machine learning to improve worker safety and operational efficiency in harsh environments such as mines and industrial facilities.",
-    "highlight": "Bridging academia and industry: from extragalactic astronomy & interferometry to BLE positioning and edge AI for safety-critical environments.",
-    "contact": [
-      { "text": "Santiago, Chile" },
+"teaching": [
+  {
+    "title": "Teaching and Supervision",
+    "items": [
       {
-        "type": "email",
-        "text": "yordanka.apostolovski@gmail.com"
-      },
-      {
-        "type": "phone",
-        "text": "+56 9 626 88539"
-      }
-    ],
-    "fields": [
-      "Extragalactic Astronomy",
-      "Dusty Star-Forming Galaxies (DSFGs)",
-      "Gravitational Lensing",
-      "Interstellar Medium (ISM)",
-      "Radio/Sub-mm Interferometry (ALMA, etc.)",
-      "Applied R&D: BLE Positioning, Edge AI/ML"
-    ],
-    "links": [
-      {
-        "text": "LinkedIn",
-        "link": "https://www.linkedin.com/in/yordanka-apostolovski-05715763"
-      },
-      {
-        "text": "NASA/ADS Publications",
-        "link": "https://ui.adsabs.harvard.edu/public-libraries/slD0IhuuR2-kJJ8tPmevaA"
-      }
-    ]
-  },
-  "cv": {
-    "link": "assets/cv_yordanka_apostolovski.pdf",
-    "sections": [
-      {
-        "title": "Education",
-        "items": [
-          {
-            "date": "Ph.D. (completed 2020)",
-            "text": "Ph.D. in Astrophysics",
-            "fields": [
-              { "text": "Universidad Andrés Bello (UNAB), Chile" },
-              {
-                "text": "Thesis: Studies of the Interstellar Medium in Distant, Gravitationally Lensed Star-Forming Galaxies"
-              },
-              { "text": "Advisors: Dr. Timo Anguita (UNAB) and Dr. Manuel Aravena (UDP)" }
-            ]
-          },
-          {
-            "date": "Spring 2018",
-            "text": "Visiting Student / Research Stay",
-            "fields": [
-              { "text": "ESO — Garching bei München, Germany" },
-              { "text": "Project: Analysis of MUSE data (e.g., SPT2349-56)" }
-            ]
-          },
-          {
-            "date": "Spring 2016",
-            "text": "Visiting Student / Research Stay",
-            "fields": [
-              { "text": "Yale University, USA" },
-              { "text": "Project: Outflow–Infall interaction in B335" }
-            ]
-          },
-          {
-            "date": "2011 - 2014",
-            "text": "B.Sc. in Astronomy",
-            "fields": [
-              { "text": "Universidad Andrés Bello (UNAB), Chile" },
-              { "text": "Graduated with Distinction", "highlighted": true }
-            ]
-          }
+        "date": "2024",
+        "text": "Undergraduate Thesis Co-supervisor",
+        "fields": [
+          { "text": "Universidad Técnica Federico Santa María (UTFSM), Valparaíso, Chile", "highlighted": true },
+          { "text": "Co-supervision of undergraduate theses within technology and innovation projects; support in methodological design, quantitative analysis, and validation of results." }
         ]
       },
       {
-        "title": "Experience",
-        "items": [
-          {
-            "date": "2024-01-01 — 2025-09-30",
-            "text": "Project Manager / Innovation & Applied R&D",
-            "fields": [
-              { "text": "iGo Technologies, Chile" },
-              {
-                "text": "Led interdisciplinary projects combining BLE-based positioning and ML/AI to track and protect workers in demanding environments (mines, ships, industrial plants)."
-              },
-              {
-                "text": "Coordinated hardware, firmware, Android, and data/ML pipelines; focused on safety and operational efficiency."
-              }
-            ]
-          },
-          {
-            "date": "2020 — 2022",
-            "text": "Postdoctoral Researcher",
-            "fields": [
-              { "text": "Universidad de Valparaíso, Chile" },
-              {
-                "text": "Research on star formation efficiency in galaxies across redshift using ALMA archival data and multi-wavelength analysis."
-              }
-            ]
-          }
+        "date": "2023",
+        "text": "Undergraduate Lecturer — LAST322 (Astronomy Laboratory I)",
+        "fields": [
+          { "text": "Universidad Andrés Bello (UNAB), Santiago, Chile", "highlighted": true },
+          { "text": "Designed experimental activities and assessed analytical competencies in an undergraduate astronomy laboratory course." }
+        ]
+      },
+      {
+        "date": "2023",
+        "text": "Undergraduate Lecturer — CIE242 and CORE302",
+        "fields": [
+          { "text": "Universidad Adolfo Ibáñez (UAI), Viña del Mar, Chile", "highlighted": true },
+          { "text": "Taught Topics in Modern and Contemporary Physics (CIE242) and Science (CORE302) with an interdisciplinary approach." }
+        ]
+      },
+      {
+        "date": "2017 – 2020",
+        "text": "Teaching Assistant (Physics)",
+        "fields": [
+          { "text": "Universidad Andrés Bello (UNAB), Santiago, Chile", "highlighted": true },
+          { "text": "Supported General Physics and Physics I through problem-solving sessions, laboratory activities, and student mentoring." }
         ]
       }
     ]
-  },
-  "research": [
-    {
-      "title": "Astrophysics",
-      "sub_title": "High-redshift galaxies, ISM, and interferometry",
-      "papers": [
-        {
-          "title": "Selected publications (see ADS library)",
-          "always_expanded": true,
-          "authors": ["Y. Apostolovski", "Co-authors (see ADS)"],
-          "abstract": "My research focuses on the interstellar medium and star formation in distant, gravitationally lensed dusty star-forming galaxies. I use multi-wavelength datasets and interferometric observations (e.g., ALMA) to constrain gas, dust, and star formation properties and their evolution across cosmic time.",
-          "more_info": [
-            {
-              "text": "Publication list:",
-              "links": [
-                {
-                  "text": "NASA/ADS library",
-                  "link": "https://ui.adsabs.harvard.edu/public-libraries/slD0IhuuR2-kJJ8tPmevaA"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Applied R&D",
-      "sub_title": "BLE positioning, edge ML, and safety analytics",
-      "papers": [
-        {
-          "title": "BLE positioning + ML for harsh environments",
-          "authors": ["Y. Apostolovski", "Engineering teams"],
-          "abstract": "In industry, I led projects that integrate BLE beacons and mobile devices to provide accurate worker positioning where GPS and connectivity are limited. The work combines empirical testing, RF considerations, and ML pipelines for positioning models that can run on mobile devices (edge inference).",
-          "more_info": [
-            {
-              "text": "Notes:",
-              "links": [
-                {
-                  "text": "LinkedIn (project highlights)",
-                  "link": "https://www.linkedin.com/in/yordanka-apostolovski-05715763"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "teaching": [
-    {
-      "title": "Teaching",
-      "items": [
-        {
-          "date": "YYYY — YYYY",
-          "text": "Course title (replace with your real course)",
-          "fields": [
-            { "text": "Institution (replace)", "highlighted": true },
-            { "text": "Role: Instructor / Teaching Assistant (replace)" }
-          ]
-        }
-      ]
-    }
-  ]
-}
+  }
+]
