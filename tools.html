@@ -118,10 +118,9 @@
     }
 
     .tool-layout {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 24px;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
-      align-items: start;
     }
 
     .panel {
@@ -206,7 +205,6 @@
 
     .result {
       background: var(--background-color);
-      min-height: 420px;
     }
 
     .result h2 {
@@ -241,22 +239,9 @@
       white-space: pre;
     }
 
-    dl {
-      display: grid;
-      gap: 10px 16px;
-      grid-template-columns: minmax(170px, .75fr) minmax(0, 1fr);
-      margin: 0;
-    }
-
-    dt {
-      color: #555;
-      font-weight: 700;
-    }
-
-    dd {
-      margin: 0;
-      min-width: 0;
-      overflow-wrap: anywhere;
+    .analysis-code {
+      min-height: 360px;
+      white-space: pre-wrap;
     }
 
     .placeholder {
@@ -270,12 +255,6 @@
       font-size: 12px;
       padding: 0 0 30px;
       text-align: center;
-    }
-
-    @media screen and (max-width: 820px) {
-      .tool-layout {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media screen and (max-width: 599px) {
@@ -293,9 +272,6 @@
         padding: 0 15px;
       }
 
-      dl {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -340,7 +316,10 @@
 
       <div class="panel result">
         <div class="panel-inner">
-          <h2>Derived Information</h2>
+          <h2>Complete Analysis</h2>
+          <div class="actions">
+            <button class="secondary-button" id="copy-button" type="button">Copy Analysis</button>
+          </div>
           <div id="result-output">
             <p class="placeholder">Enter a TLE and run the analysis.</p>
           </div>
@@ -349,7 +328,7 @@
     </section>
   </main>
 
-  <footer>Site by fvalverd</footer>
+  <footer>Site by yapostolovski</footer>
 
   <script>
     (function () {
@@ -360,8 +339,10 @@
       var input = document.getElementById("tle-input");
       var analyzeButton = document.getElementById("analyze-button");
       var clearButton = document.getElementById("clear-button");
+      var copyButton = document.getElementById("copy-button");
       var errorMessage = document.getElementById("error-message");
       var resultOutput = document.getElementById("result-output");
+      var currentAnalysis = "";
 
       function pad(number, width) {
         var value = String(number);
@@ -411,6 +392,7 @@
 
       function formatBstar(value) {
         if (!isFinite(value)) return "Unknown";
+        if (value === 0) return "0";
         var exponent = Math.floor(Math.log10(Math.abs(value)));
         var coefficient = value / Math.pow(10, exponent);
         return coefficient.toFixed(4).replace(/\.?0+$/, "") + " x 10^" + exponent;
@@ -448,7 +430,7 @@
 
         var name = "Object Name Unknown";
         if (lines.length >= 3 && lines[0].charAt(0) !== "1" && lines[0].charAt(0) !== "2") {
-          name = lines.shift();
+          name = lines.shift().replace(/^0\s+/, "").trim();
         }
 
         if (lines.length < 2) throw new Error("Please enter both TLE lines.");
@@ -482,8 +464,10 @@
         var meanAltitude = (perigeeAltitude + apogeeAltitude) / 2;
         var regime = classifyRegime(meanAltitude, inclination, eccentricity, meanMotion);
 
+        var resolvedName = name === "Object Name Unknown" ? "Not included in TLE; object can be identified by NORAD " + norad : name;
+
         return {
-          name: name,
+          name: resolvedName,
           line1: line1,
           line2: line2,
           norad: norad,
@@ -504,40 +488,45 @@
         };
       }
 
-      function row(label, value) {
-        return "<dt>" + escapeHtml(label) + "</dt><dd>" + value + "</dd>";
-      }
-
-      function render(result) {
+      function formatAnalysis(result) {
         var geoDrift = result.regime === "GEO" ?
           "Requires longitude history; not derived from this TLE alone." :
           "N/A - object is in " + result.regime + ", not GEO.";
 
-        resultOutput.innerHTML =
-          "<div class=\"result-block\"><span class=\"result-label\">Primary Object:</span> " + escapeHtml(result.name) + "</div>" +
-          "<div class=\"result-block\"><span class=\"result-label\">TLE:</span><pre>" + escapeHtml(result.line1 + "\n" + result.line2) + "</pre></div>" +
-          "<dl>" +
-            row("Object ID", "NORAD " + escapeHtml(result.norad)) +
-            row("International Designator / COSPAR ID", escapeHtml(result.cospar)) +
-            row("Operator / Responsible Entity", "Unknown") +
-            row("Orbit Regime", escapeHtml(result.regime)) +
-            row("Orbit Type", escapeHtml(result.orbitType)) +
-            row("Approximate Mean Altitude", result.meanAltitude.toFixed(0) + " km") +
-            row("Estimated Perigee Altitude", result.perigeeAltitude.toFixed(0) + " km") +
-            row("Estimated Apogee Altitude", result.apogeeAltitude.toFixed(0) + " km") +
-            row("Inclination", result.inclination.toFixed(4) + "&deg;") +
-            row("Operational Status", "Unknown") +
-            row("Maneuver Capability", "Unknown") +
-            row("Launch Date", escapeHtml(result.launchYear)) +
-            row("Mission Relevance", "Unknown") +
-            row("TLE Epoch", escapeHtml(result.epoch)) +
-            row("Mean Motion", result.meanMotion.toFixed(8) + " rev/day") +
-            row("Estimated Orbital Period", result.periodMinutes.toFixed(2) + " min") +
-            row("Eccentricity", result.eccentricity.toFixed(7)) +
-            row("BSTAR Drag Term", escapeHtml(formatBstar(result.bstar))) +
-            row("First Derivative of Mean Motion", result.ndot.toFixed(8) + " rev/day^2") +
-            row("Approximate GEO Drift", escapeHtml(geoDrift)) +
-          "</dl>";
+        return [
+          "Object Name: " + result.name,
+          "Object ID: NORAD " + result.norad,
+          "International Designator / COSPAR ID: " + result.cospar,
+          "",
+          "TLE:",
+          result.line1,
+          result.line2,
+          "",
+          "Complete Analysis:",
+          "Operator / Responsible Entity: Unknown",
+          "Orbit Regime: " + result.regime,
+          "Orbit Type: " + result.orbitType,
+          "Approximate Mean Altitude: " + result.meanAltitude.toFixed(0) + " km",
+          "Estimated Perigee Altitude: " + result.perigeeAltitude.toFixed(0) + " km",
+          "Estimated Apogee Altitude: " + result.apogeeAltitude.toFixed(0) + " km",
+          "Inclination: " + result.inclination.toFixed(4) + " deg",
+          "Operational Status: Unknown",
+          "Maneuver Capability: Unknown",
+          "Launch Date: " + result.launchYear,
+          "Mission Relevance: Unknown",
+          "TLE Epoch: " + result.epoch,
+          "Mean Motion: " + result.meanMotion.toFixed(8) + " rev/day",
+          "Estimated Orbital Period: " + result.periodMinutes.toFixed(2) + " min",
+          "Eccentricity: " + result.eccentricity.toFixed(7),
+          "BSTAR Drag Term: " + formatBstar(result.bstar),
+          "First Derivative of Mean Motion: " + result.ndot.toFixed(8) + " rev/day^2",
+          "Approximate GEO Drift: " + geoDrift
+        ].join("\n");
+      }
+
+      function render(result) {
+        currentAnalysis = formatAnalysis(result);
+        resultOutput.innerHTML = "<pre class=\"analysis-code\">" + escapeHtml(currentAnalysis) + "</pre>";
       }
 
       function analyze() {
@@ -546,6 +535,7 @@
         try {
           render(parseTle(input.value));
         } catch (error) {
+          currentAnalysis = "";
           resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
           errorMessage.textContent = error.message;
           errorMessage.style.display = "block";
@@ -555,9 +545,28 @@
       analyzeButton.addEventListener("click", analyze);
       clearButton.addEventListener("click", function () {
         input.value = "";
+        currentAnalysis = "";
         errorMessage.style.display = "none";
         resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
         input.focus();
+      });
+
+      copyButton.addEventListener("click", function () {
+        if (!currentAnalysis) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentAnalysis);
+          return;
+        }
+
+        var copyArea = document.createElement("textarea");
+        copyArea.value = currentAnalysis;
+        copyArea.setAttribute("readonly", "");
+        copyArea.style.position = "fixed";
+        copyArea.style.left = "-9999px";
+        document.body.appendChild(copyArea);
+        copyArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyArea);
       });
 
       analyze();
