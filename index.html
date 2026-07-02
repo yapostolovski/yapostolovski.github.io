@@ -30,5 +30,23 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   </script>
+  <script>
+    (function () {
+      function addToolsTab() {
+        var nav = document.querySelector(".app-nav-links-content");
+        if (!nav || nav.querySelector('a[href$="tools.html"]')) return;
+        var link = document.createElement("a");
+        link.href = "tools.html";
+        link.textContent = "TOOLS";
+        nav.appendChild(link);
+      }
+
+      var timer = window.setInterval(addToolsTab, 250);
+      window.setTimeout(function () {
+        window.clearInterval(timer);
+        addToolsTab();
+      }, 5000);
+    })();
+  </script>
 <script src="runtime.9ad22a88fcc70a015907.js" defer></script><script src="polyfills-es5.c42faceff056e44efb01.js" nomodule defer></script><script src="polyfills.37fe6bc1076ff226ed27.js" defer></script><script src="vendor.c8b120cf1dd9dd7a4cfb.js" defer></script><script src="main.b37bc2773da84184528a.js" defer></script></body>
 </html>

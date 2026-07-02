@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tools | Yordanka Apostolovski</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <style>
+    :root {
+      --main-color: #645893;
+      --text-color: #333;
+      --muted-color: #777;
+      --border-color: #dcdcdc;
+      --background-color: #f8f8fb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text-color);
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      background: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app-header {
+      color: var(--main-color);
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-header-row {
+      display: flex;
+      flex-direction: column;
+      font-weight: 400;
+      justify-content: center;
+      line-height: 1.4;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .app-header-row-title {
+      font-size: 28px;
+    }
+
+    .app-header-row-subtitle {
+      color: grey;
+      font-size: 14px;
+    }
+
+    .app-nav {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .app-nav-links-content {
+      align-items: baseline;
+      display: flex;
+      justify-content: center;
+      padding: 0 30px;
+    }
+
+    .app-nav-links-content a {
+      color: #a9a9a9;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 64px;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .app-nav-links-content a:hover {
+      color: #d3d3d3;
+    }
+
+    .app-nav-links-content a.active {
+      color: var(--main-color);
+      font-weight: 700;
+    }
+
+    main {
+      margin: 36px auto 80px;
+      max-width: 1060px;
+      padding: 0 24px;
+    }
+
+    .tool-header {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      color: var(--main-color);
+      font-size: 26px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+
+    .tool-header p {
+      color: var(--muted-color);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .tool-layout {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .95fr);
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .panel-inner {
+      padding: 20px;
+    }
+
+    label {
+      color: var(--main-color);
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: #222;
+      font: 14px/1.5 "Roboto Mono", "Courier New", monospace;
+      min-height: 190px;
+      padding: 12px;
+      resize: vertical;
+      width: 100%;
+    }
+
+    textarea:focus,
+    button:focus {
+      outline: 2px solid rgba(100, 88, 147, .28);
+      outline-offset: 2px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--main-color);
+      border-radius: 4px;
+      cursor: pointer;
+      font: 700 14px Roboto, Helvetica, Arial, sans-serif;
+      min-height: 40px;
+      padding: 0 16px;
+    }
+
+    .primary-button {
+      background: var(--main-color);
+      color: #fff;
+    }
+
+    .secondary-button {
+      background: #fff;
+      color: var(--main-color);
+    }
+
+    .note {
+      color: var(--muted-color);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 14px 0 0;
+    }
+
+    .error {
+      background: #fff1f1;
+      border: 1px solid #e59a9a;
+      border-radius: 4px;
+      color: #8a1f1f;
+      display: none;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 14px;
+      padding: 10px 12px;
+    }
+
+    .result {
+      background: var(--background-color);
+      min-height: 420px;
+    }
+
+    .result h2 {
+      color: var(--main-color);
+      font-size: 20px;
+      font-weight: 500;
+      margin: 0 0 16px;
+    }
+
+    .result-block {
+      margin-bottom: 18px;
+    }
+
+    .result-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-label {
+      color: var(--main-color);
+      font-weight: 700;
+    }
+
+    pre {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: #222;
+      font: 13px/1.45 "Roboto Mono", "Courier New", monospace;
+      margin: 8px 0 0;
+      overflow-x: auto;
+      padding: 10px;
+      white-space: pre;
+    }
+
+    dl {
+      display: grid;
+      gap: 10px 16px;
+      grid-template-columns: minmax(170px, .75fr) minmax(0, 1fr);
+      margin: 0;
+    }
+
+    dt {
+      color: #555;
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .placeholder {
+      color: var(--muted-color);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    footer {
+      color: gray;
+      font-size: 12px;
+      padding: 0 0 30px;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 820px) {
+      .tool-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media screen and (max-width: 599px) {
+      .app-nav-links-content {
+        padding: 0 8px;
+      }
+
+      .app-nav-links-content a {
+        line-height: 56px;
+        padding: 0 8px;
+      }
+
+      main {
+        margin-top: 24px;
+        padding: 0 15px;
+      }
+
+      dl {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-row">
+      <div class="app-header-row-title">Yordanka Apostolovski</div>
+      <div class="app-header-row-subtitle">Ph.D. in Astrophysics | Research, Teaching, and Applied R&amp;D</div>
+    </div>
+  </header>
+
+  <nav class="app-nav" aria-label="Main navigation">
+    <div class="app-nav-links-content">
+      <a href="./home">HOME</a>
+      <a href="./research">RESEARCH</a>
+      <a href="./teaching">TEACHING</a>
+      <a href="./cv">CV</a>
+      <a class="active" href="./tools.html">TOOLS</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="tool-header">
+      <h1>TLE Orbit Summary</h1>
+      <p>Paste a satellite Two-Line Element set to derive identifier, epoch, orbit class, period, altitude estimates, eccentricity, drag term, and related orbital metadata.</p>
+    </section>
+
+    <section class="tool-layout">
+      <div class="panel">
+        <div class="panel-inner">
+          <label for="tle-input">Satellite TLE</label>
+          <textarea id="tle-input" spellcheck="false">1 28414U 04035B   26182.83333333  .00007808  00000-0  53013-3 0 18256
+2 28414  97.6048 200.5129 0006426  94.5140  93.3098 15.06430444    19</textarea>
+          <div class="actions">
+            <button class="primary-button" id="analyze-button" type="button">Analyze TLE</button>
+            <button class="secondary-button" id="clear-button" type="button">Clear</button>
+          </div>
+          <p class="note">The tool estimates orbital values from the TLE mean elements. Operator, mission, and live operational status are not looked up from external catalogs.</p>
+          <div class="error" id="error-message" role="alert"></div>
+        </div>
+      </div>
+
+      <div class="panel result">
+        <div class="panel-inner">
+          <h2>Derived Information</h2>
+          <div id="result-output">
+            <p class="placeholder">Enter a TLE and run the analysis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Site by fvalverd</footer>
+
+  <script>
+    (function () {
+      var mu = 398600.4418;
+      var earthRadiusKm = 6378.137;
+      var secondsPerDay = 86400;
+
+      var input = document.getElementById("tle-input");
+      var analyzeButton = document.getElementById("analyze-button");
+      var clearButton = document.getElementById("clear-button");
+      var errorMessage = document.getElementById("error-message");
+      var resultOutput = document.getElementById("result-output");
+
+      function pad(number, width) {
+        var value = String(number);
+        while (value.length < width) value = "0" + value;
+        return value;
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, function (character) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          }[character];
+        });
+      }
+
+      function parseExponentField(value) {
+        var clean = String(value || "").trim();
+        var match = clean.match(/^([+-]?)(\d+)([+-]\d+)$/);
+        if (!match) return Number(clean);
+        var sign = match[1] === "-" ? -1 : 1;
+        var mantissa = Number("0." + match[2]);
+        var exponent = Number(match[3]);
+        return sign * mantissa * Math.pow(10, exponent);
+      }
+
+      function parseEpoch(epochField) {
+        var yearPart = Number(epochField.slice(0, 2));
+        var dayOfYear = Number(epochField.slice(2));
+        var fullYear = yearPart < 57 ? 2000 + yearPart : 1900 + yearPart;
+        var start = Date.UTC(fullYear, 0, 1, 0, 0, 0, 0);
+        var epochMs = Math.round((start + (dayOfYear - 1) * 24 * 60 * 60 * 1000) / 1000) * 1000;
+        return new Date(epochMs);
+      }
+
+      function formatUtc(date) {
+        return date.getUTCFullYear() + "-" +
+          pad(date.getUTCMonth() + 1, 2) + "-" +
+          pad(date.getUTCDate(), 2) + " " +
+          pad(date.getUTCHours(), 2) + ":" +
+          pad(date.getUTCMinutes(), 2) + ":" +
+          pad(date.getUTCSeconds(), 2) + " UTC";
+      }
+
+      function formatBstar(value) {
+        if (!isFinite(value)) return "Unknown";
+        var exponent = Math.floor(Math.log10(Math.abs(value)));
+        var coefficient = value / Math.pow(10, exponent);
+        return coefficient.toFixed(4).replace(/\.?0+$/, "") + " x 10^" + exponent;
+      }
+
+      function classifyRegime(meanAltitude, inclination, eccentricity, meanMotion) {
+        if (meanAltitude >= 35700 && meanAltitude <= 35900 && Math.abs(inclination) < 15) return "GEO";
+        if (meanAltitude < 2000) return "LEO";
+        if (meanAltitude < 35700) return "MEO";
+        if (meanAltitude >= 35700 && eccentricity > 0.05) return "HEO";
+        if (meanMotion < 2) return "High Earth orbit";
+        return "Unknown";
+      }
+
+      function describeOrbitType(inclination, meanAltitude) {
+        var parts = [];
+        if (inclination > 90) parts.push("Retrograde");
+        else parts.push("Prograde");
+
+        if (inclination >= 80 && inclination <= 100) parts.push("near-polar");
+        else if (inclination < 15) parts.push("near-equatorial");
+        else parts.push("inclined");
+
+        if (inclination >= 96 && inclination <= 102 && meanAltitude >= 400 && meanAltitude <= 1000) {
+          parts.push("Sun-synchronous-like");
+        }
+
+        return parts.join(", ");
+      }
+
+      function parseTle(raw) {
+        var lines = raw.split(/\r?\n/).map(function (line) {
+          return line.trim();
+        }).filter(Boolean);
+
+        var name = "Object Name Unknown";
+        if (lines.length >= 3 && lines[0].charAt(0) !== "1" && lines[0].charAt(0) !== "2") {
+          name = lines.shift();
+        }
+
+        if (lines.length < 2) throw new Error("Please enter both TLE lines.");
+        var line1 = lines.find(function (line) { return line.charAt(0) === "1"; });
+        var line2 = lines.find(function (line) { return line.charAt(0) === "2"; });
+        if (!line1 || !line2) throw new Error("The TLE must contain one line beginning with 1 and one line beginning with 2.");
+
+        var fields1 = line1.split(/\s+/);
+        var fields2 = line2.split(/\s+/);
+        if (fields1.length < 8 || fields2.length < 8) throw new Error("The TLE format could not be parsed.");
+
+        var norad = fields1[1].replace(/[A-Z]$/, "");
+        var intl = fields1[2] || "";
+        var launchYear = Number(intl.slice(0, 2));
+        var launchYearFull = launchYear < 57 ? 2000 + launchYear : 1900 + launchYear;
+        var launchNumber = intl.slice(2, 5);
+        var launchPiece = intl.slice(5);
+        var cospar = intl ? launchYearFull + "-" + launchNumber + launchPiece : "Unknown";
+        var epoch = parseEpoch(fields1[3]);
+        var ndot = Number(fields1[4]);
+        var bstar = parseExponentField(fields1[6]);
+
+        var inclination = Number(fields2[2]);
+        var eccentricity = Number("0." + fields2[4]);
+        var meanMotion = Number(fields2[7]);
+        var periodMinutes = 1440 / meanMotion;
+        var meanMotionRadSec = meanMotion * 2 * Math.PI / secondsPerDay;
+        var semiMajorAxis = Math.pow(mu / (meanMotionRadSec * meanMotionRadSec), 1 / 3);
+        var perigeeAltitude = semiMajorAxis * (1 - eccentricity) - earthRadiusKm;
+        var apogeeAltitude = semiMajorAxis * (1 + eccentricity) - earthRadiusKm;
+        var meanAltitude = (perigeeAltitude + apogeeAltitude) / 2;
+        var regime = classifyRegime(meanAltitude, inclination, eccentricity, meanMotion);
+
+        return {
+          name: name,
+          line1: line1,
+          line2: line2,
+          norad: norad,
+          cospar: cospar,
+          launchYear: intl ? String(launchYearFull) : "Unknown",
+          epoch: formatUtc(epoch),
+          ndot: ndot,
+          bstar: bstar,
+          inclination: inclination,
+          eccentricity: eccentricity,
+          meanMotion: meanMotion,
+          periodMinutes: periodMinutes,
+          perigeeAltitude: perigeeAltitude,
+          apogeeAltitude: apogeeAltitude,
+          meanAltitude: meanAltitude,
+          regime: regime,
+          orbitType: describeOrbitType(inclination, meanAltitude)
+        };
+      }
+
+      function row(label, value) {
+        return "<dt>" + escapeHtml(label) + "</dt><dd>" + value + "</dd>";
+      }
+
+      function render(result) {
+        var geoDrift = result.regime === "GEO" ?
+          "Requires longitude history; not derived from this TLE alone." :
+          "N/A - object is in " + result.regime + ", not GEO.";
+
+        resultOutput.innerHTML =
+          "<div class=\"result-block\"><span class=\"result-label\">Primary Object:</span> " + escapeHtml(result.name) + "</div>" +
+          "<div class=\"result-block\"><span class=\"result-label\">TLE:</span><pre>" + escapeHtml(result.line1 + "\n" + result.line2) + "</pre></div>" +
+          "<dl>" +
+            row("Object ID", "NORAD " + escapeHtml(result.norad)) +
+            row("International Designator / COSPAR ID", escapeHtml(result.cospar)) +
+            row("Operator / Responsible Entity", "Unknown") +
+            row("Orbit Regime", escapeHtml(result.regime)) +
+            row("Orbit Type", escapeHtml(result.orbitType)) +
+            row("Approximate Mean Altitude", result.meanAltitude.toFixed(0) + " km") +
+            row("Estimated Perigee Altitude", result.perigeeAltitude.toFixed(0) + " km") +
+            row("Estimated Apogee Altitude", result.apogeeAltitude.toFixed(0) + " km") +
+            row("Inclination", result.inclination.toFixed(4) + "&deg;") +
+            row("Operational Status", "Unknown") +
+            row("Maneuver Capability", "Unknown") +
+            row("Launch Date", escapeHtml(result.launchYear)) +
+            row("Mission Relevance", "Unknown") +
+            row("TLE Epoch", escapeHtml(result.epoch)) +
+            row("Mean Motion", result.meanMotion.toFixed(8) + " rev/day") +
+            row("Estimated Orbital Period", result.periodMinutes.toFixed(2) + " min") +
+            row("Eccentricity", result.eccentricity.toFixed(7)) +
+            row("BSTAR Drag Term", escapeHtml(formatBstar(result.bstar))) +
+            row("First Derivative of Mean Motion", result.ndot.toFixed(8) + " rev/day^2") +
+            row("Approximate GEO Drift", escapeHtml(geoDrift)) +
+          "</dl>";
+      }
+
+      function analyze() {
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+        try {
+          render(parseTle(input.value));
+        } catch (error) {
+          resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
+          errorMessage.textContent = error.message;
+          errorMessage.style.display = "block";
+        }
+      }
+
+      analyzeButton.addEventListener("click", analyze);
+      clearButton.addEventListener("click", function () {
+        input.value = "";
+        errorMessage.style.display = "none";
+        resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
+        input.focus();
+      });
+
+      analyze();
+    })();
+  </script>
+</body>
+</html>
