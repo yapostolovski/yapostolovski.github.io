@@ -6,6 +6,7 @@
   <title>Tools | Yordanka Apostolovski</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
   <style>
     :root {
       --main-color: #645893;
@@ -98,6 +99,44 @@
       padding: 0 24px;
     }
 
+    body.locked .protected-content {
+      display: none;
+    }
+
+    body.unlocked .auth-gate {
+      display: none;
+    }
+
+    .auth-gate {
+      margin: 36px auto 80px;
+      max-width: 440px;
+      padding: 0 24px;
+    }
+
+    .auth-title {
+      color: var(--main-color);
+      font-size: 22px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+
+    .auth-copy {
+      color: var(--muted-color);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 16px;
+    }
+
+    input[type="password"] {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: #222;
+      font: 14px Roboto, Helvetica, Arial, sans-serif;
+      min-height: 40px;
+      padding: 0 12px;
+      width: 100%;
+    }
+
     .tool-header {
       margin-bottom: 24px;
     }
@@ -152,6 +191,7 @@
       width: 100%;
     }
 
+    input[type="password"]:focus,
     textarea:focus,
     button:focus {
       outline: 2px solid rgba(100, 88, 147, .28);
@@ -244,6 +284,70 @@
       white-space: pre-wrap;
     }
 
+    .planner-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .map-wrap {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    .overpass-map {
+      height: 520px;
+      width: 100%;
+    }
+
+    .map-source {
+      color: var(--muted-color);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .terminal-output {
+      background: #15151d;
+      border: 1px solid #2f2f3d;
+      border-radius: 4px;
+      color: #e8e8ef;
+      font: 13px/1.5 "Roboto Mono", "Courier New", monospace;
+      margin: 0;
+      max-height: 360px;
+      overflow: auto;
+      padding: 14px;
+      white-space: pre-wrap;
+    }
+
+    .map-tools-note {
+      color: var(--muted-color);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .spots-input {
+      min-height: 104px;
+    }
+
+    .metric-row {
+      color: var(--muted-color);
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 13px;
+      gap: 12px;
+      margin: 0 0 12px;
+    }
+
+    .metric-row strong {
+      color: var(--main-color);
+    }
+
     .placeholder {
       color: var(--muted-color);
       line-height: 1.6;
@@ -275,7 +379,7 @@
     }
   </style>
 </head>
-<body>
+<body class="locked">
   <header class="app-header">
     <div class="app-header-row">
       <div class="app-header-row-title">Yordanka Apostolovski</div>
@@ -293,7 +397,24 @@
     </div>
   </nav>
 
-  <main>
+  <section class="auth-gate" aria-labelledby="auth-title">
+    <div class="panel">
+      <div class="panel-inner">
+        <h1 class="auth-title" id="auth-title">Tools Access</h1>
+        <p class="auth-copy">Enter the password to open the tools page.</p>
+        <form id="auth-form">
+          <label for="tools-password">Password</label>
+          <input id="tools-password" type="password" autocomplete="current-password">
+          <div class="actions">
+            <button class="primary-button" type="submit">Enter</button>
+          </div>
+          <div class="error" id="auth-error" role="alert"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <main class="protected-content">
     <section class="tool-header">
       <h1>TLE Orbit Summary</h1>
       <p>Paste a satellite Two-Line Element set to derive identifier, epoch, orbit class, period, altitude estimates, eccentricity, drag term, and related orbital metadata.</p>
@@ -325,11 +446,73 @@
           </div>
         </div>
       </div>
+
+      <div class="panel result">
+        <div class="panel-inner">
+          <h2>Chile Overpass Planner</h2>
+          <div class="actions">
+            <button class="primary-button" id="passes-button" type="button">Plot Next 3 Days</button>
+            <button class="secondary-button" id="copy-passes-button" type="button">Copy Passes</button>
+          </div>
+          <p class="note">This browser-only planner samples the TLE mean orbit from the current browser time for 72 hours. The map and orbital path use the same longitude/latitude projection. It loads Natural Earth 1:10m country boundaries when available and falls back to simplified coordinate outlines; use mission-grade propagators for operational pointing.</p>
+          <label for="spots-input">Map spots</label>
+          <textarea class="spots-input" id="spots-input" spellcheck="false">Santiago, -70.6693, -33.4489
+Rapa Nui, -109.3497, -27.1127
+Base Frei, -58.9600, -62.2000</textarea>
+          <p class="note">Enter one spot per line as: label, longitude, latitude. The map refreshes automatically after edits.</p>
+          <div id="passes-output">
+            <p class="placeholder">Enter a TLE and plot the next 3 days.</p>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>Site by yapostolovski</footer>
+  <footer class="protected-content">Site by yapostolovski</footer>
 
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    (function () {
+      var password = "mcc2026";
+      var storageKey = "tools-access-ok";
+      var form = document.getElementById("auth-form");
+      var passwordInput = document.getElementById("tools-password");
+      var authError = document.getElementById("auth-error");
+
+      function unlock() {
+        document.body.classList.remove("locked");
+        document.body.classList.add("unlocked");
+        document.dispatchEvent(new CustomEvent("toolsUnlocked"));
+      }
+
+      function lock() {
+        document.body.classList.remove("unlocked");
+        document.body.classList.add("locked");
+        passwordInput.focus();
+      }
+
+      if (sessionStorage.getItem(storageKey) === "true") {
+        unlock();
+      } else {
+        lock();
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (passwordInput.value === password) {
+          sessionStorage.setItem(storageKey, "true");
+          authError.style.display = "none";
+          authError.textContent = "";
+          unlock();
+          return;
+        }
+
+        authError.textContent = "Incorrect password.";
+        authError.style.display = "block";
+        passwordInput.select();
+      });
+    })();
+  </script>
   <script>
     (function () {
       var mu = 398600.4418;
@@ -337,12 +520,42 @@
       var secondsPerDay = 86400;
 
       var input = document.getElementById("tle-input");
+      var spotsInput = document.getElementById("spots-input");
       var analyzeButton = document.getElementById("analyze-button");
       var clearButton = document.getElementById("clear-button");
       var copyButton = document.getElementById("copy-button");
+      var passesButton = document.getElementById("passes-button");
+      var copyPassesButton = document.getElementById("copy-passes-button");
       var errorMessage = document.getElementById("error-message");
       var resultOutput = document.getElementById("result-output");
+      var passesOutput = document.getElementById("passes-output");
       var currentAnalysis = "";
+      var currentPassReport = "";
+      var plotTimer = null;
+      var naturalEarthUrl = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson";
+      var basemapPromise = null;
+      var overpassMap = null;
+      var mapExtent = { minLon: -115, maxLon: -50, minLat: -90, maxLat: -15 };
+      var mapColors = {
+        ocean: "#f9fbfd",
+        land: "#eef2e8",
+        landStroke: "#7f8a78",
+        chileLand: "#dcebd7",
+        chileStroke: "#2f6f55",
+        continental: "#3b7f68",
+        continentalPoint: "#2e7d65",
+        insular: "#b06634",
+        insularPoint: "#ad5f22",
+        antarctic: "#4d79a8",
+        antarcticPoint: "#3f73a6",
+        track: "#645893",
+        spot: "#c92f4d"
+      };
+      var chileRegions = [
+        { name: "Continental Chile", key: "continental", minLat: -56.5, maxLat: -17.0, minLon: -76.5, maxLon: -66.0 },
+        { name: "Insular Chile", key: "insular", minLat: -34.0, maxLat: -25.0, minLon: -111.0, maxLon: -78.0 },
+        { name: "Antarctic Chile", key: "antarctic", minLat: -90.0, maxLat: -60.0, minLon: -90.0, maxLon: -53.0 }
+      ];
 
       function pad(number, width) {
         var value = String(number);
@@ -388,6 +601,14 @@
           pad(date.getUTCHours(), 2) + ":" +
           pad(date.getUTCMinutes(), 2) + ":" +
           pad(date.getUTCSeconds(), 2) + " UTC";
+      }
+
+      function formatLocal(date) {
+        return date.getFullYear() + "-" +
+          pad(date.getMonth() + 1, 2) + "-" +
+          pad(date.getDate(), 2) + " " +
+          pad(date.getHours(), 2) + ":" +
+          pad(date.getMinutes(), 2);
       }
 
       function formatBstar(value) {
@@ -454,7 +675,10 @@
         var bstar = parseExponentField(fields1[6]);
 
         var inclination = Number(fields2[2]);
+        var raan = Number(fields2[3]);
         var eccentricity = Number("0." + fields2[4]);
+        var argumentOfPerigee = Number(fields2[5]);
+        var meanAnomaly = Number(fields2[6]);
         var meanMotion = Number(fields2[7]);
         var periodMinutes = 1440 / meanMotion;
         var meanMotionRadSec = meanMotion * 2 * Math.PI / secondsPerDay;
@@ -476,8 +700,12 @@
           epoch: formatUtc(epoch),
           ndot: ndot,
           bstar: bstar,
+          epochDate: epoch,
           inclination: inclination,
+          raan: raan,
           eccentricity: eccentricity,
+          argumentOfPerigee: argumentOfPerigee,
+          meanAnomaly: meanAnomaly,
           meanMotion: meanMotion,
           periodMinutes: periodMinutes,
           perigeeAltitude: perigeeAltitude,
@@ -486,6 +714,32 @@
           regime: regime,
           orbitType: describeOrbitType(inclination, meanAltitude)
         };
+      }
+
+      function parseSpots(raw) {
+        var rows = String(raw || "").split(/\r?\n/).map(function (line) {
+          return line.trim();
+        }).filter(Boolean);
+
+        return rows.map(function (line, index) {
+          var parts = line.split(",").map(function (part) {
+            return part.trim();
+          });
+          if (parts.length < 3) {
+            throw new Error("Spot line " + (index + 1) + " must use: label, longitude, latitude.");
+          }
+          var lat = Number(parts.pop());
+          var lon = Number(parts.pop());
+          var label = parts.join(", ").trim();
+          if (!label) throw new Error("Spot line " + (index + 1) + " is missing a label.");
+          if (!isFinite(lat) || lat < -90 || lat > 90) {
+            throw new Error("Spot line " + (index + 1) + " has an invalid latitude.");
+          }
+          if (!isFinite(lon) || lon < -180 || lon > 180) {
+            throw new Error("Spot line " + (index + 1) + " has an invalid longitude.");
+          }
+          return { label: label, lat: lat, lon: lon };
+        });
       }
 
       function formatAnalysis(result) {
@@ -524,6 +778,533 @@
         ].join("\n");
       }
 
+      function toRad(deg) {
+        return deg * Math.PI / 180;
+      }
+
+      function toDeg(rad) {
+        return rad * 180 / Math.PI;
+      }
+
+      function normalizeRadians(value) {
+        var twoPi = 2 * Math.PI;
+        value = value % twoPi;
+        return value < 0 ? value + twoPi : value;
+      }
+
+      function normalizeLongitude(lon) {
+        lon = ((lon + 180) % 360 + 360) % 360 - 180;
+        return lon;
+      }
+
+      function solveKepler(meanAnomaly, eccentricity) {
+        var eccentricAnomaly = eccentricity < 0.8 ? meanAnomaly : Math.PI;
+        for (var index = 0; index < 12; index += 1) {
+          var delta = (eccentricAnomaly - eccentricity * Math.sin(eccentricAnomaly) - meanAnomaly) /
+            (1 - eccentricity * Math.cos(eccentricAnomaly));
+          eccentricAnomaly -= delta;
+          if (Math.abs(delta) < 1e-10) break;
+        }
+        return eccentricAnomaly;
+      }
+
+      function gmst(date) {
+        var jd = date.getTime() / 86400000 + 2440587.5;
+        var t = (jd - 2451545.0) / 36525;
+        var gmstDegrees = 280.46061837 + 360.98564736629 * (jd - 2451545.0) +
+          0.000387933 * t * t - t * t * t / 38710000;
+        return toRad(((gmstDegrees % 360) + 360) % 360);
+      }
+
+      function propagateSubpoint(tle, date) {
+        var dt = (date.getTime() - tle.epochDate.getTime()) / 1000;
+        var inclination = toRad(tle.inclination);
+        var eccentricity = tle.eccentricity;
+        var meanMotionRadSec = tle.meanMotion * 2 * Math.PI / secondsPerDay;
+        var semiMajorAxis = Math.pow(mu / (meanMotionRadSec * meanMotionRadSec), 1 / 3);
+        var p = semiMajorAxis * (1 - eccentricity * eccentricity);
+        var j2 = 1.08262668e-3;
+        var raanRate = -1.5 * j2 * Math.pow(earthRadiusKm / p, 2) * meanMotionRadSec * Math.cos(inclination);
+        var argRate = 0.75 * j2 * Math.pow(earthRadiusKm / p, 2) * meanMotionRadSec *
+          (5 * Math.cos(inclination) * Math.cos(inclination) - 1);
+        var raan = toRad(tle.raan) + raanRate * dt;
+        var argPerigee = toRad(tle.argumentOfPerigee) + argRate * dt;
+        var meanAnomaly = normalizeRadians(toRad(tle.meanAnomaly) + meanMotionRadSec * dt);
+        var eccentricAnomaly = solveKepler(meanAnomaly, eccentricity);
+        var trueAnomaly = 2 * Math.atan2(
+          Math.sqrt(1 + eccentricity) * Math.sin(eccentricAnomaly / 2),
+          Math.sqrt(1 - eccentricity) * Math.cos(eccentricAnomaly / 2)
+        );
+        var radius = semiMajorAxis * (1 - eccentricity * Math.cos(eccentricAnomaly));
+        var u = argPerigee + trueAnomaly;
+        var cosRaan = Math.cos(raan);
+        var sinRaan = Math.sin(raan);
+        var cosU = Math.cos(u);
+        var sinU = Math.sin(u);
+        var cosI = Math.cos(inclination);
+        var sinI = Math.sin(inclination);
+        var x = radius * (cosRaan * cosU - sinRaan * sinU * cosI);
+        var y = radius * (sinRaan * cosU + cosRaan * sinU * cosI);
+        var z = radius * (sinU * sinI);
+        var theta = gmst(date);
+        var xFixed = Math.cos(theta) * x + Math.sin(theta) * y;
+        var yFixed = -Math.sin(theta) * x + Math.cos(theta) * y;
+        var lon = normalizeLongitude(toDeg(Math.atan2(yFixed, xFixed)));
+        var lat = toDeg(Math.atan2(z, Math.sqrt(xFixed * xFixed + yFixed * yFixed)));
+        var alt = Math.sqrt(x * x + y * y + z * z) - earthRadiusKm;
+        return { date: date, lat: lat, lon: lon, altitude: alt };
+      }
+
+      function pointRegion(point) {
+        for (var index = 0; index < chileRegions.length; index += 1) {
+          var region = chileRegions[index];
+          if (point.lat >= region.minLat && point.lat <= region.maxLat &&
+            point.lon >= region.minLon && point.lon <= region.maxLon) {
+            return region;
+          }
+        }
+        return null;
+      }
+
+      function estimateBoundaryTime(first, second, targetInside) {
+        var low = first.date.getTime();
+        var high = second.date.getTime();
+        for (var index = 0; index < 8; index += 1) {
+          var midDate = new Date((low + high) / 2);
+          var midPoint = propagateSubpoint(first.tle, midDate);
+          var inside = pointRegion(midPoint);
+          if (Boolean(inside) === targetInside) high = midDate.getTime();
+          else low = midDate.getTime();
+        }
+        return new Date(high);
+      }
+
+      function buildPasses(tle) {
+        var start = new Date();
+        var end = new Date(start.getTime() + 3 * secondsPerDay * 1000);
+        var stepMs = 2 * 60 * 1000;
+        var points = [];
+        var passes = [];
+        var active = null;
+        var previousPoint = null;
+        var previousInside = false;
+
+        for (var time = start.getTime(); time <= end.getTime(); time += stepMs) {
+          var point = propagateSubpoint(tle, new Date(time));
+          point.tle = tle;
+          var region = pointRegion(point);
+          var inside = Boolean(region);
+          points.push({ date: point.date, lat: point.lat, lon: point.lon, altitude: point.altitude, region: region });
+
+          if (inside && !previousInside) {
+            var entry = previousPoint ? estimateBoundaryTime(previousPoint, point, true) : point.date;
+            active = {
+              region: region,
+              start: entry,
+              end: point.date,
+              closest: point,
+              minDistance: Math.abs(point.lat - ((region.minLat + region.maxLat) / 2)) +
+                Math.abs(point.lon - ((region.minLon + region.maxLon) / 2))
+            };
+          }
+
+          if (inside && active) {
+            var centerDistance = Math.abs(point.lat - ((active.region.minLat + active.region.maxLat) / 2)) +
+              Math.abs(point.lon - ((active.region.minLon + active.region.maxLon) / 2));
+            active.end = point.date;
+            if (centerDistance < active.minDistance) {
+              active.minDistance = centerDistance;
+              active.closest = point;
+            }
+          }
+
+          if (!inside && previousInside && active) {
+            active.end = previousPoint ? estimateBoundaryTime(previousPoint, point, false) : active.end;
+            passes.push(active);
+            active = null;
+          }
+
+          previousPoint = point;
+          previousInside = inside;
+        }
+
+        if (active) passes.push(active);
+        return { start: start, end: end, points: points, passes: passes };
+      }
+
+      function loadBasemap() {
+        if (!basemapPromise) {
+          basemapPromise = typeof fetch === "function" ?
+            fetch(naturalEarthUrl).then(function (response) {
+              if (!response.ok) throw new Error("Map source returned " + response.status);
+              return response.json();
+            }).catch(function () {
+              return null;
+            }) :
+            Promise.resolve(null);
+        }
+        return basemapPromise;
+      }
+
+      function geometryBounds(geometry) {
+        var bounds = { minLon: Infinity, maxLon: -Infinity, minLat: Infinity, maxLat: -Infinity };
+
+        function visit(value) {
+          if (typeof value[0] === "number" && typeof value[1] === "number") {
+            bounds.minLon = Math.min(bounds.minLon, value[0]);
+            bounds.maxLon = Math.max(bounds.maxLon, value[0]);
+            bounds.minLat = Math.min(bounds.minLat, value[1]);
+            bounds.maxLat = Math.max(bounds.maxLat, value[1]);
+            return;
+          }
+          value.forEach(visit);
+        }
+
+        visit(geometry.coordinates);
+        return bounds;
+      }
+
+      function boundsIntersect(a, b) {
+        return a.minLon <= b.maxLon && a.maxLon >= b.minLon && a.minLat <= b.maxLat && a.maxLat >= b.minLat;
+      }
+
+      function featureName(feature) {
+        var properties = feature.properties || {};
+        return properties.ADMIN || properties.NAME || properties.NAME_EN || "";
+      }
+
+      function clippedBasemap(geojson) {
+        if (!geojson || !geojson.features) return null;
+        return {
+          type: "FeatureCollection",
+          features: geojson.features.filter(function (feature) {
+            if (!feature.geometry) return false;
+            return boundsIntersect(geometryBounds(feature.geometry), mapExtent);
+          }).map(function (feature) {
+            var copy = {
+              type: "Feature",
+              properties: Object.assign({}, feature.properties || {}),
+              geometry: feature.geometry
+            };
+            copy.properties.isChile = featureName(feature) === "Chile";
+            return copy;
+          })
+        };
+      }
+
+      function fallbackBasemapGeojson() {
+        var continentalChile = [
+          [-70.4, -17.6], [-69.0, -20.5], [-70.2, -25.5], [-70.8, -30.5],
+          [-71.7, -35.0], [-73.5, -41.5], [-75.2, -48.5], [-73.8, -53.8],
+          [-68.6, -54.9], [-71.0, -44.5], [-70.0, -35.0], [-68.5, -25.0],
+          [-70.4, -17.6]
+        ];
+        var southAmerica = [
+          [-81.5, -15.0], [-76.0, -22.0], [-72.0, -33.0], [-74.0, -45.0],
+          [-68.0, -55.0], [-61.0, -51.0], [-58.0, -38.0], [-61.5, -28.0],
+          [-66.5, -21.0], [-71.0, -17.0], [-81.5, -15.0]
+        ];
+        var antarctica = [
+          [-115, -72], [-100, -68], [-83, -66], [-63, -64], [-50, -70],
+          [-50, -90], [-115, -90], [-115, -72]
+        ];
+
+        return {
+          type: "FeatureCollection",
+          features: [{
+            type: "Feature",
+            properties: { isChile: false },
+            geometry: { type: "Polygon", coordinates: [southAmerica] }
+          }, {
+            type: "Feature",
+            properties: { isChile: false },
+            geometry: { type: "Polygon", coordinates: [antarctica] }
+          }, {
+            type: "Feature",
+            properties: { isChile: true },
+            geometry: { type: "Polygon", coordinates: [continentalChile] }
+          }]
+        };
+      }
+
+      function regionGeojson() {
+        return {
+          type: "FeatureCollection",
+          features: chileRegions.map(function (region) {
+            return {
+              type: "Feature",
+              properties: { name: region.name, key: region.key },
+              geometry: {
+                type: "Polygon",
+                coordinates: [[
+                  [region.minLon, region.minLat],
+                  [region.maxLon, region.minLat],
+                  [region.maxLon, region.maxLat],
+                  [region.minLon, region.maxLat],
+                  [region.minLon, region.minLat]
+                ]]
+              }
+            };
+          })
+        };
+      }
+
+      function trackGeojson(data) {
+        var segments = [];
+        var current = [];
+        data.points.forEach(function (point, index) {
+          if (index > 0 && Math.abs(point.lon - data.points[index - 1].lon) > 25 && current.length) {
+            segments.push(current);
+            current = [];
+          }
+          current.push([point.lon, point.lat]);
+        });
+        if (current.length) segments.push(current);
+        return {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "MultiLineString",
+            coordinates: segments
+          }
+        };
+      }
+
+      function highlightGeojson(data) {
+        return {
+          type: "FeatureCollection",
+          features: data.points.filter(function (point) {
+            return Boolean(point.region);
+          }).map(function (point) {
+            return {
+              type: "Feature",
+              properties: { region: point.region.key },
+              geometry: { type: "Point", coordinates: [point.lon, point.lat] }
+            };
+          })
+        };
+      }
+
+      function spotsGeojson(spots) {
+        return {
+          type: "FeatureCollection",
+          features: spots.map(function (spot) {
+            return {
+              type: "Feature",
+              properties: { label: spot.label },
+              geometry: { type: "Point", coordinates: [spot.lon, spot.lat] }
+            };
+          })
+        };
+      }
+
+      function renderMapSource(mapLoaded) {
+        return "<p class=\"map-source\">Map source: " +
+          (mapLoaded ? "Natural Earth 1:10m Admin 0 countries rendered with MapLibre GL JS. Coordinates: WGS84 lon/lat GeoJSON." :
+            "Simplified coordinate fallback rendered with MapLibre GL JS. Coordinates: WGS84 lon/lat GeoJSON.") +
+          "</p>";
+      }
+
+      function initMapLibre(data, basemap, spots) {
+        var container = document.getElementById("overpass-map");
+        if (!container || typeof maplibregl === "undefined") return;
+
+        if (overpassMap && overpassMap.remove) {
+          overpassMap.remove();
+          overpassMap = null;
+        }
+
+        var countryData = clippedBasemap(basemap) || fallbackBasemapGeojson();
+        var map = new maplibregl.Map({
+          container: container,
+          style: {
+            version: 8,
+            sources: {},
+            layers: [{
+              id: "background",
+              type: "background",
+              paint: { "background-color": mapColors.ocean }
+            }]
+          },
+          center: [-76, -52],
+          zoom: 2.55,
+          minZoom: 1.5,
+          maxZoom: 8,
+          maxBounds: [[-125, -90], [-45, -10]]
+        });
+        overpassMap = map;
+        map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
+
+        map.on("load", function () {
+          map.addSource("countries", { type: "geojson", data: countryData });
+          map.addSource("regions", { type: "geojson", data: regionGeojson() });
+          map.addSource("track", { type: "geojson", data: trackGeojson(data) });
+          map.addSource("highlights", { type: "geojson", data: highlightGeojson(data) });
+          map.addSource("spots", { type: "geojson", data: spotsGeojson(spots) });
+
+          map.addLayer({
+            id: "countries-fill",
+            type: "fill",
+            source: "countries",
+            paint: {
+              "fill-color": ["case", ["==", ["get", "isChile"], true], mapColors.chileLand, mapColors.land],
+              "fill-opacity": 0.9
+            }
+          });
+          map.addLayer({
+            id: "countries-line",
+            type: "line",
+            source: "countries",
+            paint: {
+              "line-color": ["case", ["==", ["get", "isChile"], true], mapColors.chileStroke, mapColors.landStroke],
+              "line-width": ["case", ["==", ["get", "isChile"], true], 1.5, 0.75]
+            }
+          });
+          map.addLayer({
+            id: "regions-fill",
+            type: "fill",
+            source: "regions",
+            paint: {
+              "fill-color": [
+                "match", ["get", "key"],
+                "continental", mapColors.continental,
+                "insular", mapColors.insular,
+                "antarctic", mapColors.antarctic,
+                mapColors.continental
+              ],
+              "fill-opacity": 0.1
+            }
+          });
+          map.addLayer({
+            id: "regions-line",
+            type: "line",
+            source: "regions",
+            paint: {
+              "line-color": [
+                "match", ["get", "key"],
+                "continental", mapColors.continental,
+                "insular", mapColors.insular,
+                "antarctic", mapColors.antarctic,
+                mapColors.continental
+              ],
+              "line-width": 1.3
+            }
+          });
+          map.addLayer({
+            id: "track-line",
+            type: "line",
+            source: "track",
+            paint: {
+              "line-color": mapColors.track,
+              "line-opacity": 0.8,
+              "line-width": 2
+            }
+          });
+          map.addLayer({
+            id: "highlight-points",
+            type: "circle",
+            source: "highlights",
+            paint: {
+              "circle-radius": 4,
+              "circle-color": [
+                "match", ["get", "region"],
+                "continental", mapColors.continentalPoint,
+                "insular", mapColors.insularPoint,
+                "antarctic", mapColors.antarcticPoint,
+                mapColors.continentalPoint
+              ],
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 0.8
+            }
+          });
+          map.addLayer({
+            id: "spot-points",
+            type: "circle",
+            source: "spots",
+            paint: {
+              "circle-radius": 6,
+              "circle-color": mapColors.spot,
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 1.5
+            }
+          });
+          map.addLayer({
+            id: "spot-labels",
+            type: "symbol",
+            source: "spots",
+            layout: {
+              "text-field": ["get", "label"],
+              "text-size": 12,
+              "text-offset": [0, 1.15],
+              "text-anchor": "top"
+            },
+            paint: {
+              "text-color": mapColors.spot,
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1.2
+            }
+          });
+        });
+      }
+
+      function renderMapFallbackMessage() {
+        return "<div class=\"map-wrap\"><div class=\"overpass-map\" id=\"overpass-map\">" +
+          "<p class=\"placeholder\" style=\"padding:16px\">MapLibre GL JS could not be loaded. Check the CDN connection and reload the page.</p>" +
+          "</div></div>";
+      }
+
+      function renderMapContainer() {
+        return "<div class=\"map-wrap\"><div class=\"overpass-map\" id=\"overpass-map\"></div></div>";
+      }
+
+      function spotReport(spots) {
+        if (!spots.length) return ["No custom map spots entered."];
+        return spots.map(function (spot, index) {
+          return (index + 1) + ". " + spot.label + " | lat " + spot.lat.toFixed(4) + ", lon " + spot.lon.toFixed(4);
+        });
+      }
+
+      function passReport(tle, data, spots) {
+        var lines = [
+          "Chile overpass planner for NORAD " + tle.norad,
+          "Window: " + formatUtc(data.start) + " to " + formatUtc(data.end),
+          "Browser local start: " + formatLocal(data.start),
+          "Map engine: MapLibre GL JS.",
+          "Map interaction: mouse wheel / trackpad or +/- controls to zoom; drag to pan.",
+          "",
+          "Map spots:",
+          spotReport(spots).join("\n"),
+          "",
+          "Passes:"
+        ];
+        if (!data.passes.length) {
+          lines.push("No sampled ground-track crossings inside the configured Chile sectors in the next 3 days.");
+          return lines.join("\n");
+        }
+        data.passes.forEach(function (pass, index) {
+          lines.push((index + 1) + ". " + pass.region.name + " | " +
+            formatUtc(pass.start) + " - " + formatUtc(pass.end) +
+            " | closest: " + formatUtc(pass.closest.date) +
+            " at lat " + pass.closest.lat.toFixed(2) + ", lon " + pass.closest.lon.toFixed(2));
+        });
+        return lines.join("\n");
+      }
+
+      function renderPasses(tle, data, basemap, spots) {
+        currentPassReport = passReport(tle, data, spots);
+        passesOutput.innerHTML = "<div class=\"metric-row\"><span><strong>Window:</strong> " +
+          escapeHtml(formatUtc(data.start)) + " to " + escapeHtml(formatUtc(data.end)) +
+          "</span><span><strong>Samples:</strong> " + data.points.length +
+          "</span><span><strong>Matches:</strong> " + data.passes.length +
+          "</span><span><strong>Spots:</strong> " + spots.length + "</span></div>" +
+          "<div class=\"planner-stack\">" +
+          (typeof maplibregl === "undefined" ? renderMapFallbackMessage() : renderMapContainer()) +
+          renderMapSource(Boolean(basemap)) +
+          "<p class=\"map-tools-note\">Use mouse wheel, trackpad, or the MapLibre +/- controls to zoom. Drag to move the map.</p>" +
+          "<pre class=\"terminal-output\">" + escapeHtml(currentPassReport) + "</pre></div>";
+        initMapLibre(data, basemap, spots);
+      }
+
       function render(result) {
         currentAnalysis = formatAnalysis(result);
         resultOutput.innerHTML = "<pre class=\"analysis-code\">" + escapeHtml(currentAnalysis) + "</pre>";
@@ -542,12 +1323,42 @@
         }
       }
 
+      function plotPasses() {
+        if (plotTimer) {
+          clearTimeout(plotTimer);
+          plotTimer = null;
+        }
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+        try {
+          var tle = parseTle(input.value);
+          var spots = parseSpots(spotsInput.value);
+          var data = buildPasses(tle);
+          passesOutput.innerHTML = "<p class=\"placeholder\">Loading map and plotting the next 3 days...</p>";
+          loadBasemap().then(function (basemap) {
+            renderPasses(tle, data, basemap, spots);
+          });
+        } catch (error) {
+          currentPassReport = "";
+          passesOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and plot the next 3 days.</p>";
+          errorMessage.textContent = error.message;
+          errorMessage.style.display = "block";
+        }
+      }
+
+      function schedulePlotPasses() {
+        if (plotTimer) clearTimeout(plotTimer);
+        plotTimer = setTimeout(plotPasses, 450);
+      }
+
       analyzeButton.addEventListener("click", analyze);
       clearButton.addEventListener("click", function () {
         input.value = "";
         currentAnalysis = "";
+        currentPassReport = "";
         errorMessage.style.display = "none";
         resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
+        passesOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and plot the next 3 days.</p>";
         input.focus();
       });
 
@@ -569,7 +1380,30 @@
         document.body.removeChild(copyArea);
       });
 
+      passesButton.addEventListener("click", plotPasses);
+      spotsInput.addEventListener("input", schedulePlotPasses);
+      document.addEventListener("toolsUnlocked", plotPasses);
+
+      copyPassesButton.addEventListener("click", function () {
+        if (!currentPassReport) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentPassReport);
+          return;
+        }
+
+        var copyArea = document.createElement("textarea");
+        copyArea.value = currentPassReport;
+        copyArea.setAttribute("readonly", "");
+        copyArea.style.position = "fixed";
+        copyArea.style.left = "-9999px";
+        document.body.appendChild(copyArea);
+        copyArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyArea);
+      });
+
       analyze();
+      if (document.body.classList.contains("unlocked")) plotPasses();
     })();
   </script>
 </body>
