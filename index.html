@@ -32,19 +32,27 @@
   </script>
   <script>
     (function () {
-      function addToolsTab() {
-        var nav = document.querySelector(".app-nav-links-content");
-        if (!nav || nav.querySelector('a[href$="tools.html"]')) return;
+      function addNavLink(nav, href, label) {
+        if (nav.querySelector('a[href$="' + href + '"]')) return;
         var link = document.createElement("a");
-        link.href = "tools.html";
-        link.textContent = "TOOLS";
+        link.href = new URL(href, window.location.href).href;
+        link.textContent = label;
+        link.style.display = "inline-block";
+        link.style.marginLeft = "18px";
         nav.appendChild(link);
       }
 
-      var timer = window.setInterval(addToolsTab, 250);
+      function addToolsTabs() {
+        var nav = document.querySelector(".app-nav-links-content");
+        if (!nav) return;
+        addNavLink(nav, "tools.html", "TOOLS");
+        addNavLink(nav, "ssa-sda-dashboard.html", "SSA/SDA");
+      }
+
+      var timer = window.setInterval(addToolsTabs, 250);
       window.setTimeout(function () {
         window.clearInterval(timer);
-        addToolsTab();
+        addToolsTabs();
       }, 5000);
     })();
   </script>

@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSA/SDA Relative Motion Dashboard - TLE to RIC Frame</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/satellite.js@5.0.0/dist/satellite.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #121820;
+      --panel-2: #171f29;
+      --line: #2b3645;
+      --text: #e7edf7;
+      --muted: #94a3b8;
+      --cyan: #36d7ff;
+      --amber: #ffb020;
+      --red: #ff4d57;
+      --green: #42d77d;
+      --blue: #4f86ff;
+      --ric-r: #ff4d57;
+      --ric-i: #42d77d;
+      --ric-c: #4f86ff;
+      --shadow: 0 16px 44px rgba(0, 0, 0, .32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1620px;
+      padding: 22px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 650;
+      letter-spacing: 0;
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      color: #dce8ff;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      color: #dce8ff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    label {
+      color: #c9d6ea;
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    textarea,
+    input {
+      background: #090d12;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--text);
+      font: 13px/1.45 "Roboto Mono", "SFMono-Regular", Consolas, monospace;
+      outline: none;
+      padding: 10px;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(54, 215, 255, .12);
+    }
+
+    button {
+      align-items: center;
+      background: #1f2a37;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      font-weight: 650;
+      min-height: 38px;
+      padding: 0 14px;
+    }
+
+    button:hover {
+      background: #263445;
+      border-color: #4a5a70;
+    }
+
+    button.primary {
+      background: #0f6c85;
+      border-color: #1789a7;
+    }
+
+    button.primary:hover {
+      background: #1182a0;
+    }
+
+    .topbar {
+      align-items: flex-start;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 980px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      padding: 5px 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge.green {
+      background: rgba(66, 215, 125, .13);
+      color: var(--green);
+    }
+
+    .badge.yellow {
+      background: rgba(255, 211, 77, .14);
+      color: #ffd34d;
+    }
+
+    .badge.orange {
+      background: rgba(255, 176, 32, .15);
+      color: var(--amber);
+    }
+
+    .badge.red {
+      background: rgba(255, 77, 87, .15);
+      color: var(--red);
+    }
+
+    .badge.blue {
+      background: rgba(54, 215, 255, .14);
+      color: var(--cyan);
+    }
+
+    .panel {
+      background: linear-gradient(180deg, var(--panel), #10161d);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 12px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .event-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .event-item,
+    .card,
+    .kv {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px;
+    }
+
+    .event-item span,
+    .card span,
+    .kv span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .event-item strong,
+    .card strong,
+    .kv strong {
+      color: var(--text);
+      display: block;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .cards {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .card strong {
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .card small {
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .plot {
+      height: 440px;
+      width: 100%;
+    }
+
+    .plot.tall {
+      height: 540px;
+    }
+
+    .plot.short {
+      height: 360px;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .three-col {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .note,
+    .warning-list li,
+    .explain p {
+      color: var(--muted);
+    }
+
+    .warning-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .slider-row {
+      align-items: center;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    input[type="range"] {
+      accent-color: var(--cyan);
+      padding: 0;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .legend-item {
+      align-items: center;
+      color: var(--muted);
+      display: inline-flex;
+      font-size: 12px;
+      gap: 6px;
+    }
+
+    .swatch {
+      border-radius: 999px;
+      display: inline-block;
+      height: 9px;
+      width: 24px;
+    }
+
+    .error {
+      background: rgba(255, 77, 87, .12);
+      border: 1px solid rgba(255, 77, 87, .35);
+      border-radius: 6px;
+      color: #ffc7cb;
+      display: none;
+      margin-top: 12px;
+      padding: 10px;
+    }
+
+    .mono {
+      font-family: "Roboto Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    @media (max-width: 1180px) {
+      .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .event-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      main {
+        padding: 14px;
+      }
+
+      .topbar,
+      .slider-row {
+        display: block;
+      }
+
+      .input-grid,
+      .control-grid,
+      .cards,
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .plot,
+      .plot.tall,
+      .plot.short {
+        height: 390px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="topbar">
+      <div>
+        <h1>SSA/SDA Relative Motion Dashboard — TLE to RIC Frame</h1>
+        <p class="subtitle">TLE/SGP4 screening analysis for relative motion in the primary-centered RIC frame. This is for visualization and preliminary assessment only; operational collision-risk decisions require validated ephemerides, covariance, and CDM data.</p>
+      </div>
+      <span class="badge blue">TLE/SGP4 Screening</span>
+    </section>
+
+    <section class="panel">
+      <h2>Inputs</h2>
+      <p class="note">Default TLEs are placeholders for demonstration only. They are not real satellites.</p>
+      <div class="input-grid">
+        <div>
+          <label for="primary-tle">Primary / chief object TLE</label>
+          <textarea id="primary-tle" spellcheck="false"></textarea>
+        </div>
+        <div>
+          <label for="secondary-tle">Secondary / deputy object TLE</label>
+          <textarea id="secondary-tle" spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div class="control-grid">
+        <div>
+          <label for="start-time">Start time UTC</label>
+          <input id="start-time" type="datetime-local">
+        </div>
+        <div>
+          <label for="end-time">End time UTC</label>
+          <input id="end-time" type="datetime-local">
+        </div>
+        <div>
+          <label for="step-seconds">Time step in seconds</label>
+          <input id="step-seconds" type="number" min="1" max="3600" step="1" value="60">
+        </div>
+      </div>
+      <div class="actions">
+        <button class="primary" id="analyze-button" type="button">Propagate and analyze</button>
+        <button id="reset-button" type="button">Reset demo data</button>
+        <button id="export-button" type="button">Export current analysis as JSON</button>
+      </div>
+      <div class="error" id="error-box" role="alert"></div>
+    </section>
+
+    <section class="stack">
+      <section class="panel">
+        <h2>Event Header</h2>
+        <div class="event-grid" id="event-header"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Time Selection</h2>
+        <div class="slider-row">
+          <input id="time-slider" type="range" min="0" max="0" value="0">
+          <span class="badge blue mono" id="selected-epoch">No epoch</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Executive Summary</h2>
+        <div class="cards" id="summary-cards"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Interactive 3D RIC Relative Motion Plot</h2>
+        <div class="legend-row">
+          <span class="legend-item"><span class="swatch" style="background:var(--ric-r)"></span>Radial R</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--ric-i)"></span>In-track I</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--ric-c)"></span>Cross-track C</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--cyan)"></span>Current relative vector</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--amber)"></span>TCA/POCA marker</span>
+        </div>
+        <div class="plot tall" id="plot-ric-3d"></div>
+      </section>
+
+      <section class="panel">
+        <h2>RIC Components vs Time</h2>
+        <div class="plot" id="plot-ric-components"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Range and Range-Rate vs Time</h2>
+        <p class="note">Range-rate near zero indicates a local closest approach candidate inside the selected propagated window.</p>
+        <div class="plot" id="plot-range-rate"></div>
+      </section>
+
+      <section class="two-col">
+        <div class="panel">
+          <h2>RIC Velocity / Rates Panel</h2>
+          <div class="three-col" id="velocity-panel"></div>
+          <p class="note">These values help determine whether the encounter is opening or closing and whether the motion resembles slow RPO-like behavior or a transient conjunction flyby.</p>
+        </div>
+        <div class="panel">
+          <h2>Covariance / CDM Panel</h2>
+          <p class="note">Covariance unavailable: TLE-only analysis cannot provide final collision probability.</p>
+          <div class="three-col" id="covariance-panel"></div>
+          <p class="note">Range alone is not enough for final collision-risk assessment. A validated CDM or covariance product is required for probability-of-collision evaluation.</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Ground Track Panel</h2>
+        <p class="note">Geographic situational-awareness view only. RIC geometry is more important than latitude/longitude for relative-motion assessment.</p>
+        <div class="plot short" id="plot-ground-track"></div>
+      </section>
+
+      <section class="two-col">
+        <div class="panel">
+          <h2>Data Quality and Warnings</h2>
+          <div class="three-col" id="tle-age-panel"></div>
+          <ul class="warning-list" id="warnings-list"></ul>
+        </div>
+        <div class="panel">
+          <h2>Operator Recommendation</h2>
+          <div id="recommendation-panel"></div>
+        </div>
+      </section>
+
+      <section class="panel explain">
+        <h2>Technical Explanation</h2>
+        <p><strong>TLE:</strong> A Two-Line Element set provides mean orbital elements compatible with SGP4 propagation. It is useful for screening and visualization but does not include covariance.</p>
+        <p><strong>SGP4:</strong> SGP4 is the standard analytical propagator used with TLEs. It is suitable for TLE-based propagation but should not be confused with high-fidelity orbit determination.</p>
+        <p><strong>RIC frame:</strong> The RIC frame expresses the secondary object relative to the primary object using radial, in-track, and cross-track components. This is more useful than latitude/longitude for close-approach and RPO geometry.</p>
+        <p><strong>Range:</strong> The total relative distance between primary and secondary. It is a basic geometric screening metric but not a complete risk metric.</p>
+        <p><strong>Radial:</strong> The local altitude-like separation. It shows whether the secondary is radially above or below the primary.</p>
+        <p><strong>In-track:</strong> The along-orbit separation. It is often the dominant component in phasing and conjunction problems.</p>
+        <p><strong>Cross-track:</strong> The out-of-plane separation. Small cross-track values suggest the objects are locally close to the same orbital plane.</p>
+        <p><strong>Range-rate:</strong> The time derivative of range. A zero crossing is a useful indicator of local closest approach.</p>
+        <p><strong>TCA/POCA:</strong> Within this dashboard, TCA/POCA is estimated as the time of minimum propagated range inside the selected window. It is not a substitute for a validated operational CDM.</p>
+        <p><strong>Covariance:</strong> TLEs do not provide covariance. Without covariance, the dashboard cannot compute a reliable collision probability.</p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    var demoPrimaryTle = "OBJECT A\n1 00001U 24001A   26188.50000000  .00000000  00000-0  00000-0 0  9991\n2 00001  97.5000 120.0000 0010000  90.0000 270.0000 15.20000000    01";
+    var demoSecondaryTle = "OBJECT B\n1 00002U 24001B   26188.50000000  .00000000  00000-0  00000-0 0  9992\n2 00002  97.5000 120.0200 0010000  90.0000 270.5000 15.20000000    02";
+    var analysis = null;
+    var currentIndex = 0;
+    var colors = {
+      r: "#ff4d57",
+      i: "#42d77d",
+      c: "#4f86ff",
+      range: "#36d7ff",
+      poca: "#ffb020",
+      white: "#edf6ff",
+      grid: "#2b3645",
+      paper: "#121820",
+      plot: "#10161d"
+    };
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function pad(value) {
+      return String(value).padStart(2, "0");
+    }
+
+    function formatDateTimeLocal(date) {
+      return date.getUTCFullYear() + "-" + pad(date.getUTCMonth() + 1) + "-" + pad(date.getUTCDate()) +
+        "T" + pad(date.getUTCHours()) + ":" + pad(date.getUTCMinutes());
+    }
+
+    function parseUtcInput(value) {
+      if (!value) throw new Error("UTC time input is required.");
+      var date = new Date(value + ":00Z");
+      if (!isFinite(date.getTime())) throw new Error("Invalid UTC date/time.");
+      return date;
+    }
+
+    function parseTleEpoch(line1) {
+      var field = line1.slice(18, 32).trim();
+      var yearPart = Number(field.slice(0, 2));
+      var dayPart = Number(field.slice(2));
+      if (!isFinite(yearPart) || !isFinite(dayPart)) throw new Error("Could not parse TLE epoch.");
+      var fullYear = yearPart < 57 ? 2000 + yearPart : 1900 + yearPart;
+      var start = Date.UTC(fullYear, 0, 1, 0, 0, 0, 0);
+      return new Date(start + (dayPart - 1) * 86400000);
+    }
+
+    function formatUTC(date) {
+      return date.toISOString().replace("T", " ").replace(".000Z", " UTC");
+    }
+
+    function number(value, digits) {
+      if (!isFinite(value)) return "n/a";
+      return value.toFixed(digits);
+    }
+
+    function dot(a, b) {
+      return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    function cross(a, b) {
+      return {
+        x: a.y * b.z - a.z * b.y,
+        y: a.z * b.x - a.x * b.z,
+        z: a.x * b.y - a.y * b.x
+      };
+    }
+
+    function norm(a) {
+      return Math.sqrt(dot(a, a));
+    }
+
+    function scale(a, s) {
+      return { x: a.x * s, y: a.y * s, z: a.z * s };
+    }
+
+    function subtract(a, b) {
+      return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
+    }
+
+    function normalize(a) {
+      var magnitude = norm(a);
+      if (!magnitude) throw new Error("Cannot normalize a zero vector.");
+      return scale(a, 1 / magnitude);
+    }
+
+    function normalizeTleLine(line) {
+      return String(line || "").trim().replace(/[;,]+$/g, "").trim();
+    }
+
+    function isEpochField(value) {
+      return /^\d{5}\.\d+$/.test(String(value || "").trim());
+    }
+
+    function padLeft(value, width) {
+      return String(value || "").slice(0, width).padStart(width, " ");
+    }
+
+    function padRight(value, width) {
+      return String(value || "").slice(0, width).padEnd(width, " ");
+    }
+
+    function canonicalLine1(line) {
+      var fixedEpoch = line.slice(18, 32).trim();
+      if (line.length >= 63 && isEpochField(fixedEpoch)) return line;
+
+      var fields = line.split(/\s+/);
+      var satToken = fields[1] || "";
+      var satnum = satToken.slice(0, 5);
+      var classification = satToken.slice(5, 6) || "U";
+      var epoch = fields.find(isEpochField);
+      var epochIndex = fields.indexOf(epoch);
+      var intl = epochIndex > 2 ? fields.slice(2, epochIndex).join("") : "";
+      if (!satnum || !epoch) throw new Error("TLE line 1 could not be normalized.");
+
+      return "1 " + padLeft(satnum, 5) + classification +
+        " " + padRight(intl, 8) +
+        " " + padLeft(epoch, 14) +
+        " " + padLeft(fields[epochIndex + 1] || ".00000000", 10) +
+        " " + padLeft(fields[epochIndex + 2] || "00000-0", 8) +
+        " " + padLeft(fields[epochIndex + 3] || "00000-0", 8) +
+        " " + padLeft(fields[epochIndex + 4] || "0", 1) +
+        " " + padLeft(fields[epochIndex + 5] || "999", 4);
+    }
+
+    function canonicalLine2(line) {
+      var fixedFieldsValid = line.length >= 63 &&
+        isFinite(Number(line.slice(8, 16).trim())) &&
+        isFinite(Number(line.slice(17, 25).trim())) &&
+        /^\d+$/.test(line.slice(26, 33).trim()) &&
+        isFinite(Number(line.slice(34, 42).trim())) &&
+        isFinite(Number(line.slice(43, 51).trim())) &&
+        isFinite(Number(line.slice(52, 63).trim()));
+      if (fixedFieldsValid) return line;
+
+      var fields = line.split(/\s+/);
+      if (fields.length < 8) throw new Error("TLE line 2 could not be normalized.");
+      return "2 " + padLeft(fields[1], 5) +
+        " " + padLeft(fields[2], 8) +
+        " " + padLeft(fields[3], 8) +
+        " " + padLeft(fields[4], 7) +
+        " " + padLeft(fields[5], 8) +
+        " " + padLeft(fields[6], 8) +
+        " " + padLeft(fields[7], 11) +
+        padLeft(fields[8] || "", 5);
+    }
+
+    function parseTLE(tleText) {
+      var lines = String(tleText || "").split(/\r?\n/).map(function (line) {
+        return normalizeTleLine(line);
+      }).filter(Boolean);
+      var name = "Unnamed object";
+      if (lines.length >= 3 && lines[0].charAt(0) !== "1" && lines[0].charAt(0) !== "2") {
+        name = lines.shift().replace(/^0\s+/, "").trim() || name;
+      }
+      if (lines.length < 2) throw new Error("Each object needs a complete two-line element set.");
+      var line1 = lines.find(function (line) { return line.charAt(0) === "1"; });
+      var line2 = lines.find(function (line) { return line.charAt(0) === "2"; });
+      if (!line1 || !line2) throw new Error("TLE lines must start with 1 and 2.");
+      line1 = canonicalLine1(line1);
+      line2 = canonicalLine2(line2);
+      var satrec = satellite.twoline2satrec(line1, line2);
+      if (!satrec || satrec.error) throw new Error("satellite.js could not parse " + name + ".");
+      var epochDate = parseTleEpoch(line1);
+      return { name: name, line1: line1, line2: line2, satrec: satrec, epochDate: epochDate };
+    }
+
+    function propagateObject(satrec, date) {
+      var pv = satellite.propagate(satrec, date);
+      if (!pv || !pv.position || !pv.velocity) throw new Error("SGP4 propagation failed at " + formatUTC(date) + ".");
+      return { position: pv.position, velocity: pv.velocity };
+    }
+
+    function computeRIC(primaryState, secondaryState) {
+      var r1 = primaryState.position;
+      var v1 = primaryState.velocity;
+      var r2 = secondaryState.position;
+      var v2 = secondaryState.velocity;
+      var rHat = normalize(r1);
+      var cHat = normalize(cross(r1, v1));
+      var iHat = cross(cHat, rHat);
+      var rho = subtract(r2, r1);
+      var rhoDot = subtract(v2, v1);
+      var range = norm(rho);
+      var r = dot(rho, rHat);
+      var i = dot(rho, iHat);
+      var c = dot(rho, cHat);
+      var rVel = dot(rhoDot, rHat);
+      var iVel = dot(rhoDot, iHat);
+      var cVel = dot(rhoDot, cHat);
+      var relativeSpeed = norm(rhoDot);
+      return {
+        R: r,
+        I: i,
+        C: c,
+        R_vel_diff: rVel,
+        I_vel_diff: iVel,
+        C_vel_diff: cVel,
+        range: range,
+        relative_speed: relativeSpeed,
+        range_rate_analytic: range > 0 ? dot(rho, rhoDot) / range : 0,
+        rHat: rHat,
+        iHat: iHat,
+        cHat: cHat
+      };
+    }
+
+    function generateTimeArray(startUTC, endUTC, stepSeconds) {
+      if (endUTC <= startUTC) throw new Error("End time must be after start time.");
+      if (!isFinite(stepSeconds) || stepSeconds <= 0) throw new Error("Time step must be a positive number.");
+      var maxPoints = 5000;
+      var times = [];
+      for (var t = startUTC.getTime(); t <= endUTC.getTime(); t += stepSeconds * 1000) {
+        times.push(new Date(t));
+        if (times.length > maxPoints) throw new Error("Too many propagation points. Increase the step or shorten the window.");
+      }
+      if (times[times.length - 1].getTime() < endUTC.getTime()) times.push(new Date(endUTC.getTime()));
+      return times;
+    }
+
+    function geodeticFromState(position, date) {
+      var gmst = satellite.gstime(date);
+      var geo = satellite.eciToGeodetic(position, gmst);
+      return {
+        lat: satellite.degreesLat(geo.latitude),
+        lon: satellite.degreesLong(geo.longitude),
+        height: geo.height
+      };
+    }
+
+    function computeRangeRates(samples) {
+      for (var index = 0; index < samples.length; index += 1) {
+        var prev = samples[Math.max(0, index - 1)];
+        var next = samples[Math.min(samples.length - 1, index + 1)];
+        var dt = (next.date.getTime() - prev.date.getTime()) / 1000;
+        samples[index].range_rate_num = dt ? (next.range - prev.range) / dt : 0;
+      }
+    }
+
+    function zeroCrossing(samples) {
+      for (var index = 1; index < samples.length; index += 1) {
+        var a = samples[index - 1].range_rate_num;
+        var b = samples[index].range_rate_num;
+        if (a === 0) return samples[index - 1];
+        if ((a < 0 && b > 0) || (a > 0 && b < 0)) return samples[index];
+      }
+      return null;
+    }
+
+    function analyzeWindow(primaryTLE, secondaryTLE, startUTC, endUTC, stepSeconds) {
+      var primary = parseTLE(primaryTLE);
+      var secondary = parseTLE(secondaryTLE);
+      var times = generateTimeArray(startUTC, endUTC, stepSeconds);
+      var samples = times.map(function (date) {
+        var primaryState = propagateObject(primary.satrec, date);
+        var secondaryState = propagateObject(secondary.satrec, date);
+        var ric = computeRIC(primaryState, secondaryState);
+        var primaryGeo = geodeticFromState(primaryState.position, date);
+        var secondaryGeo = geodeticFromState(secondaryState.position, date);
+        return Object.assign({
+          date: date,
+          primaryState: primaryState,
+          secondaryState: secondaryState,
+          primaryGeo: primaryGeo,
+          secondaryGeo: secondaryGeo
+        }, ric);
+      });
+      computeRangeRates(samples);
+      var minimumIndex = 0;
+      samples.forEach(function (sample, index) {
+        if (sample.range < samples[minimumIndex].range) minimumIndex = index;
+      });
+      return {
+        primary: primary,
+        secondary: secondary,
+        start: startUTC,
+        end: endUTC,
+        stepSeconds: stepSeconds,
+        samples: samples,
+        minimumIndex: minimumIndex,
+        zeroRangeRate: zeroCrossing(samples)
+      };
+    }
+
+    function plotLayout(title) {
+      return {
+        title: { text: title, font: { color: "#e7edf7", size: 15 } },
+        paper_bgcolor: colors.paper,
+        plot_bgcolor: colors.plot,
+        font: { color: "#dce8ff" },
+        margin: { l: 60, r: 50, t: 46, b: 54 },
+        hovermode: "closest",
+        legend: { bgcolor: "rgba(0,0,0,0)", font: { color: "#dce8ff" } },
+        xaxis: { gridcolor: colors.grid, zerolinecolor: "#536070", linecolor: "#536070" },
+        yaxis: { gridcolor: colors.grid, zerolinecolor: "#536070", linecolor: "#536070" }
+      };
+    }
+
+    function plotConfig() {
+      return { responsive: true, displaylogo: false, scrollZoom: true, modeBarButtonsToRemove: ["lasso2d", "select2d"] };
+    }
+
+    function sampleText(sample) {
+      return formatUTC(sample.date) +
+        "<br>R: " + number(sample.R, 3) + " km" +
+        "<br>I: " + number(sample.I, 3) + " km" +
+        "<br>C: " + number(sample.C, 3) + " km" +
+        "<br>Range: " + number(sample.range, 3) + " km" +
+        "<br>Range-rate: " + number(sample.range_rate_num, 6) + " km/s";
+    }
+
+    function initializePlots() {
+      var samples = analysis.samples;
+      var selected = samples[currentIndex];
+      var poca = samples[analysis.minimumIndex];
+      var times = samples.map(function (s) { return s.date.toISOString(); });
+      var hover = samples.map(sampleText);
+
+      Plotly.newPlot("plot-ric-3d", [
+        {
+          type: "scatter3d",
+          mode: "lines",
+          name: "Secondary relative trajectory",
+          x: samples.map(function (s) { return s.R; }),
+          y: samples.map(function (s) { return s.I; }),
+          z: samples.map(function (s) { return s.C; }),
+          text: hover,
+          hovertemplate: "%{text}<extra></extra>",
+          line: { color: "#9ab7ff", width: 5 }
+        },
+        {
+          type: "scatter3d",
+          mode: "markers",
+          name: "Primary at origin",
+          x: [0],
+          y: [0],
+          z: [0],
+          marker: { color: colors.white, size: 5 }
+        },
+        {
+          type: "scatter3d",
+          mode: "markers",
+          name: "Selected epoch",
+          x: [selected.R],
+          y: [selected.I],
+          z: [selected.C],
+          text: [sampleText(selected)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: colors.range, size: 6 }
+        },
+        {
+          type: "scatter3d",
+          mode: "markers",
+          name: "TCA/POCA",
+          x: [poca.R],
+          y: [poca.I],
+          z: [poca.C],
+          text: [sampleText(poca)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: colors.poca, size: 7, symbol: "diamond" }
+        },
+        {
+          type: "scatter3d",
+          mode: "lines",
+          name: "Current relative vector",
+          x: [0, selected.R],
+          y: [0, selected.I],
+          z: [0, selected.C],
+          line: { color: colors.range, width: 6 }
+        }
+      ], {
+        title: { text: "RIC Relative Trajectory", font: { color: "#e7edf7", size: 15 } },
+        paper_bgcolor: colors.paper,
+        plot_bgcolor: colors.plot,
+        font: { color: "#dce8ff" },
+        margin: { l: 0, r: 0, t: 44, b: 0 },
+        legend: { x: 0.02, y: 0.98, bgcolor: "rgba(0,0,0,0)" },
+        scene: {
+          bgcolor: colors.plot,
+          xaxis: { title: "Radial R [km]", color: "#dce8ff", gridcolor: colors.grid, zerolinecolor: "#536070" },
+          yaxis: { title: "In-track I [km]", color: "#dce8ff", gridcolor: colors.grid, zerolinecolor: "#536070" },
+          zaxis: { title: "Cross-track C [km]", color: "#dce8ff", gridcolor: colors.grid, zerolinecolor: "#536070" }
+        },
+        uirevision: "ric-3d"
+      }, plotConfig());
+
+      var componentLayout = plotLayout("RIC Components vs Time");
+      componentLayout.xaxis.title = "UTC";
+      componentLayout.yaxis.title = "km";
+      componentLayout.shapes = timeMarkers(selected, poca);
+      Plotly.newPlot("plot-ric-components", [
+        lineTrace("Radial R", times, samples.map(function (s) { return s.R; }), colors.r, hover),
+        lineTrace("In-track I", times, samples.map(function (s) { return s.I; }), colors.i, hover),
+        lineTrace("Cross-track C", times, samples.map(function (s) { return s.C; }), colors.c, hover)
+      ], componentLayout, plotConfig());
+
+      var rrLayout = plotLayout("Range and Range-Rate vs Time");
+      rrLayout.xaxis.title = "UTC";
+      rrLayout.yaxis.title = "Range [km]";
+      rrLayout.yaxis2 = { title: "Range-rate [km/s]", overlaying: "y", side: "right", gridcolor: "rgba(0,0,0,0)", zerolinecolor: "#536070", color: "#dce8ff" };
+      rrLayout.shapes = timeMarkers(selected, poca);
+      Plotly.newPlot("plot-range-rate", [
+        lineTrace("Range", times, samples.map(function (s) { return s.range; }), colors.range, hover),
+        Object.assign(lineTrace("Numerical range-rate", times, samples.map(function (s) { return s.range_rate_num; }), colors.poca, hover), { yaxis: "y2" }),
+        Object.assign(lineTrace("Analytical range-rate", times, samples.map(function (s) { return s.range_rate_analytic; }), colors.white, hover), { yaxis: "y2", line: { color: colors.white, width: 1.6, dash: "dot" } }),
+        {
+          type: "scatter",
+          mode: "markers",
+          name: "Minimum range",
+          x: [poca.date.toISOString()],
+          y: [poca.range],
+          marker: { color: colors.poca, size: 9, symbol: "diamond" },
+          hovertemplate: sampleText(poca) + "<extra></extra>"
+        },
+        zeroTrace()
+      ], rrLayout, plotConfig());
+
+      var groundLayout = plotLayout("Ground Tracks");
+      groundLayout.xaxis.title = "Longitude [deg]";
+      groundLayout.yaxis.title = "Latitude [deg]";
+      groundLayout.xaxis.range = [-180, 180];
+      groundLayout.yaxis.range = [-90, 90];
+      Plotly.newPlot("plot-ground-track", [
+        groundTrace("Primary ground track", samples.map(function (s) { return s.primaryGeo; }), "#42d77d"),
+        groundTrace("Secondary ground track", samples.map(function (s) { return s.secondaryGeo; }), "#ffb020"),
+        groundMarker("Current primary subpoint", selected.primaryGeo, "#42d77d"),
+        groundMarker("Current secondary subpoint", selected.secondaryGeo, "#ffb020"),
+        groundMarker("POCA primary subpoint", poca.primaryGeo, "#ffffff"),
+        groundMarker("POCA secondary subpoint", poca.secondaryGeo, "#ff4d57")
+      ], groundLayout, plotConfig());
+    }
+
+    function lineTrace(name, x, y, color, hover) {
+      return {
+        type: "scattergl",
+        mode: "lines",
+        name: name,
+        x: x,
+        y: y,
+        text: hover,
+        hovertemplate: "%{text}<extra></extra>",
+        line: { color: color, width: 2.2 }
+      };
+    }
+
+    function groundTrace(name, points, color) {
+      return {
+        type: "scattergl",
+        mode: "markers",
+        name: name,
+        x: points.map(function (p) { return p.lon; }),
+        y: points.map(function (p) { return p.lat; }),
+        marker: { color: color, size: 4, opacity: .75 }
+      };
+    }
+
+    function groundMarker(name, point, color) {
+      return {
+        type: "scatter",
+        mode: "markers",
+        name: name,
+        x: [point.lon],
+        y: [point.lat],
+        marker: { color: color, size: 10, line: { color: "#0b0f14", width: 1.5 } }
+      };
+    }
+
+    function timeMarkers(selected, poca) {
+      return [
+        markerShape(selected.date, colors.range, "dot"),
+        markerShape(poca.date, colors.poca, "dash")
+      ];
+    }
+
+    function markerShape(date, color, dash) {
+      return {
+        type: "line",
+        xref: "x",
+        yref: "paper",
+        x0: date.toISOString(),
+        x1: date.toISOString(),
+        y0: 0,
+        y1: 1,
+        line: { color: color, width: 1.5, dash: dash }
+      };
+    }
+
+    function zeroTrace() {
+      var crossing = analysis.zeroRangeRate;
+      if (!crossing) return { type: "scatter", mode: "markers", name: "Range-rate zero crossing", x: [], y: [] };
+      return {
+        type: "scatter",
+        mode: "markers",
+        name: "Range-rate zero crossing",
+        x: [crossing.date.toISOString()],
+        y: [crossing.range_rate_num],
+        yaxis: "y2",
+        marker: { color: "#ff4d57", size: 8, symbol: "x" }
+      };
+    }
+
+    function updatePlots(sample) {
+      var poca = analysis.samples[analysis.minimumIndex];
+      var x = sample.date.toISOString();
+      Plotly.restyle("plot-ric-3d", {
+        x: [[sample.R]],
+        y: [[sample.I]],
+        z: [[sample.C]],
+        text: [[sampleText(sample)]]
+      }, [2]);
+      Plotly.restyle("plot-ric-3d", {
+        x: [[0, sample.R]],
+        y: [[0, sample.I]],
+        z: [[0, sample.C]]
+      }, [4]);
+      Plotly.relayout("plot-ric-components", { shapes: timeMarkers(sample, poca) });
+      Plotly.relayout("plot-range-rate", { shapes: timeMarkers(sample, poca) });
+      Plotly.restyle("plot-ground-track", {
+        x: [[sample.primaryGeo.lon]],
+        y: [[sample.primaryGeo.lat]]
+      }, [2]);
+      Plotly.restyle("plot-ground-track", {
+        x: [[sample.secondaryGeo.lon]],
+        y: [[sample.secondaryGeo.lat]]
+      }, [3]);
+    }
+
+    function dominantAxis(sample) {
+      var values = [
+        { axis: "Radial", value: Math.abs(sample.R) },
+        { axis: "In-track", value: Math.abs(sample.I) },
+        { axis: "Cross-track", value: Math.abs(sample.C) }
+      ];
+      values.sort(function (a, b) { return b.value - a.value; });
+      return values[0].axis;
+    }
+
+    function interpretation(sample) {
+      var messages = [];
+      if (sample.range && Math.abs(sample.C) / sample.range < 0.01) messages.push("Nearly coplanar local geometry.");
+      if (sample.range && Math.abs(sample.I) / sample.range > 0.8) messages.push("Along-track dominated geometry.");
+      if (sample.range && Math.abs(sample.R) / sample.range < 0.05) messages.push("Small radial offset relative to total range.");
+      return messages.length ? messages.join(" ") : "No single-axis local geometry rule dominates this selected epoch.";
+    }
+
+    function ageStatus(hours) {
+      if (hours < 24) return "green";
+      if (hours < 72) return "yellow";
+      if (hours < 168) return "orange";
+      return "red";
+    }
+
+    function ageLabel(hours) {
+      if (Math.abs(hours) < 48) return number(hours, 2) + " h";
+      return number(hours / 24, 2) + " d";
+    }
+
+    function dataQuality(sample) {
+      var primaryAge = Math.abs(sample.date.getTime() - analysis.primary.epochDate.getTime()) / 3600000;
+      var secondaryAge = Math.abs(sample.date.getTime() - analysis.secondary.epochDate.getTime()) / 3600000;
+      var worst = Math.max(primaryAge, secondaryAge);
+      if (worst > 168) return { status: "red", text: "Old TLE epoch" };
+      if (worst > 72) return { status: "orange", text: "Degraded TLE age" };
+      if (worst > 24) return { status: "yellow", text: "Monitor TLE age" };
+      return { status: "green", text: "Fresh TLE epoch" };
+    }
+
+    function recommendation(sample) {
+      var poca = analysis.samples[analysis.minimumIndex];
+      var quality = dataQuality(sample);
+      var afterPoca = sample.date >= poca.date;
+      var increasing = afterPoca && sample.range_rate_num > 0;
+      var smallMiss = poca.range < 10;
+      var verySmallMiss = poca.range < 1;
+      var closing = sample.range_rate_num < -0.01;
+      var smallRadialCross = Math.abs(poca.R) < 5 && Math.abs(poca.C) < 5;
+      var zeroSoon = analysis.zeroRangeRate && Math.abs(analysis.zeroRangeRate.date.getTime() - sample.date.getTime()) <= 30 * 60 * 1000;
+      var status = "yellow";
+      var text = "YELLOW / MONITOR: Screening assessment only. Missing covariance and TLE-only data require monitoring.";
+      if (verySmallMiss && closing) {
+        status = "red";
+        text = "RED: Very small minimum range and persistent closing trend in the selected window. Final action still requires covariance/CDM validation.";
+      } else if (smallMiss || zeroSoon || smallRadialCross || quality.status === "orange" || quality.status === "red") {
+        status = "orange";
+        text = "ORANGE: Geometry or data age requires elevated review. Screening assessment only; request validated ephemerides and CDM/covariance.";
+      } else if (increasing && poca.range > 50 && !closing && quality.status === "green") {
+        status = "green";
+        text = "GREEN: Range is increasing after POCA and no small miss distance is seen in this selected window. Screening assessment only.";
+      }
+      return { status: status, text: text };
+    }
+
+    function card(label, value, detail) {
+      return "<div class=\"card\"><span>" + label + "</span><strong>" + value + "</strong>" +
+        (detail ? "<small>" + detail + "</small>" : "") + "</div>";
+    }
+
+    function kv(label, value) {
+      return "<div class=\"kv\"><span>" + label + "</span><strong>" + value + "</strong></div>";
+    }
+
+    function updateDashboard(index) {
+      if (!analysis) return;
+      currentIndex = Math.max(0, Math.min(analysis.samples.length - 1, Number(index)));
+      var sample = analysis.samples[currentIndex];
+      var poca = analysis.samples[analysis.minimumIndex];
+      var quality = dataQuality(sample);
+      var rec = recommendation(sample);
+      $("selected-epoch").textContent = formatUTC(sample.date);
+      $("time-slider").value = currentIndex;
+
+      $("event-header").innerHTML = [
+        kv("Primary object", analysis.primary.name),
+        kv("Secondary object", analysis.secondary.name),
+        kv("Analysis start time", formatUTC(analysis.start)),
+        kv("Analysis end time", formatUTC(analysis.end)),
+        kv("Time step", analysis.stepSeconds + " s"),
+        kv("Frame", "RIC centered on primary"),
+        kv("Propagator", "SGP4 from TLE"),
+        kv("Data source", "User-input TLEs"),
+        kv("Current selected epoch", formatUTC(sample.date)),
+        kv("Status badge", "<span class=\"badge " + rec.status + "\">" + rec.status + "</span>")
+      ].join("");
+
+      $("summary-cards").innerHTML = [
+        card("Current range", number(sample.range, 3) + " km"),
+        card("Minimum predicted range", number(poca.range, 3) + " km", "inside selected window"),
+        card("Estimated TCA/POCA", formatUTC(poca.date)),
+        card("Radial", number(sample.R, 3) + " km"),
+        card("In-track", number(sample.I, 3) + " km"),
+        card("Cross-track", number(sample.C, 3) + " km"),
+        card("Dominant axis", dominantAxis(sample)),
+        card("Range-rate", number(sample.range_rate_num, 6) + " km/s", "numerical"),
+        card("Relative speed", number(sample.relative_speed, 6) + " km/s"),
+        card("Coplanarity indicator", sample.range && Math.abs(sample.C) / sample.range < 0.01 ? "Nearly coplanar" : "Not locally coplanar"),
+        card("Data quality status", "<span class=\"badge " + quality.status + "\">" + quality.text + "</span>"),
+        card("Interpretation", interpretation(sample))
+      ].join("");
+
+      $("velocity-panel").innerHTML = [
+        kv("Radial velocity difference", number(sample.R_vel_diff, 6) + " km/s"),
+        kv("In-track velocity difference", number(sample.I_vel_diff, 6) + " km/s"),
+        kv("Cross-track velocity difference", number(sample.C_vel_diff, 6) + " km/s"),
+        kv("Relative speed", number(sample.relative_speed, 6) + " km/s"),
+        kv("Range-rate numerical", number(sample.range_rate_num, 6) + " km/s"),
+        kv("Range-rate analytical", number(sample.range_rate_analytic, 6) + " km/s")
+      ].join("");
+
+      $("covariance-panel").innerHTML = [
+        kv("CDM available", "No"),
+        kv("Probability of collision", "Unavailable"),
+        kv("Combined covariance sigma", "Unavailable"),
+        kv("Covariance frame", "Unavailable"),
+        kv("Covariance epoch", "Unavailable")
+      ].join("");
+
+      var primaryAge = Math.abs(sample.date.getTime() - analysis.primary.epochDate.getTime()) / 3600000;
+      var secondaryAge = Math.abs(sample.date.getTime() - analysis.secondary.epochDate.getTime()) / 3600000;
+      $("tle-age-panel").innerHTML = [
+        kv("Primary TLE epoch", formatUTC(analysis.primary.epochDate)),
+        kv("Secondary TLE epoch", formatUTC(analysis.secondary.epochDate)),
+        kv("Primary TLE age", "<span class=\"badge " + ageStatus(primaryAge) + "\">" + ageLabel(primaryAge) + "</span>"),
+        kv("Secondary TLE age", "<span class=\"badge " + ageStatus(secondaryAge) + "\">" + ageLabel(secondaryAge) + "</span>")
+      ].join("");
+
+      $("warnings-list").innerHTML = warnings(sample).map(function (warning) {
+        return "<li>" + warning + "</li>";
+      }).join("");
+
+      $("recommendation-panel").innerHTML = "<span class=\"badge " + rec.status + "\">" + rec.status + "</span><p style=\"margin-top:12px\">" + rec.text + "</p><p class=\"note\">For TLE-only analysis, never treat this dashboard as a final safe/unsafe decision.</p>";
+      updatePlots(sample);
+    }
+
+    function warnings(sample) {
+      var primaryAge = Math.abs(sample.date.getTime() - analysis.primary.epochDate.getTime()) / 3600000;
+      var secondaryAge = Math.abs(sample.date.getTime() - analysis.secondary.epochDate.getTime()) / 3600000;
+      var list = [
+        "TLE-only propagation: screening quality, not final operational truth.",
+        "No covariance available.",
+        "No real probability-of-collision calculation available.",
+        "SGP4 validity depends on TLE age and object regime.",
+        "Primary/secondary order matters: reversing TLEs changes the sign of RIC components.",
+        "TEME-to-geodetic conversion is approximate and intended here for situational awareness.",
+        "Large time windows from old TLE epochs may degrade accuracy."
+      ];
+      if (primaryAge > 72 || secondaryAge > 72) list.push("One or both TLEs are older than 3 days at the selected epoch.");
+      if (analysis.samples[analysis.minimumIndex].range < 10) list.push("Small minimum range inside the selected window; covariance/CDM is required before operational conclusions.");
+      return list;
+    }
+
+    function exportJSON() {
+      if (!analysis) return;
+      var sample = analysis.samples[currentIndex];
+      var poca = analysis.samples[analysis.minimumIndex];
+      var payload = {
+        generated_at: new Date().toISOString(),
+        note: "TLE/SGP4 screening analysis only. No covariance or CDM data included.",
+        primary: { name: analysis.primary.name, line1: analysis.primary.line1, line2: analysis.primary.line2, epoch: analysis.primary.epochDate.toISOString() },
+        secondary: { name: analysis.secondary.name, line1: analysis.secondary.line1, line2: analysis.secondary.line2, epoch: analysis.secondary.epochDate.toISOString() },
+        window: { start: analysis.start.toISOString(), end: analysis.end.toISOString(), step_seconds: analysis.stepSeconds },
+        selected_index: currentIndex,
+        selected: compactSample(sample),
+        poca: compactSample(poca),
+        recommendation: recommendation(sample),
+        time_history: analysis.samples.map(compactSample)
+      };
+      var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = "ssa-sda-ric-analysis.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function compactSample(sample) {
+      return {
+        utc: sample.date.toISOString(),
+        R_km: sample.R,
+        I_km: sample.I,
+        C_km: sample.C,
+        range_km: sample.range,
+        range_rate_numeric_km_s: sample.range_rate_num,
+        range_rate_analytic_km_s: sample.range_rate_analytic,
+        R_vel_diff_km_s: sample.R_vel_diff,
+        I_vel_diff_km_s: sample.I_vel_diff,
+        C_vel_diff_km_s: sample.C_vel_diff,
+        relative_speed_km_s: sample.relative_speed,
+        primary_lat_deg: sample.primaryGeo.lat,
+        primary_lon_deg: sample.primaryGeo.lon,
+        secondary_lat_deg: sample.secondaryGeo.lat,
+        secondary_lon_deg: sample.secondaryGeo.lon
+      };
+    }
+
+    function runAnalysis() {
+      $("error-box").style.display = "none";
+      try {
+        if (typeof satellite === "undefined") throw new Error("satellite.js did not load. Check internet access for the CDN script.");
+        if (typeof Plotly === "undefined") throw new Error("Plotly.js did not load. Check internet access for the CDN script.");
+        var start = parseUtcInput($("start-time").value);
+        var end = parseUtcInput($("end-time").value);
+        var step = Number($("step-seconds").value);
+        analysis = analyzeWindow($("primary-tle").value, $("secondary-tle").value, start, end, step);
+        currentIndex = analysis.minimumIndex;
+        $("time-slider").min = 0;
+        $("time-slider").max = analysis.samples.length - 1;
+        $("time-slider").step = 1;
+        $("time-slider").value = currentIndex;
+        initializePlots();
+        updateDashboard(currentIndex);
+      } catch (error) {
+        $("error-box").textContent = error.message;
+        $("error-box").style.display = "block";
+      }
+    }
+
+    function resetDemoData() {
+      $("primary-tle").value = demoPrimaryTle;
+      $("secondary-tle").value = demoSecondaryTle;
+      var now = new Date();
+      var start = new Date(now.getTime() - 60 * 60 * 1000);
+      var end = new Date(now.getTime() + 60 * 60 * 1000);
+      $("start-time").value = formatDateTimeLocal(start);
+      $("end-time").value = formatDateTimeLocal(end);
+      $("step-seconds").value = "60";
+    }
+
+    $("analyze-button").addEventListener("click", runAnalysis);
+    $("reset-button").addEventListener("click", function () {
+      resetDemoData();
+      runAnalysis();
+    });
+    $("export-button").addEventListener("click", exportJSON);
+    $("time-slider").addEventListener("input", function (event) {
+      updateDashboard(Number(event.target.value));
+    });
+
+    resetDemoData();
+    window.addEventListener("load", runAnalysis);
+  </script>
+</body>
+</html>
