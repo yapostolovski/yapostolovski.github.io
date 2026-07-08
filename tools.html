@@ -127,7 +127,8 @@
       margin: 0 0 16px;
     }
 
-    input[type="password"] {
+    input[type="password"],
+    input[type="datetime-local"] {
       border: 1px solid var(--border-color);
       border-radius: 4px;
       color: #222;
@@ -135,6 +136,48 @@
       min-height: 40px;
       padding: 0 12px;
       width: 100%;
+    }
+
+    .date-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin: 14px 0;
+    }
+
+    .date-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .object-legend {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      margin: 0;
+    }
+
+    .legend-item {
+      align-items: center;
+      color: var(--muted-color);
+      display: inline-flex;
+      font-size: 13px;
+      gap: 6px;
+    }
+
+    .legend-swatch {
+      border-radius: 999px;
+      display: inline-block;
+      height: 10px;
+      width: 26px;
+    }
+
+    @media (max-width: 720px) {
+      .date-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .tool-header {
@@ -157,6 +200,36 @@
     }
 
     .tool-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .tool-tabs {
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 20px;
+    }
+
+    .tab-button {
+      background: #fff;
+      border-bottom: 0;
+      border-radius: 4px 4px 0 0;
+      color: var(--main-color);
+    }
+
+    .tab-button.active {
+      background: var(--main-color);
+      color: #fff;
+    }
+
+    .tool-tab-panel {
+      display: none;
+    }
+
+    .tool-tab-panel.active {
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -192,6 +265,7 @@
     }
 
     input[type="password"]:focus,
+    input[type="datetime-local"]:focus,
     textarea:focus,
     button:focus {
       outline: 2px solid rgba(100, 88, 147, .28);
@@ -335,6 +409,121 @@
       min-height: 104px;
     }
 
+    .conjunction-input {
+      min-height: 220px;
+    }
+
+    .distance-plot {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .plot-caption {
+      color: var(--muted-color);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 8px 12px 12px;
+    }
+
+    .distance-svg {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .rpo-product {
+      background: #15181d;
+      border: 1px solid #303640;
+      border-radius: 6px;
+      color: #dfe7ff;
+      padding: 12px;
+    }
+
+    .rpo-banner {
+      border: 1px solid #303640;
+      border-radius: 4px;
+      color: #64d36e;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+
+    .rpo-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr;
+    }
+
+    .rpo-wide-grid {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr;
+      margin-top: 8px;
+    }
+
+    .rpo-panel {
+      background: #171b20;
+      border: 1px solid #303640;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .rpo-svg {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .rpo-caption {
+      color: #b8c4df;
+      font: 12px/1.45 "Roboto Mono", "Courier New", monospace;
+      margin: 6px 10px 10px;
+    }
+
+    .rpo-plotly {
+      height: 420px;
+      width: 100%;
+    }
+
+    .rpo-plotly.tall {
+      height: 500px;
+    }
+
+    @media (max-width: 900px) {
+      .rpo-grid,
+      .rpo-wide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .static-world-map {
+      background: #dfeaf2;
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .timeline-control {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px;
+    }
+
+    .timeline-control input[type="range"] {
+      width: 100%;
+    }
+
+    .timeline-readout {
+      color: var(--muted-color);
+      font: 13px/1.5 "Roboto Mono", "Courier New", monospace;
+      margin: 8px 0 0;
+    }
+
     .metric-row {
       color: var(--muted-color);
       display: flex;
@@ -346,6 +535,62 @@
 
     .metric-row strong {
       color: var(--main-color);
+    }
+
+    .co-analysis {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px;
+    }
+
+    .co-analysis h3 {
+      color: var(--main-color);
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 0 10px;
+    }
+
+    .co-analysis-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin: 0;
+    }
+
+    .co-analysis-list div {
+      color: var(--muted-color);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .co-analysis-list strong {
+      color: #222;
+      font-weight: 500;
+    }
+
+    .co-status {
+      border-radius: 999px;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      margin-left: 6px;
+      padding: 2px 8px;
+    }
+
+    .co-status.good {
+      background: #e8f5e9;
+      color: #1b6e25;
+    }
+
+    .co-status.near {
+      background: #fff7df;
+      color: #8a6200;
+    }
+
+    .co-status.no {
+      background: #fdeaea;
+      color: #a32020;
     }
 
     .placeholder {
@@ -421,19 +666,25 @@
     </section>
 
     <section class="tool-layout">
-      <div class="panel">
-        <div class="panel-inner">
-          <label for="tle-input">Satellite TLE</label>
-          <textarea id="tle-input" spellcheck="false">1 28414U 04035B   26182.83333333  .00007808  00000-0  53013-3 0 18256
-2 28414  97.6048 200.5129 0006426  94.5140  93.3098 15.06430444    19</textarea>
-          <div class="actions">
-            <button class="primary-button" id="analyze-button" type="button">Analyze TLE</button>
-            <button class="secondary-button" id="clear-button" type="button">Clear</button>
-          </div>
-          <p class="note">The tool estimates orbital values from the TLE mean elements. Operator, mission, and live operational status are not looked up from external catalogs.</p>
-          <div class="error" id="error-message" role="alert"></div>
-        </div>
+      <div class="tool-tabs" role="tablist" aria-label="TLE tools">
+        <button class="tab-button active" id="orbit-tab-button" type="button" role="tab" aria-selected="true" aria-controls="orbit-tab" data-tab-target="orbit-tab">Orbit &amp; Chile Overpass</button>
+        <button class="tab-button" id="conjunction-tab-button" type="button" role="tab" aria-selected="false" aria-controls="conjunction-tab" data-tab-target="conjunction-tab">Conjunction Check</button>
       </div>
+
+      <div class="tool-tab-panel active" id="orbit-tab" role="tabpanel" aria-labelledby="orbit-tab-button">
+        <div class="panel">
+          <div class="panel-inner">
+            <label for="tle-input">Satellite TLE</label>
+            <textarea id="tle-input" spellcheck="false">1 28414U 04035B   26182.83333333  .00007808  00000-0  53013-3 0 18256
+2 28414  97.6048 200.5129 0006426  94.5140  93.3098 15.06430444    19</textarea>
+            <div class="actions">
+              <button class="primary-button" id="analyze-button" type="button">Analyze TLE</button>
+              <button class="secondary-button" id="clear-button" type="button">Clear</button>
+            </div>
+            <p class="note">The tool estimates orbital values from the TLE mean elements. Operator, mission, and live operational status are not looked up from external catalogs.</p>
+            <div class="error" id="error-message" role="alert"></div>
+          </div>
+        </div>
 
       <div class="panel result">
         <div class="panel-inner">
@@ -465,12 +716,47 @@ Base Frei, -58.9600, -62.2000</textarea>
           </div>
         </div>
       </div>
+      </div>
+
+      <div class="tool-tab-panel" id="conjunction-tab" role="tabpanel" aria-labelledby="conjunction-tab-button">
+        <div class="panel result">
+          <div class="panel-inner">
+            <h2>TLE Conjunction Check</h2>
+            <div class="actions">
+              <button class="primary-button" id="conjunction-button" type="button">Check Selected Window</button>
+              <button class="secondary-button" id="copy-conjunction-button" type="button">Copy Conjunction Report</button>
+            </div>
+            <p class="note">Paste exactly two TLE sets. Choose the UTC analysis window for the orbital data. The checker flags possible conjunctions below 5 km for LEO pairs or 50 km for GEO/high-altitude pairs.</p>
+            <div class="date-grid">
+              <div class="date-field">
+                <label for="conjunction-start">Start UTC</label>
+                <input id="conjunction-start" type="datetime-local">
+              </div>
+              <div class="date-field">
+                <label for="conjunction-end">End UTC</label>
+                <input id="conjunction-end" type="datetime-local">
+              </div>
+            </div>
+            <label for="conjunction-input">Two TLE sets</label>
+            <textarea class="conjunction-input" id="conjunction-input" spellcheck="false">OBJECT A
+1 63223U 25052P   26185.32034954  .00005453  00000-0  23069-3 0 16743
+2 63223  97.3915  77.9100 0005854  85.2526 106.2732 15.23221171    13
+OBJECT B
+1 69979U          26187.60416667  .00383311  00000-0  16100-1 0 00001
+2 69979 097.3905 080.1581 0006699 088.5370 019.8750 15.23497037000369</textarea>
+            <div id="conjunction-output">
+              <p class="placeholder">Enter two TLE sets and run the conjunction check.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="protected-content">Site by yapostolovski</footer>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script>
     (function () {
       var password = "mcc2026";
@@ -529,19 +815,32 @@ Base Frei, -58.9600, -62.2000</textarea>
       var errorMessage = document.getElementById("error-message");
       var resultOutput = document.getElementById("result-output");
       var passesOutput = document.getElementById("passes-output");
+      var conjunctionInput = document.getElementById("conjunction-input");
+      var conjunctionStartInput = document.getElementById("conjunction-start");
+      var conjunctionEndInput = document.getElementById("conjunction-end");
+      var conjunctionButton = document.getElementById("conjunction-button");
+      var copyConjunctionButton = document.getElementById("copy-conjunction-button");
+      var conjunctionOutput = document.getElementById("conjunction-output");
+      var tabButtons = Array.prototype.slice.call(document.querySelectorAll("[data-tab-target]"));
+      var tabPanels = Array.prototype.slice.call(document.querySelectorAll(".tool-tab-panel"));
+      var activeTab = "orbit-tab";
       var currentAnalysis = "";
       var currentPassReport = "";
+      var currentConjunctionReport = "";
       var plotTimer = null;
       var naturalEarthUrl = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson";
       var basemapPromise = null;
       var overpassMap = null;
+      var conjunctionMap = null;
+      var rpoThreeView = null;
+      var rpoPlotlyView = null;
       var mapExtent = { minLon: -115, maxLon: -50, minLat: -90, maxLat: -15 };
       var mapColors = {
-        ocean: "#f9fbfd",
-        land: "#eef2e8",
-        landStroke: "#7f8a78",
-        chileLand: "#dcebd7",
-        chileStroke: "#2f6f55",
+        ocean: "#dfeaf2",
+        land: "#d8cfb4",
+        landStroke: "#5f6856",
+        chileLand: "#b8d9bb",
+        chileStroke: "#226347",
         continental: "#3b7f68",
         continentalPoint: "#2e7d65",
         insular: "#b06634",
@@ -549,7 +848,14 @@ Base Frei, -58.9600, -62.2000</textarea>
         antarctic: "#4d79a8",
         antarcticPoint: "#3f73a6",
         track: "#645893",
-        spot: "#c92f4d"
+        spot: "#c92f4d",
+        satA: "#2e7d65",
+        satB: "#ad5f22",
+        conjunction: "#d62728",
+        graticule: "#a8bfcc",
+        radial: "#d62728",
+        inTrack: "#006dce",
+        crossTrack: "#7b2cbf"
       };
       var chileRegions = [
         { name: "Continental Chile", key: "continental", minLat: -56.5, maxLat: -17.0, minLon: -76.5, maxLon: -66.0 },
@@ -611,6 +917,44 @@ Base Frei, -58.9600, -62.2000</textarea>
           pad(date.getMinutes(), 2);
       }
 
+      function formatDatetimeLocalUtc(date) {
+        return date.getUTCFullYear() + "-" +
+          pad(date.getUTCMonth() + 1, 2) + "-" +
+          pad(date.getUTCDate(), 2) + "T" +
+          pad(date.getUTCHours(), 2) + ":" +
+          pad(date.getUTCMinutes(), 2);
+      }
+
+      function parseUtcDatetimeInput(value, label) {
+        if (!value) throw new Error(label + " is required.");
+        var parsed = new Date(value + ":00Z");
+        if (isNaN(parsed.getTime())) throw new Error(label + " is invalid.");
+        return parsed;
+      }
+
+      function defaultConjunctionWindow() {
+        var start = new Date();
+        start.setUTCSeconds(0, 0);
+        var end = new Date(start.getTime() + 3 * secondsPerDay * 1000);
+        return { start: start, end: end };
+      }
+
+      function setDefaultConjunctionWindow() {
+        if (!conjunctionStartInput || !conjunctionEndInput) return;
+        var windowRange = defaultConjunctionWindow();
+        conjunctionStartInput.value = formatDatetimeLocalUtc(windowRange.start);
+        conjunctionEndInput.value = formatDatetimeLocalUtc(windowRange.end);
+      }
+
+      function readConjunctionWindow() {
+        var start = parseUtcDatetimeInput(conjunctionStartInput.value, "Start UTC");
+        var end = parseUtcDatetimeInput(conjunctionEndInput.value, "End UTC");
+        if (end <= start) throw new Error("End UTC must be after Start UTC.");
+        var durationDays = (end.getTime() - start.getTime()) / (secondsPerDay * 1000);
+        if (durationDays > 14) throw new Error("Please choose a window of 14 days or less.");
+        return { start: start, end: end };
+      }
+
       function formatBstar(value) {
         if (!isFinite(value)) return "Unknown";
         if (value === 0) return "0";
@@ -644,9 +988,27 @@ Base Frei, -58.9600, -62.2000</textarea>
         return parts.join(", ");
       }
 
+      function normalizeTleLine(line) {
+        return String(line || "").trim().replace(/[;,]+$/g, "").trim();
+      }
+
+      function requireFiniteNumber(value, label) {
+        if (!isFinite(value)) throw new Error("The TLE " + label + " field could not be parsed.");
+        return value;
+      }
+
+      function isEpochField(value) {
+        return /^\d{5}\.\d+$/.test(String(value || "").trim());
+      }
+
+      function fieldAfter(fields, value, offset) {
+        var index = fields.indexOf(value);
+        return index >= 0 ? fields[index + offset] : "";
+      }
+
       function parseTle(raw) {
         var lines = raw.split(/\r?\n/).map(function (line) {
-          return line.trim();
+          return normalizeTleLine(line);
         }).filter(Boolean);
 
         var name = "Object Name Unknown";
@@ -661,25 +1023,35 @@ Base Frei, -58.9600, -62.2000</textarea>
 
         var fields1 = line1.split(/\s+/);
         var fields2 = line2.split(/\s+/);
-        if (fields1.length < 8 || fields2.length < 8) throw new Error("The TLE format could not be parsed.");
+        var epochField = line1.slice(18, 32).trim();
+        if (!isEpochField(epochField)) {
+          epochField = fields1.find(isEpochField) || "";
+        }
+        if (!epochField || fields2.length < 8) throw new Error("The TLE format could not be parsed.");
 
-        var norad = fields1[1].replace(/[A-Z]$/, "");
-        var intl = fields1[2] || "";
+        var norad = line1.slice(2, 7).trim();
+        var intl = line1.slice(9, 17).trim();
+        if (!/^\d{5}[A-Z]{1,3}$/i.test(intl) && fields1[2] && /^\d{5}[A-Z]{1,3}$/i.test(fields1[2])) {
+          intl = fields1[2];
+        }
         var launchYear = Number(intl.slice(0, 2));
         var launchYearFull = launchYear < 57 ? 2000 + launchYear : 1900 + launchYear;
         var launchNumber = intl.slice(2, 5);
         var launchPiece = intl.slice(5);
-        var cospar = intl ? launchYearFull + "-" + launchNumber + launchPiece : "Unknown";
-        var epoch = parseEpoch(fields1[3]);
-        var ndot = Number(fields1[4]);
-        var bstar = parseExponentField(fields1[6]);
+        var hasIntlDesignator = /^\d{5}[A-Z]{1,3}$/i.test(intl);
+        var cospar = hasIntlDesignator ? launchYearFull + "-" + launchNumber + launchPiece : "Unknown";
+        var epoch = parseEpoch(epochField);
+        var ndot = Number(line1.slice(33, 43).trim());
+        if (!isFinite(ndot)) ndot = Number(fieldAfter(fields1, epochField, 1));
+        var bstar = parseExponentField(line1.slice(53, 61).trim());
+        if (!isFinite(bstar)) bstar = parseExponentField(fieldAfter(fields1, epochField, 3));
 
-        var inclination = Number(fields2[2]);
-        var raan = Number(fields2[3]);
-        var eccentricity = Number("0." + fields2[4]);
-        var argumentOfPerigee = Number(fields2[5]);
-        var meanAnomaly = Number(fields2[6]);
-        var meanMotion = Number(fields2[7]);
+        var inclination = requireFiniteNumber(Number(fields2[2]), "inclination");
+        var raan = requireFiniteNumber(Number(fields2[3]), "RAAN");
+        var eccentricity = requireFiniteNumber(Number("0." + fields2[4]), "eccentricity");
+        var argumentOfPerigee = requireFiniteNumber(Number(fields2[5]), "argument of perigee");
+        var meanAnomaly = requireFiniteNumber(Number(fields2[6]), "mean anomaly");
+        var meanMotion = requireFiniteNumber(Number(fields2[7]), "mean motion");
         var periodMinutes = 1440 / meanMotion;
         var meanMotionRadSec = meanMotion * 2 * Math.PI / secondsPerDay;
         var semiMajorAxis = Math.pow(mu / (meanMotionRadSec * meanMotionRadSec), 1 / 3);
@@ -696,7 +1068,7 @@ Base Frei, -58.9600, -62.2000</textarea>
           line2: line2,
           norad: norad,
           cospar: cospar,
-          launchYear: intl ? String(launchYearFull) : "Unknown",
+          launchYear: hasIntlDesignator ? String(launchYearFull) : "Unknown",
           epoch: formatUtc(epoch),
           ndot: ndot,
           bstar: bstar,
@@ -707,6 +1079,7 @@ Base Frei, -58.9600, -62.2000</textarea>
           argumentOfPerigee: argumentOfPerigee,
           meanAnomaly: meanAnomaly,
           meanMotion: meanMotion,
+          semiMajorAxis: semiMajorAxis,
           periodMinutes: periodMinutes,
           perigeeAltitude: perigeeAltitude,
           apogeeAltitude: apogeeAltitude,
@@ -740,6 +1113,31 @@ Base Frei, -58.9600, -62.2000</textarea>
           }
           return { label: label, lat: lat, lon: lon };
         });
+      }
+
+      function parseTleSets(raw) {
+        var lines = String(raw || "").split(/\r?\n/).map(function (line) {
+          return normalizeTleLine(line);
+        }).filter(Boolean);
+        var sets = [];
+        var pendingName = "";
+
+        for (var index = 0; index < lines.length; index += 1) {
+          var line = lines[index];
+          if (line.charAt(0) === "1") {
+            if (index + 1 >= lines.length || lines[index + 1].charAt(0) !== "2") {
+              throw new Error("Each TLE line 1 must be followed by a line 2.");
+            }
+            sets.push(parseTle([pendingName, line, lines[index + 1]].filter(Boolean).join("\n")));
+            pendingName = "";
+            index += 1;
+          } else if (line.charAt(0) !== "2") {
+            pendingName = line;
+          }
+        }
+
+        if (sets.length !== 2) throw new Error("Please enter exactly two TLE sets.");
+        return sets;
       }
 
       function formatAnalysis(result) {
@@ -816,7 +1214,7 @@ Base Frei, -58.9600, -62.2000</textarea>
         return toRad(((gmstDegrees % 360) + 360) % 360);
       }
 
-      function propagateSubpoint(tle, date) {
+      function propagateState(tle, date) {
         var dt = (date.getTime() - tle.epochDate.getTime()) / 1000;
         var inclination = toRad(tle.inclination);
         var eccentricity = tle.eccentricity;
@@ -837,8 +1235,13 @@ Base Frei, -58.9600, -62.2000</textarea>
         );
         var radius = semiMajorAxis * (1 - eccentricity * Math.cos(eccentricAnomaly));
         var u = argPerigee + trueAnomaly;
+        var speedScale = Math.sqrt(mu / p);
+        var vxPerifocal = -speedScale * Math.sin(trueAnomaly);
+        var vyPerifocal = speedScale * (eccentricity + Math.cos(trueAnomaly));
         var cosRaan = Math.cos(raan);
         var sinRaan = Math.sin(raan);
+        var cosArg = Math.cos(argPerigee);
+        var sinArg = Math.sin(argPerigee);
         var cosU = Math.cos(u);
         var sinU = Math.sin(u);
         var cosI = Math.cos(inclination);
@@ -846,13 +1249,23 @@ Base Frei, -58.9600, -62.2000</textarea>
         var x = radius * (cosRaan * cosU - sinRaan * sinU * cosI);
         var y = radius * (sinRaan * cosU + cosRaan * sinU * cosI);
         var z = radius * (sinU * sinI);
+        var vx = (cosRaan * cosArg - sinRaan * sinArg * cosI) * vxPerifocal +
+          (-cosRaan * sinArg - sinRaan * cosArg * cosI) * vyPerifocal;
+        var vy = (sinRaan * cosArg + cosRaan * sinArg * cosI) * vxPerifocal +
+          (-sinRaan * sinArg + cosRaan * cosArg * cosI) * vyPerifocal;
+        var vz = (sinArg * sinI) * vxPerifocal + (cosArg * sinI) * vyPerifocal;
         var theta = gmst(date);
         var xFixed = Math.cos(theta) * x + Math.sin(theta) * y;
         var yFixed = -Math.sin(theta) * x + Math.cos(theta) * y;
         var lon = normalizeLongitude(toDeg(Math.atan2(yFixed, xFixed)));
         var lat = toDeg(Math.atan2(z, Math.sqrt(xFixed * xFixed + yFixed * yFixed)));
         var alt = Math.sqrt(x * x + y * y + z * z) - earthRadiusKm;
-        return { date: date, lat: lat, lon: lon, altitude: alt };
+        return { date: date, x: x, y: y, z: z, vx: vx, vy: vy, vz: vz, lat: lat, lon: lon, altitude: alt };
+      }
+
+      function propagateSubpoint(tle, date) {
+        var state = propagateState(tle, date);
+        return { date: state.date, lat: state.lat, lon: state.lon, altitude: state.altitude };
       }
 
       function pointRegion(point) {
@@ -935,10 +1348,17 @@ Base Frei, -58.9600, -62.2000</textarea>
       function loadBasemap() {
         if (!basemapPromise) {
           basemapPromise = typeof fetch === "function" ?
-            fetch(naturalEarthUrl).then(function (response) {
-              if (!response.ok) throw new Error("Map source returned " + response.status);
-              return response.json();
-            }).catch(function () {
+            Promise.race([
+              fetch(naturalEarthUrl).then(function (response) {
+                if (!response.ok) throw new Error("Map source returned " + response.status);
+                return response.json();
+              }),
+              new Promise(function (resolve) {
+                window.setTimeout(function () {
+                  resolve(null);
+                }, 3000);
+              })
+            ]).catch(function () {
               return null;
             }) :
             Promise.resolve(null);
@@ -975,56 +1395,109 @@ Base Frei, -58.9600, -62.2000</textarea>
 
       function clippedBasemap(geojson) {
         if (!geojson || !geojson.features) return null;
+        var features = geojson.features.filter(function (feature) {
+          if (!feature.geometry) return false;
+          return boundsIntersect(geometryBounds(feature.geometry), mapExtent);
+        }).map(function (feature) {
+          var copy = {
+            type: "Feature",
+            properties: Object.assign({}, feature.properties || {}),
+            geometry: feature.geometry
+          };
+          copy.properties.isChile = featureName(feature) === "Chile";
+          return copy;
+        });
+        if (!features.length) return null;
         return {
           type: "FeatureCollection",
-          features: geojson.features.filter(function (feature) {
-            if (!feature.geometry) return false;
-            return boundsIntersect(geometryBounds(feature.geometry), mapExtent);
-          }).map(function (feature) {
-            var copy = {
-              type: "Feature",
-              properties: Object.assign({}, feature.properties || {}),
-              geometry: feature.geometry
-            };
-            copy.properties.isChile = featureName(feature) === "Chile";
-            return copy;
-          })
+          features: features
         };
       }
 
-      function fallbackBasemapGeojson() {
-        var continentalChile = [
-          [-70.4, -17.6], [-69.0, -20.5], [-70.2, -25.5], [-70.8, -30.5],
-          [-71.7, -35.0], [-73.5, -41.5], [-75.2, -48.5], [-73.8, -53.8],
-          [-68.6, -54.9], [-71.0, -44.5], [-70.0, -35.0], [-68.5, -25.0],
-          [-70.4, -17.6]
-        ];
-        var southAmerica = [
-          [-81.5, -15.0], [-76.0, -22.0], [-72.0, -33.0], [-74.0, -45.0],
-          [-68.0, -55.0], [-61.0, -51.0], [-58.0, -38.0], [-61.5, -28.0],
-          [-66.5, -21.0], [-71.0, -17.0], [-81.5, -15.0]
-        ];
-        var antarctica = [
-          [-115, -72], [-100, -68], [-83, -66], [-63, -64], [-50, -70],
-          [-50, -90], [-115, -90], [-115, -72]
-        ];
+      function globalBasemap(geojson) {
+        if (!geojson || !geojson.features) return null;
+        var features = geojson.features.map(function (feature) {
+          return {
+            type: "Feature",
+            properties: Object.assign({}, feature.properties || {}, { isChile: featureName(feature) === "Chile" }),
+            geometry: feature.geometry
+          };
+        }).filter(function (feature) {
+          return Boolean(feature.geometry);
+        });
+        if (!features.length) return null;
+        return {
+          type: "FeatureCollection",
+          features: features
+        };
+      }
+
+      function embeddedWorldBasemapGeojson() {
+        function polygonFeature(name, coordinates) {
+          return {
+            type: "Feature",
+            properties: { name: name, isChile: name === "Chile" },
+            geometry: {
+              type: "Polygon",
+              coordinates: [coordinates]
+            }
+          };
+        }
 
         return {
           type: "FeatureCollection",
-          features: [{
-            type: "Feature",
-            properties: { isChile: false },
-            geometry: { type: "Polygon", coordinates: [southAmerica] }
-          }, {
-            type: "Feature",
-            properties: { isChile: false },
-            geometry: { type: "Polygon", coordinates: [antarctica] }
-          }, {
-            type: "Feature",
-            properties: { isChile: true },
-            geometry: { type: "Polygon", coordinates: [continentalChile] }
-          }]
+          features: [
+            polygonFeature("North America", [
+              [-168, 72], [-141, 70], [-124, 58], [-111, 50], [-95, 49], [-79, 45],
+              [-57, 51], [-52, 42], [-66, 32], [-82, 25], [-97, 19], [-107, 24],
+              [-118, 33], [-126, 48], [-150, 60], [-168, 72]
+            ]),
+            polygonFeature("Central America", [
+              [-97, 19], [-83, 18], [-77, 9], [-82, 7], [-91, 14], [-97, 19]
+            ]),
+            polygonFeature("South America", [
+              [-81, 12], [-66, 11], [-49, -5], [-36, -18], [-40, -35], [-54, -53],
+              [-68, -55], [-75, -40], [-79, -20], [-81, 12]
+            ]),
+            polygonFeature("Chile", [
+              [-70.4, -17.6], [-69.0, -20.5], [-70.2, -25.5], [-70.8, -30.5],
+              [-71.7, -35.0], [-73.5, -41.5], [-75.2, -48.5], [-73.8, -53.8],
+              [-68.6, -54.9], [-71.0, -44.5], [-70.0, -35.0], [-68.5, -25.0],
+              [-70.4, -17.6]
+            ]),
+            polygonFeature("Greenland", [
+              [-52, 83], [-22, 80], [-18, 67], [-43, 59], [-61, 65], [-52, 83]
+            ]),
+            polygonFeature("Europe", [
+              [-11, 36], [2, 51], [22, 60], [41, 56], [39, 42], [27, 36],
+              [10, 37], [-11, 36]
+            ]),
+            polygonFeature("Asia", [
+              [25, 35], [48, 57], [72, 70], [103, 75], [142, 70], [169, 61],
+              [151, 45], [126, 33], [109, 16], [78, 7], [45, 13], [25, 35]
+            ]),
+            polygonFeature("Africa", [
+              [-17, 35], [10, 37], [34, 31], [51, 11], [43, -18], [28, -35],
+              [15, -35], [0, -24], [-14, 4], [-17, 35]
+            ]),
+            polygonFeature("Australia", [
+              [113, -11], [154, -11], [154, -34], [145, -44], [119, -36],
+              [113, -21], [113, -11]
+            ]),
+            polygonFeature("Antarctica", [
+              [-180, -64], [-120, -70], [-60, -66], [0, -72], [60, -66],
+              [120, -70], [180, -64], [180, -90], [-180, -90], [-180, -64]
+            ])
+          ]
         };
+      }
+
+      function globalFallbackBasemapGeojson() {
+        return embeddedWorldBasemapGeojson();
+      }
+
+      function fallbackBasemapGeojson() {
+        return clippedBasemap(embeddedWorldBasemapGeojson());
       }
 
       function regionGeojson() {
@@ -1098,11 +1571,315 @@ Base Frei, -58.9600, -62.2000</textarea>
         };
       }
 
+      function distanceKm(a, b) {
+        var dx = a.x - b.x;
+        var dy = a.y - b.y;
+        var dz = a.z - b.z;
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+      }
+
+      function vectorDot(a, b) {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+      }
+
+      function vectorCross(a, b) {
+        return {
+          x: a.y * b.z - a.z * b.y,
+          y: a.z * b.x - a.x * b.z,
+          z: a.x * b.y - a.y * b.x
+        };
+      }
+
+      function vectorMagnitude(a) {
+        return Math.sqrt(vectorDot(a, a));
+      }
+
+      function vectorUnit(a) {
+        var magnitude = vectorMagnitude(a);
+        if (!magnitude) return { x: 0, y: 0, z: 0 };
+        return {
+          x: a.x / magnitude,
+          y: a.y / magnitude,
+          z: a.z / magnitude
+        };
+      }
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function angularDifferenceDeg(first, second) {
+        var delta = ((first - second + 180) % 360 + 360) % 360 - 180;
+        return Math.abs(delta);
+      }
+
+      function planeAngleFromStates(first, second) {
+        var firstPlane = vectorUnit(vectorCross(first, { x: first.vx, y: first.vy, z: first.vz }));
+        var secondPlane = vectorUnit(vectorCross(second, { x: second.vx, y: second.vy, z: second.vz }));
+        return toDeg(Math.acos(clamp(vectorDot(firstPlane, secondPlane), -1, 1)));
+      }
+
+      function mean(values) {
+        if (!values.length) return 0;
+        return values.reduce(function (sum, value) { return sum + value; }, 0) / values.length;
+      }
+
+      function relativeSeparation(first, second) {
+        var delta = {
+          x: second.x - first.x,
+          y: second.y - first.y,
+          z: second.z - first.z
+        };
+        var radiusAxis = vectorUnit(first);
+        var velocity = { x: first.vx, y: first.vy, z: first.vz };
+        var crossAxis = vectorUnit(vectorCross(first, velocity));
+        var inTrackAxis = vectorUnit(vectorCross(crossAxis, radiusAxis));
+
+        return {
+          radial: vectorDot(delta, radiusAxis),
+          inTrack: vectorDot(delta, inTrackAxis),
+          crossTrack: vectorDot(delta, crossAxis),
+          total: vectorMagnitude(delta)
+        };
+      }
+
+      function conjunctionThreshold(first, second) {
+        var leoPair = first.regime === "LEO" && second.regime === "LEO";
+        return {
+          km: leoPair ? 5 : 50,
+          label: leoPair ? "LEO pair threshold" : "GEO/high-altitude threshold"
+        };
+      }
+
+      function coStatusClass(status) {
+        if (status === "YES") return "good";
+        if (status === "NEAR") return "near";
+        return "no";
+      }
+
+      function coStatusBadge(status) {
+        return "<span class=\"co-status " + coStatusClass(status) + "\">" + status + "</span>";
+      }
+
+      function buildCoOrbitalAnalysis(result) {
+        var first = result.first;
+        var second = result.second;
+        var planeAngles = result.samples.map(function (sample) {
+          return planeAngleFromStates(sample.first, sample.second);
+        });
+        var crossTrackAbs = result.samples.map(function (sample) {
+          return Math.abs(sample.relative.crossTrack);
+        });
+        var inTrackValues = result.samples.map(function (sample) {
+          return sample.relative.inTrack;
+        });
+        var periodDeltaSeconds = Math.abs(first.periodMinutes - second.periodMinutes) * 60;
+        var semiMajorDeltaKm = Math.abs(first.semiMajorAxis - second.semiMajorAxis);
+        var meanAltitudeDeltaKm = Math.abs(first.meanAltitude - second.meanAltitude);
+        var meanMotionDelta = Math.abs(first.meanMotion - second.meanMotion);
+        var eccentricityDelta = Math.abs(first.eccentricity - second.eccentricity);
+        var raanDelta = angularDifferenceDeg(first.raan, second.raan);
+        var inclinationDelta = Math.abs(first.inclination - second.inclination);
+        var planeAtPoca = planeAngleFromStates(result.minimum.first, result.minimum.second);
+        var minPlaneAngle = Math.min.apply(null, planeAngles);
+        var maxPlaneAngle = Math.max.apply(null, planeAngles);
+        var minCrossTrackAbs = Math.min.apply(null, crossTrackAbs);
+        var inTrackSpan = Math.max.apply(null, inTrackValues) - Math.min.apply(null, inTrackValues);
+        var durationDays = Math.max((result.end.getTime() - result.start.getTime()) / (secondsPerDay * 1000), 1 / secondsPerDay);
+        var alongTrackDriftKmDay = inTrackSpan / durationDays;
+
+        var coplanarStatus = planeAtPoca <= 0.25 && inclinationDelta <= 0.25 ? "YES" :
+          (planeAtPoca <= 2 && inclinationDelta <= 2 ? "NEAR" : "NO");
+        var coorbitalStatus = periodDeltaSeconds <= 10 && semiMajorDeltaKm <= 10 && eccentricityDelta <= 0.002 && coplanarStatus === "YES" ? "YES" :
+          (periodDeltaSeconds <= 90 && semiMajorDeltaKm <= 75 && eccentricityDelta <= 0.01 && coplanarStatus !== "NO" ? "NEAR" : "NO");
+
+        var notes = [];
+        if (coorbitalStatus === "YES") {
+          notes.push("Mean orbit size, period, eccentricity, and plane are tightly matched in this TLE window.");
+        } else if (coorbitalStatus === "NEAR") {
+          notes.push("The objects are in a similar orbital neighborhood, but drift or plane differences still need RPO review.");
+        } else {
+          notes.push("The TLEs do not describe a co-orbital pair by the current screening thresholds.");
+        }
+        if (coplanarStatus === "NO") {
+          notes.push("Plane separation is large enough that cross-track geometry is a primary driver.");
+        } else if (minCrossTrackAbs <= 5) {
+          notes.push("The sampled window includes low cross-track separation, which is relevant for close-approach screening.");
+        }
+
+        return {
+          coplanarStatus: coplanarStatus,
+          coorbitalStatus: coorbitalStatus,
+          periodDeltaSeconds: periodDeltaSeconds,
+          semiMajorDeltaKm: semiMajorDeltaKm,
+          meanAltitudeDeltaKm: meanAltitudeDeltaKm,
+          meanMotionDelta: meanMotionDelta,
+          eccentricityDelta: eccentricityDelta,
+          raanDelta: raanDelta,
+          inclinationDelta: inclinationDelta,
+          planeAtPoca: planeAtPoca,
+          minPlaneAngle: minPlaneAngle,
+          maxPlaneAngle: maxPlaneAngle,
+          meanPlaneAngle: mean(planeAngles),
+          crossTrackAtPoca: result.minimum.relative.crossTrack,
+          minCrossTrackAbs: minCrossTrackAbs,
+          inTrackAtPoca: result.minimum.relative.inTrack,
+          radialAtPoca: result.minimum.relative.radial,
+          alongTrackDriftKmDay: alongTrackDriftKmDay,
+          notes: notes
+        };
+      }
+
+      function buildConjunction(first, second, windowRange) {
+        var start = new Date(windowRange.start.getTime());
+        var end = new Date(windowRange.end.getTime());
+        var threshold = conjunctionThreshold(first, second);
+        var stepMs = 60 * 1000;
+        var samples = [];
+        var events = [];
+        var active = null;
+        var minimum = null;
+
+        for (var time = start.getTime(); time <= end.getTime(); time += stepMs) {
+          var date = new Date(time);
+          var stateA = propagateState(first, date);
+          var stateB = propagateState(second, date);
+          var distance = distanceKm(stateA, stateB);
+          var sample = { date: date, first: stateA, second: stateB, distance: distance, relative: relativeSeparation(stateA, stateB) };
+          samples.push(sample);
+
+          if (!minimum || distance < minimum.distance) minimum = sample;
+
+          if (distance <= threshold.km && !active) {
+            active = { start: date, end: date, minimum: sample };
+          } else if (distance <= threshold.km && active) {
+            active.end = date;
+            if (distance < active.minimum.distance) active.minimum = sample;
+          } else if (distance > threshold.km && active) {
+            events.push(active);
+            active = null;
+          }
+        }
+        if (active) events.push(active);
+
+        if (minimum) {
+          var fineStart = Math.max(start.getTime(), minimum.date.getTime() - 3 * 60 * 1000);
+          var fineEnd = Math.min(end.getTime(), minimum.date.getTime() + 3 * 60 * 1000);
+          for (var fineTime = fineStart; fineTime <= fineEnd; fineTime += 5 * 1000) {
+            var fineDate = new Date(fineTime);
+            var fineA = propagateState(first, fineDate);
+            var fineB = propagateState(second, fineDate);
+            var fineDistance = distanceKm(fineA, fineB);
+            if (fineDistance < minimum.distance) {
+              minimum = {
+                date: fineDate,
+                first: fineA,
+                second: fineB,
+                distance: fineDistance,
+                relative: relativeSeparation(fineA, fineB)
+              };
+            }
+          }
+        }
+
+        var result = {
+          first: first,
+          second: second,
+          start: start,
+          end: end,
+          threshold: threshold,
+          samples: samples,
+          events: events,
+          minimum: minimum,
+          hasConjunction: Boolean(minimum && minimum.distance <= threshold.km)
+        };
+        result.coOrbital = buildCoOrbitalAnalysis(result);
+        return result;
+      }
+
+      function conjunctionTrackGeojson(result, key) {
+        var segments = [];
+        var current = [];
+        result.samples.forEach(function (sample, index) {
+          var state = sample[key];
+          if (index > 0) {
+            var previous = result.samples[index - 1][key];
+            if (Math.abs(state.lon - previous.lon) > 180 && current.length) {
+              segments.push(current);
+              current = [];
+            }
+          }
+          current.push([state.lon, state.lat]);
+        });
+        if (current.length) segments.push(current);
+
+        return {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "MultiLineString",
+            coordinates: segments
+          }
+        };
+      }
+
+      function closestApproachGeojson(result) {
+        if (!result.minimum) return { type: "FeatureCollection", features: [] };
+        return {
+          type: "FeatureCollection",
+          features: [{
+            type: "Feature",
+            properties: { label: result.first.name },
+            geometry: { type: "Point", coordinates: [result.minimum.first.lon, result.minimum.first.lat] }
+          }, {
+            type: "Feature",
+            properties: { label: result.second.name },
+            geometry: { type: "Point", coordinates: [result.minimum.second.lon, result.minimum.second.lat] }
+          }]
+        };
+      }
+
+      function nearestSampleIndex(result, date) {
+        var target = date.getTime();
+        var bestIndex = 0;
+        var bestDelta = Infinity;
+        result.samples.forEach(function (sample, index) {
+          var delta = Math.abs(sample.date.getTime() - target);
+          if (delta < bestDelta) {
+            bestDelta = delta;
+            bestIndex = index;
+          }
+        });
+        return bestIndex;
+      }
+
+      function currentPositionGeojson(result, index) {
+        var sample = result.samples[Math.max(0, Math.min(result.samples.length - 1, index))];
+        return {
+          type: "FeatureCollection",
+          features: [{
+            type: "Feature",
+            properties: { label: "A", satellite: "A", distance: sample.distance },
+            geometry: { type: "Point", coordinates: [sample.first.lon, sample.first.lat] }
+          }, {
+            type: "Feature",
+            properties: { label: "B", satellite: "B", distance: sample.distance },
+            geometry: { type: "Point", coordinates: [sample.second.lon, sample.second.lat] }
+          }]
+        };
+      }
+
       function renderMapSource(mapLoaded) {
         return "<p class=\"map-source\">Map source: " +
           (mapLoaded ? "Natural Earth 1:10m Admin 0 countries rendered with MapLibre GL JS. Coordinates: WGS84 lon/lat GeoJSON." :
             "Simplified coordinate fallback rendered with MapLibre GL JS. Coordinates: WGS84 lon/lat GeoJSON.") +
           "</p>";
+      }
+
+      function renderGlobalMapSource(mapLoaded) {
+        return "<p class=\"map-source\">Global conjunction map source: " +
+          "built-in simplified continent polygons, defaulting to a full-world lon/lat view, rendered with MapLibre GL JS." +
+          " Coordinates: WGS84 lon/lat GeoJSON.</p>";
       }
 
       function initMapLibre(data, basemap, spots) {
@@ -1119,6 +1896,7 @@ Base Frei, -58.9600, -62.2000</textarea>
           container: container,
           style: {
             version: 8,
+            glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
             sources: {},
             layers: [{
               id: "background",
@@ -1247,6 +2025,231 @@ Base Frei, -58.9600, -62.2000</textarea>
         });
       }
 
+      function fitConjunctionWorldMap(map) {
+        if (!map || !map.fitBounds) return;
+        map.resize();
+        map.fitBounds([[-179.9, -84], [179.9, 84]], {
+          padding: 0,
+          duration: 0
+        });
+      }
+
+      function worldFrameGeojson() {
+        return {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Polygon",
+            coordinates: [[
+              [-180, -85],
+              [180, -85],
+              [180, 85],
+              [-180, 85],
+              [-180, -85]
+            ]]
+          }
+        };
+      }
+
+      function graticuleGeojson() {
+        var features = [];
+        var lon;
+        var lat;
+
+        for (lon = -150; lon <= 150; lon += 30) {
+          features.push({
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: [[lon, -85], [lon, 85]]
+            }
+          });
+        }
+
+        for (lat = -60; lat <= 60; lat += 30) {
+          features.push({
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: [[-180, lat], [180, lat]]
+            }
+          });
+        }
+
+        return {
+          type: "FeatureCollection",
+          features: features
+        };
+      }
+
+      function initConjunctionMap(result, basemap) {
+        var container = document.getElementById("conjunction-map");
+        if (!container || typeof maplibregl === "undefined") return;
+
+        if (conjunctionMap && conjunctionMap.remove) {
+          conjunctionMap.remove();
+          conjunctionMap = null;
+        }
+
+        var countryData = globalBasemap(basemap) || globalFallbackBasemapGeojson();
+        var map = new maplibregl.Map({
+          container: container,
+          style: {
+            version: 8,
+            glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+            sources: {},
+            layers: [{
+              id: "background",
+              type: "background",
+              paint: { "background-color": mapColors.ocean }
+            }]
+          },
+          center: [0, 0],
+          zoom: 0,
+          minZoom: 0,
+          maxZoom: 8,
+          renderWorldCopies: false
+        });
+        conjunctionMap = map;
+        map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
+
+        map.on("load", function () {
+          map.addSource("world-frame", { type: "geojson", data: worldFrameGeojson() });
+          map.addSource("graticule", { type: "geojson", data: graticuleGeojson() });
+          map.addSource("countries", { type: "geojson", data: countryData });
+          map.addSource("first-track", { type: "geojson", data: conjunctionTrackGeojson(result, "first") });
+          map.addSource("second-track", { type: "geojson", data: conjunctionTrackGeojson(result, "second") });
+          map.addSource("closest-points", { type: "geojson", data: closestApproachGeojson(result) });
+          map.addSource("current-positions", {
+            type: "geojson",
+            data: currentPositionGeojson(result, nearestSampleIndex(result, result.minimum.date))
+          });
+
+          map.addLayer({
+            id: "world-frame-fill",
+            type: "fill",
+            source: "world-frame",
+            paint: {
+              "fill-color": mapColors.ocean,
+              "fill-opacity": 1
+            }
+          });
+          map.addLayer({
+            id: "graticule-line",
+            type: "line",
+            source: "graticule",
+            paint: {
+              "line-color": mapColors.graticule,
+              "line-opacity": 0.42,
+              "line-width": 0.7
+            }
+          });
+          map.addLayer({
+            id: "countries-fill",
+            type: "fill",
+            source: "countries",
+            paint: {
+              "fill-color": ["case", ["==", ["get", "isChile"], true], mapColors.chileLand, mapColors.land],
+              "fill-opacity": 0.9
+            }
+          });
+          map.addLayer({
+            id: "countries-line",
+            type: "line",
+            source: "countries",
+            paint: {
+              "line-color": ["case", ["==", ["get", "isChile"], true], mapColors.chileStroke, mapColors.landStroke],
+              "line-width": ["case", ["==", ["get", "isChile"], true], 1.5, 0.75]
+            }
+          });
+          map.addLayer({
+            id: "first-track-line",
+            type: "line",
+            source: "first-track",
+            paint: {
+              "line-color": mapColors.satA,
+              "line-opacity": 0.82,
+              "line-width": 2
+            }
+          });
+          map.addLayer({
+            id: "second-track-line",
+            type: "line",
+            source: "second-track",
+            paint: {
+              "line-color": mapColors.satB,
+              "line-opacity": 0.82,
+              "line-width": 2
+            }
+          });
+          map.addLayer({
+            id: "closest-points",
+            type: "circle",
+            source: "closest-points",
+            paint: {
+              "circle-radius": 6,
+              "circle-color": mapColors.conjunction,
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 1.5
+            }
+          });
+          map.addLayer({
+            id: "closest-labels",
+            type: "symbol",
+            source: "closest-points",
+            layout: {
+              "text-field": ["get", "label"],
+              "text-size": 12,
+              "text-offset": [0, 1.15],
+              "text-anchor": "top"
+            },
+            paint: {
+              "text-color": mapColors.conjunction,
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1.2
+            }
+          });
+          map.addLayer({
+            id: "current-positions",
+            type: "circle",
+            source: "current-positions",
+            paint: {
+              "circle-radius": 7,
+              "circle-color": [
+                "match", ["get", "satellite"],
+                "A", mapColors.satA,
+                "B", mapColors.satB,
+                mapColors.conjunction
+              ],
+              "circle-stroke-color": "#111111",
+              "circle-stroke-width": 1.2
+            }
+          });
+          map.addLayer({
+            id: "current-position-labels",
+            type: "symbol",
+            source: "current-positions",
+            layout: {
+              "text-field": ["get", "label"],
+              "text-size": 13,
+              "text-offset": [0, -1.15],
+              "text-anchor": "bottom"
+            },
+            paint: {
+              "text-color": "#111111",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1.2
+            }
+          });
+          fitConjunctionWorldMap(map);
+          window.setTimeout(function () {
+            fitConjunctionWorldMap(map);
+          }, 120);
+        });
+      }
+
       function renderMapFallbackMessage() {
         return "<div class=\"map-wrap\"><div class=\"overpass-map\" id=\"overpass-map\">" +
           "<p class=\"placeholder\" style=\"padding:16px\">MapLibre GL JS could not be loaded. Check the CDN connection and reload the page.</p>" +
@@ -1255,6 +2258,1018 @@ Base Frei, -58.9600, -62.2000</textarea>
 
       function renderMapContainer() {
         return "<div class=\"map-wrap\"><div class=\"overpass-map\" id=\"overpass-map\"></div></div>";
+      }
+
+      function renderConjunctionMapContainer() {
+        return "<div class=\"map-wrap\"><div class=\"overpass-map\" id=\"conjunction-map\"></div></div>";
+      }
+
+      function worldSvgPoint(lon, lat, width, height) {
+        return {
+          x: ((lon + 180) / 360) * width,
+          y: ((90 - lat) / 180) * height
+        };
+      }
+
+      function renderCoordinatePath(coordinates, width, height) {
+        return coordinates.map(function (point, index) {
+          var projected = worldSvgPoint(point[0], point[1], width, height);
+          return (index === 0 ? "M" : "L") + projected.x.toFixed(1) + " " + projected.y.toFixed(1);
+        }).join(" ");
+      }
+
+      function renderStaticWorldFeature(feature, width, height) {
+        var geometry = feature.geometry;
+        if (!geometry) return "";
+        var fill = feature.properties && feature.properties.isChile ? mapColors.chileLand : mapColors.land;
+        var stroke = feature.properties && feature.properties.isChile ? mapColors.chileStroke : mapColors.landStroke;
+        var polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
+        return polygons.map(function (polygon) {
+          if (!polygon || !polygon.length) return "";
+          return "<path d=\"" + renderCoordinatePath(polygon[0], width, height) + " Z\" fill=\"" + fill +
+            "\" stroke=\"" + stroke + "\" stroke-width=\"1\" />";
+        }).join("");
+      }
+
+      function renderStaticTrack(track, color, width, height) {
+        return track.geometry.coordinates.map(function (segment) {
+          if (segment.length < 2) return "";
+          return "<path d=\"" + renderCoordinatePath(segment, width, height) +
+            "\" fill=\"none\" stroke=\"" + color + "\" stroke-width=\"2.2\" stroke-opacity=\"0.86\" />";
+        }).join("");
+      }
+
+      function renderStaticPoint(point, label, color, width, height) {
+        var projected = worldSvgPoint(point.lon, point.lat, width, height);
+        return "<circle cx=\"" + projected.x.toFixed(1) + "\" cy=\"" + projected.y.toFixed(1) +
+          "\" r=\"5.5\" fill=\"" + color + "\" stroke=\"#ffffff\" stroke-width=\"1.4\" />" +
+          "<text x=\"" + projected.x.toFixed(1) + "\" y=\"" + (projected.y - 9).toFixed(1) +
+          "\" text-anchor=\"middle\" font-size=\"12\" fill=\"#111\" stroke=\"#fff\" stroke-width=\"2.4\" paint-order=\"stroke\">" +
+          escapeHtml(label) + "</text>";
+      }
+
+      function renderStaticConjunctionMap(result, basemap) {
+        var width = 960;
+        var height = 480;
+        var countryData = globalBasemap(basemap) || globalFallbackBasemapGeojson();
+        var firstTrack = conjunctionTrackGeojson(result, "first");
+        var secondTrack = conjunctionTrackGeojson(result, "second");
+        var closest = result.minimum;
+        var countries = countryData.features.map(function (feature) {
+          return renderStaticWorldFeature(feature, width, height);
+        }).join("");
+        return "<div class=\"map-wrap\"><svg class=\"static-world-map\" viewBox=\"0 0 " + width + " " + height +
+          "\" role=\"img\" aria-label=\"Static full-Earth conjunction map\">" +
+          "<rect width=\"" + width + "\" height=\"" + height + "\" fill=\"" + mapColors.ocean + "\" />" +
+          countries +
+          renderStaticTrack(firstTrack, mapColors.satA, width, height) +
+          renderStaticTrack(secondTrack, mapColors.satB, width, height) +
+          renderStaticPoint(closest.first, "A closest", mapColors.satA, width, height) +
+          renderStaticPoint(closest.second, "B closest", mapColors.satB, width, height) +
+          "</svg></div>" +
+          "<p class=\"map-tools-note\">Interactive MapLibre GL JS did not load, so this static full-Earth fallback is shown.</p>";
+      }
+
+      function renderObjectLegend(result) {
+        return "<div class=\"object-legend\" aria-label=\"Object color legend\">" +
+          "<span class=\"legend-item\"><span class=\"legend-swatch\" style=\"background:" + mapColors.satA +
+          "\"></span>" + escapeHtml(result.first.name) + " orbit</span>" +
+          "<span class=\"legend-item\"><span class=\"legend-swatch\" style=\"background:" + mapColors.satB +
+          "\"></span>" + escapeHtml(result.second.name) + " orbit</span>" +
+          "<span class=\"legend-item\"><span class=\"legend-swatch\" style=\"background:" + mapColors.conjunction +
+          "\"></span>POCA / selected distance marker</span>" +
+          "</div>";
+      }
+
+      function renderTimelineControl(result) {
+        var startIndex = nearestSampleIndex(result, result.minimum.date);
+        return "<div class=\"timeline-control\">" +
+          "<label for=\"conjunction-timeline\">Timeline</label>" +
+          "<input id=\"conjunction-timeline\" type=\"range\" min=\"0\" max=\"" + (result.samples.length - 1) +
+          "\" step=\"1\" value=\"" + startIndex + "\">" +
+          "<p class=\"timeline-readout\" id=\"conjunction-timeline-readout\"></p>" +
+          "</div>";
+      }
+
+      function renderCoOrbitalAnalysis(result) {
+        var co = result.coOrbital;
+        if (!co) return "";
+        return "<div class=\"co-analysis\">" +
+          "<h3>Co-orbital / co-planar analysis</h3>" +
+          "<div class=\"co-analysis-list\">" +
+          "<div><strong>Co-orbital:</strong> " + coStatusBadge(co.coorbitalStatus) +
+          " <strong>Co-planar:</strong> " + coStatusBadge(co.coplanarStatus) + "</div>" +
+          "<div><strong>Plane angle at POCA:</strong> " + co.planeAtPoca.toFixed(4) +
+          " deg | sampled range " + co.minPlaneAngle.toFixed(4) + " to " +
+          co.maxPlaneAngle.toFixed(4) + " deg | mean " + co.meanPlaneAngle.toFixed(4) + " deg</div>" +
+          "<div><strong>Element diagnostics:</strong> inclination delta " + co.inclinationDelta.toFixed(4) +
+          " deg | TLE-epoch RAAN delta " + co.raanDelta.toFixed(4) + " deg | eccentricity delta " +
+          co.eccentricityDelta.toFixed(7) + "</div>" +
+          "<div><strong>Co-orbital drivers:</strong> semi-major axis delta " +
+          co.semiMajorDeltaKm.toFixed(3) + " km | mean altitude delta " +
+          co.meanAltitudeDeltaKm.toFixed(3) + " km | period delta " +
+          co.periodDeltaSeconds.toFixed(3) + " s | mean-motion delta " +
+          co.meanMotionDelta.toFixed(8) + " rev/day</div>" +
+          "<div><strong>RPO geometry at POCA:</strong> radial " + co.radialAtPoca.toFixed(3) +
+          " km | in-track " + co.inTrackAtPoca.toFixed(3) + " km | cross-track " +
+          co.crossTrackAtPoca.toFixed(3) + " km | minimum sampled abs cross-track " +
+          co.minCrossTrackAbs.toFixed(3) + " km</div>" +
+          "<div><strong>Along-track drift screen:</strong> sampled in-track span " +
+          co.alongTrackDriftKmDay.toFixed(3) + " km/day over the selected window</div>" +
+          "<div><strong>Interpretation:</strong> " + escapeHtml(co.notes.join(" ")) + "</div>" +
+          "</div></div>";
+      }
+
+      function distancePlotPosition(result, sample) {
+        var left = 58;
+        var right = 18;
+        var top = 18;
+        var bottom = 42;
+        var width = 800;
+        var height = 300;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var distances = result.samples.map(function (item) { return item.distance; });
+        var minDistance = Math.min.apply(null, distances);
+        var maxDistance = Math.max.apply(null, distances);
+        var range = Math.max(maxDistance - minDistance, 1);
+        var padding = Math.max(range * 0.08, maxDistance * 0.015, 1);
+        var yMin = Math.max(0, minDistance - padding);
+        var yMax = maxDistance + padding;
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+
+        return {
+          x: left + ((sample.date.getTime() - startMs) / spanMs) * plotWidth,
+          y: top + (1 - ((sample.distance - yMin) / (yMax - yMin))) * plotHeight
+        };
+      }
+
+      function relativePlotPosition(result, sample) {
+        var left = 58;
+        var right = 18;
+        var top = 34;
+        var width = 800;
+        var plotWidth = width - left - right;
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+
+        return {
+          x: left + ((sample.date.getTime() - startMs) / spanMs) * plotWidth,
+          top: top,
+          bottom: top + (320 - top - 42)
+        };
+      }
+
+      function selectedDistanceText(sample) {
+        return "Selected time: " + formatUtc(sample.date) + " | total 3D distance " +
+          sample.distance.toFixed(3) + " km.";
+      }
+
+      function selectedRicText(result, sample) {
+        return "Selected RIC: " + result.second.name + " relative to " + result.first.name +
+          " | radial " + sample.relative.radial.toFixed(3) +
+          " km | in-track " + sample.relative.inTrack.toFixed(3) +
+          " km | cross-track " + sample.relative.crossTrack.toFixed(3) + " km.";
+      }
+
+      function plotlyDate(sample) {
+        return sample.date.toISOString();
+      }
+
+      function plotlyHoverText(result, sample) {
+        return formatUtc(sample.date) +
+          "<br>Total: " + sample.distance.toFixed(3) + " km" +
+          "<br>Radial: " + sample.relative.radial.toFixed(3) + " km" +
+          "<br>In-track: " + sample.relative.inTrack.toFixed(3) + " km" +
+          "<br>Cross-track: " + sample.relative.crossTrack.toFixed(3) + " km" +
+          "<br>" + result.second.name + " relative to " + result.first.name;
+      }
+
+      function plotlyBaseLayout(title) {
+        return {
+          title: { text: title, font: { color: "#dfe7ff", size: 15 } },
+          paper_bgcolor: "#171b20",
+          plot_bgcolor: "#171b20",
+          font: { color: "#dfe7ff", family: "Roboto, Helvetica, Arial, sans-serif" },
+          margin: { l: 58, r: 18, t: 44, b: 50 },
+          hovermode: "closest",
+          showlegend: true,
+          legend: { x: 1.02, y: 1, bgcolor: "rgba(0,0,0,0)", font: { color: "#dfe7ff" } },
+          xaxis: { gridcolor: "#2d333b", zerolinecolor: "#4a515d", linecolor: "#4a515d" },
+          yaxis: { gridcolor: "#2d333b", zerolinecolor: "#4a515d", linecolor: "#4a515d" }
+        };
+      }
+
+      function plotlyConfig() {
+        return {
+          responsive: true,
+          displaylogo: false,
+          scrollZoom: true,
+          modeBarButtonsToRemove: ["lasso2d", "select2d"]
+        };
+      }
+
+      function selectedPlotlySample(result, index) {
+        return result.samples[Math.max(0, Math.min(result.samples.length - 1, index))];
+      }
+
+      function updatePlotlyRpoProduct(result, sample) {
+        if (!rpoPlotlyView || typeof Plotly === "undefined") return;
+
+        rpoPlotlyView.phasePlots.forEach(function (plot) {
+          var element = document.getElementById(plot.id);
+          if (!element) return;
+          Plotly.restyle(element, {
+            x: [[rpoValue(sample, plot.xKey)]],
+            y: [[rpoValue(sample, plot.yKey)]],
+            text: [[plotlyHoverText(result, sample)]]
+          }, [2]);
+        });
+
+        rpoPlotlyView.timePlots.forEach(function (plot) {
+          var element = document.getElementById(plot.id);
+          if (!element) return;
+          var x = plotlyDate(sample);
+          Plotly.restyle(element, {
+            x: [[x]],
+            y: [[rpoValue(sample, plot.key)]],
+            text: [[plotlyHoverText(result, sample)]]
+          }, [2]);
+          Plotly.relayout(element, {
+            "shapes[1].x0": x,
+            "shapes[1].x1": x
+          });
+        });
+
+        var three = document.getElementById("plotly-rpo-3d");
+        if (three) {
+          Plotly.restyle(three, {
+            x: [[sample.relative.inTrack]],
+            y: [[sample.relative.crossTrack]],
+            z: [[sample.relative.radial]],
+            text: [[plotlyHoverText(result, sample)]]
+          }, [2]);
+        }
+      }
+
+      function rpoValue(sample, key) {
+        if (key === "distance") return sample.distance;
+        return sample.relative[key];
+      }
+
+      function rpoAxis(values, symmetric) {
+        var min = Math.min.apply(null, values);
+        var max = Math.max.apply(null, values);
+        if (symmetric) {
+          var absMax = Math.max(Math.abs(min), Math.abs(max), 1);
+          return { min: -absMax * 1.08, max: absMax * 1.08 };
+        }
+        var range = Math.max(max - min, 1);
+        var padding = Math.max(range * 0.08, Math.abs(max) * 0.015, 1);
+        return { min: Math.max(0, min - padding), max: max + padding };
+      }
+
+      function rpoScale(value, axis, start, size, invert) {
+        var ratio = (value - axis.min) / (axis.max - axis.min);
+        return invert ? start + (1 - ratio) * size : start + ratio * size;
+      }
+
+      function rpoTimePosition(result, sample, key) {
+        var width = 760;
+        var height = 220;
+        var left = 58;
+        var right = 18;
+        var top = 30;
+        var bottom = 38;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var values = result.samples.map(function (item) { return rpoValue(item, key); });
+        var axis = rpoAxis(values, key !== "distance");
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+        return {
+          x: left + ((sample.date.getTime() - startMs) / spanMs) * plotWidth,
+          y: rpoScale(rpoValue(sample, key), axis, top, plotHeight, true),
+          top: top,
+          bottom: top + plotHeight
+        };
+      }
+
+      function rpoPhasePosition(result, sample, xKey, yKey) {
+        var width = 420;
+        var height = 280;
+        var left = 58;
+        var right = 18;
+        var top = 34;
+        var bottom = 42;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var xAxis = rpoAxis(result.samples.map(function (item) { return rpoValue(item, xKey); }), true);
+        var yAxis = rpoAxis(result.samples.map(function (item) { return rpoValue(item, yKey); }), true);
+        return {
+          x: rpoScale(rpoValue(sample, xKey), xAxis, left, plotWidth, false),
+          y: rpoScale(rpoValue(sample, yKey), yAxis, top, plotHeight, true)
+        };
+      }
+
+      function updateRpoProductMarkers(result, sample) {
+        var readout = document.getElementById("rpo-selected-readout");
+        if (readout) {
+          readout.textContent = selectedDistanceText(sample) + " " + selectedRicText(result, sample);
+        }
+        updatePlotlyRpoProduct(result, sample);
+      }
+
+      /* Archived Three.js RPO prototype: kept in source for reference, inactive in the UI. */
+      function rpoThreePoint(sample, scale) {
+        return new THREE.Vector3(
+          sample.relative.inTrack * scale,
+          sample.relative.radial * scale,
+          sample.relative.crossTrack * scale
+        );
+      }
+
+      function disposeRpoThreeView() {
+        if (!rpoThreeView) return;
+        if (rpoThreeView.animationFrame) cancelAnimationFrame(rpoThreeView.animationFrame);
+        if (rpoThreeView.renderer && rpoThreeView.renderer.dispose) rpoThreeView.renderer.dispose();
+        if (rpoThreeView.container) rpoThreeView.container.innerHTML = "";
+        rpoThreeView = null;
+      }
+
+      function addThreeAxis(scene, direction, color, label) {
+        var material = new THREE.LineBasicMaterial({ color: color });
+        var geometry = new THREE.BufferGeometry().setFromPoints([
+          direction.clone().multiplyScalar(-4.2),
+          direction.clone().multiplyScalar(4.2)
+        ]);
+        scene.add(new THREE.Line(geometry, material));
+
+        var canvas = document.createElement("canvas");
+        canvas.width = 256;
+        canvas.height = 64;
+        var context = canvas.getContext("2d");
+        context.fillStyle = "#dfe7ff";
+        context.font = "28px Arial";
+        context.fillText(label, 12, 42);
+        var texture = new THREE.CanvasTexture(canvas);
+        var spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        var sprite = new THREE.Sprite(spriteMaterial);
+        sprite.position.copy(direction.clone().multiplyScalar(4.65));
+        sprite.scale.set(1.6, 0.4, 1);
+        scene.add(sprite);
+      }
+
+      function updateRpoThreeMarker(sample) {
+        if (!rpoThreeView || !rpoThreeView.selectedMarker || typeof THREE === "undefined") return;
+        rpoThreeView.selectedMarker.position.copy(rpoThreePoint(sample, rpoThreeView.scale));
+      }
+
+      function initRpoThreePlot(result) {
+        var container = document.getElementById("rpo-three-plot");
+        if (!container) return;
+        disposeRpoThreeView();
+
+        if (typeof THREE === "undefined") {
+          container.innerHTML = "<div class=\"rpo-three-fallback\">Three.js did not load. The 2D RIC plots remain available below.</div>";
+          return;
+        }
+
+        var width = Math.max(container.clientWidth, 320);
+        var height = Math.max(container.clientHeight, 320);
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x171b20);
+
+        var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(7.5, 5.2, 7.5);
+        camera.lookAt(0, 0, 0);
+
+        var renderer;
+        try {
+          renderer = new THREE.WebGLRenderer({ antialias: true });
+        } catch (error) {
+          container.innerHTML = "<div class=\"rpo-three-fallback\">Three.js loaded, but WebGL is unavailable in this browser. The 2D RIC plots remain available below.</div>";
+          return;
+        }
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setSize(width, height);
+        container.innerHTML = "";
+        container.appendChild(renderer.domElement);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+        var light = new THREE.DirectionalLight(0xffffff, 0.65);
+        light.position.set(5, 8, 6);
+        scene.add(light);
+
+        var maxAbs = 1;
+        result.samples.forEach(function (sample) {
+          maxAbs = Math.max(
+            maxAbs,
+            Math.abs(sample.relative.inTrack),
+            Math.abs(sample.relative.radial),
+            Math.abs(sample.relative.crossTrack)
+          );
+        });
+        var scale = 4 / maxAbs;
+        var points = result.samples.map(function (sample) {
+          return rpoThreePoint(sample, scale);
+        });
+        var lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+        var lineMaterial = new THREE.LineBasicMaterial({ color: 0x6872ff });
+        scene.add(new THREE.Line(lineGeometry, lineMaterial));
+
+        addThreeAxis(scene, new THREE.Vector3(1, 0, 0), 0x006dce, "In-track");
+        addThreeAxis(scene, new THREE.Vector3(0, 1, 0), 0xd62728, "Radial");
+        addThreeAxis(scene, new THREE.Vector3(0, 0, 1), 0x7b2cbf, "Cross-track");
+
+        var grid = new THREE.GridHelper(8, 8, 0x3b424d, 0x2a3038);
+        grid.rotation.x = Math.PI / 2;
+        scene.add(grid);
+
+        var pocaGeometry = new THREE.SphereGeometry(0.12, 24, 16);
+        var pocaMaterial = new THREE.MeshBasicMaterial({ color: 0xff3b3b });
+        var pocaMarker = new THREE.Mesh(pocaGeometry, pocaMaterial);
+        pocaMarker.position.copy(rpoThreePoint(result.minimum, scale));
+        scene.add(pocaMarker);
+
+        var selectedGeometry = new THREE.SphereGeometry(0.14, 24, 16);
+        var selectedMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        var selectedMarker = new THREE.Mesh(selectedGeometry, selectedMaterial);
+        selectedMarker.position.copy(rpoThreePoint(result.samples[nearestSampleIndex(result, result.minimum.date)], scale));
+        scene.add(selectedMarker);
+
+        var group = new THREE.Group();
+        scene.children.slice().forEach(function (child) {
+          if (child !== camera && child !== light) group.add(child);
+        });
+        scene.add(group);
+
+        var dragging = false;
+        var lastX = 0;
+        var lastY = 0;
+        renderer.domElement.addEventListener("pointerdown", function (event) {
+          dragging = true;
+          lastX = event.clientX;
+          lastY = event.clientY;
+          renderer.domElement.setPointerCapture(event.pointerId);
+        });
+        renderer.domElement.addEventListener("pointermove", function (event) {
+          if (!dragging) return;
+          var dx = event.clientX - lastX;
+          var dy = event.clientY - lastY;
+          group.rotation.y += dx * 0.008;
+          group.rotation.x += dy * 0.008;
+          lastX = event.clientX;
+          lastY = event.clientY;
+        });
+        renderer.domElement.addEventListener("pointerup", function (event) {
+          dragging = false;
+          renderer.domElement.releasePointerCapture(event.pointerId);
+        });
+
+        function renderFrame() {
+          if (!dragging) group.rotation.y += 0.0025;
+          renderer.render(scene, camera);
+          rpoThreeView.animationFrame = requestAnimationFrame(renderFrame);
+        }
+
+        rpoThreeView = {
+          container: container,
+          renderer: renderer,
+          scene: scene,
+          camera: camera,
+          selectedMarker: selectedMarker,
+          scale: scale,
+          animationFrame: null
+        };
+        renderFrame();
+      }
+
+      function updateConjunctionTimeline(result, index) {
+        var sample = result.samples[Math.max(0, Math.min(result.samples.length - 1, index))];
+        var readout = document.getElementById("conjunction-timeline-readout");
+        if (readout) {
+          readout.textContent = formatUtc(sample.date) +
+            " | distance " + sample.distance.toFixed(3) + " km" +
+            " | radial " + sample.relative.radial.toFixed(3) + " km" +
+            " | in-track " + sample.relative.inTrack.toFixed(3) + " km" +
+            " | cross-track " + sample.relative.crossTrack.toFixed(3) + " km" +
+            " | A lat " + sample.first.lat.toFixed(3) + ", lon " + sample.first.lon.toFixed(3) +
+            " | B lat " + sample.second.lat.toFixed(3) + ", lon " + sample.second.lon.toFixed(3);
+        }
+        if (conjunctionMap && conjunctionMap.getSource && conjunctionMap.getSource("current-positions")) {
+          conjunctionMap.getSource("current-positions").setData(currentPositionGeojson(result, index));
+        }
+        var distancePosition = distancePlotPosition(result, sample);
+        var distanceMarker = document.getElementById("conjunction-distance-marker");
+        var distanceMarkerLabel = document.getElementById("conjunction-distance-marker-label");
+        var distanceSelected = document.getElementById("distance-selected-readout");
+        if (distanceMarker) {
+          distanceMarker.setAttribute("cx", distancePosition.x.toFixed(1));
+          distanceMarker.setAttribute("cy", distancePosition.y.toFixed(1));
+        }
+        if (distanceMarkerLabel) {
+          distanceMarkerLabel.setAttribute("x", distancePosition.x.toFixed(1));
+          distanceMarkerLabel.setAttribute("y", (distancePosition.y - 10).toFixed(1));
+          distanceMarkerLabel.textContent = sample.distance.toFixed(3) + " km";
+        }
+        if (distanceSelected) {
+          distanceSelected.textContent = selectedDistanceText(sample);
+        }
+
+        var relativePosition = relativePlotPosition(result, sample);
+        var relativeLine = document.getElementById("ric-time-marker");
+        var ricSelected = document.getElementById("ric-selected-readout");
+        if (relativeLine) {
+          relativeLine.setAttribute("d", "M" + relativePosition.x.toFixed(1) + " " + relativePosition.top +
+            "V" + relativePosition.bottom);
+        }
+        if (ricSelected) {
+          ricSelected.textContent = selectedRicText(result, sample);
+        }
+        updateRpoProductMarkers(result, sample);
+      }
+
+      function bindConjunctionTimeline(result) {
+        var slider = document.getElementById("conjunction-timeline");
+        if (!slider) return;
+        updateConjunctionTimeline(result, Number(slider.value));
+        slider.addEventListener("input", function () {
+          updateConjunctionTimeline(result, Number(slider.value));
+        });
+      }
+
+      function renderDistancePlot(result) {
+        var width = 800;
+        var height = 300;
+        var left = 58;
+        var right = 18;
+        var top = 18;
+        var bottom = 42;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var threshold = result.threshold.km;
+        var distances = result.samples.map(function (sample) { return sample.distance; });
+        var minDistance = Math.min.apply(null, distances);
+        var maxDistance = Math.max.apply(null, distances);
+        var range = Math.max(maxDistance - minDistance, 1);
+        var padding = Math.max(range * 0.08, maxDistance * 0.015, 1);
+        var yMin = Math.max(0, minDistance - padding);
+        var yMax = maxDistance + padding;
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+
+        function xFor(date) {
+          return left + ((date.getTime() - startMs) / spanMs) * plotWidth;
+        }
+
+        function yFor(distance) {
+          return top + (1 - ((distance - yMin) / (yMax - yMin))) * plotHeight;
+        }
+
+        var path = result.samples.map(function (sample, index) {
+          return (index === 0 ? "M " : "L ") + xFor(sample.date).toFixed(1) + " " + yFor(sample.distance).toFixed(1);
+        }).join(" ");
+        var thresholdVisible = threshold >= yMin && threshold <= yMax;
+        var thresholdY = thresholdVisible ? yFor(threshold) : 0;
+        var minX = xFor(result.minimum.date);
+        var minY = yFor(result.minimum.distance);
+        var dayTicks = [0, 1, 2, 3].map(function (day) {
+          var x = left + (day / 3) * plotWidth;
+          return "<path d=\"M" + x.toFixed(1) + " " + top + "L" + x.toFixed(1) + " " + (top + plotHeight) +
+            "\" stroke=\"#e6e6ef\" stroke-width=\"1\" />" +
+            "<text x=\"" + x.toFixed(1) + "\" y=\"" + (height - 16) + "\" font-size=\"11\" fill=\"#777\" text-anchor=\"middle\">+" + day + "d</text>";
+        }).join("");
+        var thresholdLine = thresholdVisible ?
+          "<path d=\"M" + left + " " + thresholdY.toFixed(1) + "H" + (left + plotWidth) +
+          "\" stroke=\"" + mapColors.conjunction + "\" stroke-width=\"1.4\" stroke-dasharray=\"5 4\" />" +
+          "<text x=\"" + (left + 6) + "\" y=\"" + (thresholdY - 6).toFixed(1) + "\" font-size=\"11\" fill=\"" +
+          mapColors.conjunction + "\">threshold " + threshold + " km</text>" :
+          "";
+        var thresholdNote = thresholdVisible ? "Threshold line shown on the plot." :
+          "Threshold " + threshold + " km is outside this autoscaled range.";
+        var startSample = result.samples[nearestSampleIndex(result, result.minimum.date)];
+
+        return "<div class=\"distance-plot\"><svg class=\"distance-svg\" viewBox=\"0 0 " + width + " " + height +
+          "\" role=\"img\" aria-label=\"Distance versus time plot\">" +
+          "<rect width=\"" + width + "\" height=\"" + height + "\" fill=\"#fff\" />" +
+          dayTicks +
+          "<path d=\"M" + left + " " + top + "V" + (top + plotHeight) + "H" + (left + plotWidth) +
+          "\" fill=\"none\" stroke=\"#999\" stroke-width=\"1\" />" +
+          thresholdLine +
+          "<path d=\"" + path + "\" fill=\"none\" stroke=\"" + mapColors.track + "\" stroke-width=\"2\" />" +
+          "<circle id=\"conjunction-distance-marker\" cx=\"" + minX.toFixed(1) + "\" cy=\"" + minY.toFixed(1) +
+          "\" r=\"5.5\" fill=\"" + mapColors.conjunction + "\" stroke=\"#ffffff\" stroke-width=\"1.5\" />" +
+          "<text id=\"conjunction-distance-marker-label\" x=\"" + minX.toFixed(1) + "\" y=\"" + (minY - 10).toFixed(1) +
+          "\" text-anchor=\"middle\" font-size=\"11\" fill=\"" + mapColors.conjunction +
+          "\" stroke=\"#ffffff\" stroke-width=\"2.4\" paint-order=\"stroke\">" + result.minimum.distance.toFixed(3) + " km</text>" +
+          "<text x=\"16\" y=\"24\" font-size=\"12\" fill=\"#555\">km</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + 12) + "\" font-size=\"11\" fill=\"#777\">" + yMax.toFixed(1) + "</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + plotHeight - 6) + "\" font-size=\"11\" fill=\"#777\">" + yMin.toFixed(1) + "</text>" +
+          "<text x=\"" + (left + plotWidth - 4) + "\" y=\"24\" font-size=\"11\" fill=\"#777\" text-anchor=\"end\">autoscaled total 3D range</text>" +
+          "</svg><p class=\"plot-caption\">Time vs distance is autoscaled to the sampled total 3D separation: " +
+          minDistance.toFixed(3) + " to " + maxDistance.toFixed(3) + " km. " + thresholdNote + "</p>" +
+          "<p class=\"plot-caption\" id=\"distance-selected-readout\">" + escapeHtml(selectedDistanceText(startSample)) + "</p></div>";
+      }
+
+      function renderRelativeOrbitPlot(result) {
+        var width = 800;
+        var height = 320;
+        var left = 58;
+        var right = 18;
+        var top = 34;
+        var bottom = 42;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+        var components = [
+          { key: "radial", label: "Radial", color: mapColors.radial },
+          { key: "inTrack", label: "In-track", color: mapColors.inTrack },
+          { key: "crossTrack", label: "Cross-track", color: mapColors.crossTrack }
+        ];
+        var maxAbs = 0;
+
+        result.samples.forEach(function (sample) {
+          components.forEach(function (component) {
+            maxAbs = Math.max(maxAbs, Math.abs(sample.relative[component.key]));
+          });
+        });
+        maxAbs = Math.max(maxAbs * 1.08, 1);
+
+        function xFor(date) {
+          return left + ((date.getTime() - startMs) / spanMs) * plotWidth;
+        }
+
+        function yFor(value) {
+          return top + (1 - ((value + maxAbs) / (2 * maxAbs))) * plotHeight;
+        }
+
+        var dayTicks = [0, 1, 2, 3].map(function (day) {
+          var x = left + (day / 3) * plotWidth;
+          return "<path d=\"M" + x.toFixed(1) + " " + top + "L" + x.toFixed(1) + " " + (top + plotHeight) +
+            "\" stroke=\"#e6e6ef\" stroke-width=\"1\" />" +
+            "<text x=\"" + x.toFixed(1) + "\" y=\"" + (height - 16) + "\" font-size=\"11\" fill=\"#777\" text-anchor=\"middle\">+" + day + "d</text>";
+        }).join("");
+        var zeroY = yFor(0);
+        var closestX = xFor(result.minimum.date);
+        var startSample = result.samples[nearestSampleIndex(result, result.minimum.date)];
+        var startX = xFor(startSample.date);
+        var paths = components.map(function (component) {
+          var path = result.samples.map(function (sample, index) {
+            return (index === 0 ? "M " : "L ") + xFor(sample.date).toFixed(1) + " " +
+              yFor(sample.relative[component.key]).toFixed(1);
+          }).join(" ");
+          return "<path d=\"" + path + "\" fill=\"none\" stroke=\"" + component.color + "\" stroke-width=\"2\" />";
+        }).join("");
+        var legend = components.map(function (component, index) {
+          var x = left + index * 112;
+          return "<circle cx=\"" + x + "\" cy=\"17\" r=\"4\" fill=\"" + component.color + "\" />" +
+            "<text x=\"" + (x + 8) + "\" y=\"21\" font-size=\"12\" fill=\"#555\">" + component.label + "</text>";
+        }).join("");
+        var closestRelative = result.minimum.relative || relativeSeparation(result.minimum.first, result.minimum.second);
+        var frameLabel = escapeHtml(result.second.name + " relative to " + result.first.name + " RIC frame");
+
+        return "<div class=\"distance-plot\"><svg class=\"distance-svg\" viewBox=\"0 0 " + width + " " + height +
+          "\" role=\"img\" aria-label=\"Relative orbit separation component plot\">" +
+          "<rect width=\"" + width + "\" height=\"" + height + "\" fill=\"#fff\" />" +
+          legend +
+          dayTicks +
+          "<path d=\"M" + left + " " + top + "V" + (top + plotHeight) + "H" + (left + plotWidth) +
+          "\" fill=\"none\" stroke=\"#999\" stroke-width=\"1\" />" +
+          "<path d=\"M" + left + " " + zeroY.toFixed(1) + "H" + (left + plotWidth) +
+          "\" stroke=\"#9a9a9a\" stroke-width=\"1\" stroke-dasharray=\"4 4\" />" +
+          "<path d=\"M" + closestX.toFixed(1) + " " + top + "V" + (top + plotHeight) +
+          "\" stroke=\"" + mapColors.conjunction + "\" stroke-width=\"1\" stroke-dasharray=\"2 5\" stroke-opacity=\"0.45\" />" +
+          "<path id=\"ric-time-marker\" d=\"M" + startX.toFixed(1) + " " + top + "V" + (top + plotHeight) +
+          "\" stroke=\"" + mapColors.conjunction + "\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\" />" +
+          paths +
+          "<text x=\"16\" y=\"24\" font-size=\"12\" fill=\"#555\">km</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + 12) + "\" font-size=\"11\" fill=\"#777\">+" + maxAbs.toFixed(1) + "</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + plotHeight - 6) + "\" font-size=\"11\" fill=\"#777\">-" + maxAbs.toFixed(1) + "</text>" +
+          "<text x=\"" + (left + plotWidth - 4) + "\" y=\"24\" font-size=\"11\" fill=\"#777\" text-anchor=\"end\">" + frameLabel + "</text>" +
+          "</svg><p class=\"plot-caption\">Relative orbit components at closest approach: radial " +
+          closestRelative.radial.toFixed(3) + " km, in-track " + closestRelative.inTrack.toFixed(3) +
+          " km, cross-track " + closestRelative.crossTrack.toFixed(3) +
+          " km. This supports RPO-style geometry review; the main conjunction metric remains total 3D separation.</p>" +
+          "<p class=\"plot-caption\" id=\"ric-selected-readout\">" + escapeHtml(selectedRicText(result, startSample)) + "</p></div>";
+      }
+
+      function rpoPath(points) {
+        return points.map(function (point, index) {
+          return (index === 0 ? "M " : "L ") + point.x.toFixed(1) + " " + point.y.toFixed(1);
+        }).join(" ");
+      }
+
+      function renderRpoPhasePlot(result, config) {
+        var width = 420;
+        var height = 280;
+        var left = 58;
+        var right = 18;
+        var top = 34;
+        var bottom = 42;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var xAxis = rpoAxis(result.samples.map(function (sample) { return rpoValue(sample, config.xKey); }), true);
+        var yAxis = rpoAxis(result.samples.map(function (sample) { return rpoValue(sample, config.yKey); }), true);
+        var selected = result.samples[nearestSampleIndex(result, result.minimum.date)];
+        var selectedPosition = rpoPhasePosition(result, selected, config.xKey, config.yKey);
+        var pocaPosition = rpoPhasePosition(result, result.minimum, config.xKey, config.yKey);
+        var path = rpoPath(result.samples.map(function (sample) {
+          return {
+            x: rpoScale(rpoValue(sample, config.xKey), xAxis, left, plotWidth, false),
+            y: rpoScale(rpoValue(sample, config.yKey), yAxis, top, plotHeight, true)
+          };
+        }));
+        var zeroX = rpoScale(0, xAxis, left, plotWidth, false);
+        var zeroY = rpoScale(0, yAxis, top, plotHeight, true);
+
+        return "<div class=\"rpo-panel\"><svg class=\"rpo-svg\" viewBox=\"0 0 " + width + " " + height +
+          "\" role=\"img\" aria-label=\"" + escapeHtml(config.title) + "\">" +
+          "<rect width=\"" + width + "\" height=\"" + height + "\" fill=\"#171b20\" />" +
+          "<text x=\"" + (width / 2) + "\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#dfe7ff\">" +
+          escapeHtml(config.title) + "</text>" +
+          "<path d=\"M" + left + " " + zeroY.toFixed(1) + "H" + (left + plotWidth) +
+          "\" stroke=\"#3b424d\" stroke-width=\"1\" />" +
+          "<path d=\"M" + zeroX.toFixed(1) + " " + top + "V" + (top + plotHeight) +
+          "\" stroke=\"#3b424d\" stroke-width=\"1\" />" +
+          "<path d=\"M" + left + " " + top + "V" + (top + plotHeight) + "H" + (left + plotWidth) +
+          "\" fill=\"none\" stroke=\"#4a515d\" stroke-width=\"1\" />" +
+          "<path d=\"" + path + "\" fill=\"none\" stroke=\"#6872ff\" stroke-width=\"2.2\" stroke-opacity=\"0.92\" />" +
+          "<circle cx=\"" + pocaPosition.x.toFixed(1) + "\" cy=\"" + pocaPosition.y.toFixed(1) +
+          "\" r=\"4\" fill=\"" + mapColors.conjunction + "\" />" +
+          "<circle id=\"" + config.markerId + "\" cx=\"" + selectedPosition.x.toFixed(1) + "\" cy=\"" +
+          selectedPosition.y.toFixed(1) + "\" r=\"5\" fill=\"#ffff00\" stroke=\"#111\" stroke-width=\"1\" />" +
+          "<text x=\"" + (width / 2) + "\" y=\"" + (height - 10) + "\" text-anchor=\"middle\" font-size=\"12\" fill=\"#cdd8f3\">" +
+          escapeHtml(config.xLabel) + " (km)</text>" +
+          "<text x=\"16\" y=\"" + (height / 2) + "\" transform=\"rotate(-90 16 " + (height / 2) +
+          ")\" text-anchor=\"middle\" font-size=\"12\" fill=\"#cdd8f3\">" + escapeHtml(config.yLabel) + " (km)</text>" +
+          "</svg><p class=\"rpo-caption\">Red point: POCA. Yellow point: selected timeline sample.</p></div>";
+      }
+
+      function renderRpoTimePlot(result, config) {
+        var width = 760;
+        var height = 220;
+        var left = 58;
+        var right = 18;
+        var top = 30;
+        var bottom = 38;
+        var plotWidth = width - left - right;
+        var plotHeight = height - top - bottom;
+        var values = result.samples.map(function (sample) { return rpoValue(sample, config.key); });
+        var axis = rpoAxis(values, config.key !== "distance");
+        var startMs = result.start.getTime();
+        var spanMs = result.end.getTime() - startMs;
+        var selected = result.samples[nearestSampleIndex(result, result.minimum.date)];
+        var selectedPosition = rpoTimePosition(result, selected, config.key);
+        var path = rpoPath(result.samples.map(function (sample) {
+          return {
+            x: left + ((sample.date.getTime() - startMs) / spanMs) * plotWidth,
+            y: rpoScale(rpoValue(sample, config.key), axis, top, plotHeight, true)
+          };
+        }));
+        var zeroY = rpoScale(0, axis, top, plotHeight, true);
+        var pocaX = left + ((result.minimum.date.getTime() - startMs) / spanMs) * plotWidth;
+
+        return "<div class=\"rpo-panel\"><svg class=\"rpo-svg\" viewBox=\"0 0 " + width + " " + height +
+          "\" role=\"img\" aria-label=\"" + escapeHtml(config.title) + "\">" +
+          "<rect width=\"" + width + "\" height=\"" + height + "\" fill=\"#171b20\" />" +
+          "<text x=\"" + (width / 2) + "\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#dfe7ff\">" +
+          escapeHtml(config.title) + "</text>" +
+          "<path d=\"M" + left + " " + top + "V" + (top + plotHeight) + "H" + (left + plotWidth) +
+          "\" fill=\"none\" stroke=\"#4a515d\" stroke-width=\"1\" />" +
+          "<path d=\"M" + left + " " + zeroY.toFixed(1) + "H" + (left + plotWidth) +
+          "\" stroke=\"#3b424d\" stroke-width=\"1\" />" +
+          "<path d=\"M" + pocaX.toFixed(1) + " " + top + "V" + (top + plotHeight) +
+          "\" stroke=\"" + mapColors.conjunction + "\" stroke-width=\"1\" stroke-dasharray=\"4 4\" />" +
+          "<path id=\"rpo-time-" + config.key + "-marker\" d=\"M" + selectedPosition.x.toFixed(1) + " " +
+          selectedPosition.top + "V" + selectedPosition.bottom + "\" stroke=\"#ffff00\" stroke-width=\"1.3\" stroke-dasharray=\"5 4\" />" +
+          "<path d=\"" + path + "\" fill=\"none\" stroke=\"" + config.color + "\" stroke-width=\"2\" />" +
+          "<text x=\"16\" y=\"22\" font-size=\"12\" fill=\"#cdd8f3\">km</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + 12) + "\" font-size=\"11\" fill=\"#b8c4df\">" +
+          axis.max.toFixed(0) + "</text>" +
+          "<text x=\"" + (left + 4) + "\" y=\"" + (top + plotHeight - 6) + "\" font-size=\"11\" fill=\"#b8c4df\">" +
+          axis.min.toFixed(0) + "</text>" +
+          "</svg><p class=\"rpo-caption\">Red dashed: POCA. Yellow dashed: selected timeline sample.</p></div>";
+      }
+
+      function rpoPhaseDefinitions() {
+        return [
+          { id: "plotly-phase-ct-it", title: "Cross-Track Over In-Track", xKey: "inTrack", yKey: "crossTrack", xLabel: "In-Track", yLabel: "Cross-Track" },
+          { id: "plotly-phase-r-it", title: "Radial Over In-Track", xKey: "inTrack", yKey: "radial", xLabel: "In-Track", yLabel: "Radial" },
+          { id: "plotly-phase-r-ct", title: "Radial Over Cross-Track", xKey: "crossTrack", yKey: "radial", xLabel: "Cross-Track", yLabel: "Radial" }
+        ];
+      }
+
+      function rpoTimeDefinitions() {
+        return [
+          { id: "plotly-time-distance", key: "distance", title: "Absolute Distance (km)", color: "#6872ff" },
+          { id: "plotly-time-radial", key: "radial", title: "Radial Separation (km)", color: mapColors.radial },
+          { id: "plotly-time-inTrack", key: "inTrack", title: "In-Track Separation (km)", color: mapColors.inTrack },
+          { id: "plotly-time-crossTrack", key: "crossTrack", title: "Cross-Track Separation (km)", color: mapColors.crossTrack }
+        ];
+      }
+
+      function renderPlotlyPanel(id, title, tall) {
+        return "<div class=\"rpo-panel\"><div class=\"rpo-plotly" + (tall ? " tall" : "") +
+          "\" id=\"" + id + "\" role=\"img\" aria-label=\"" + escapeHtml(title) + "\"></div></div>";
+      }
+
+      function initPlotlyPhasePlot(result, config, selected) {
+        var element = document.getElementById(config.id);
+        if (!element || typeof Plotly === "undefined") return;
+        var layout = plotlyBaseLayout(config.title);
+        layout.xaxis.title = config.xLabel + " (km)";
+        layout.yaxis.title = config.yLabel + " (km)";
+        layout.dragmode = "pan";
+        layout.uirevision = config.id;
+
+        Plotly.newPlot(element, [{
+          type: "scattergl",
+          mode: "lines",
+          name: result.second.name + " relative path",
+          x: result.samples.map(function (sample) { return rpoValue(sample, config.xKey); }),
+          y: result.samples.map(function (sample) { return rpoValue(sample, config.yKey); }),
+          text: result.samples.map(function (sample) { return plotlyHoverText(result, sample); }),
+          hovertemplate: "%{text}<extra></extra>",
+          line: { color: "#6872ff", width: 2.2 }
+        }, {
+          type: "scattergl",
+          mode: "markers",
+          name: "POCA",
+          x: [rpoValue(result.minimum, config.xKey)],
+          y: [rpoValue(result.minimum, config.yKey)],
+          text: [plotlyHoverText(result, result.minimum)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: mapColors.conjunction, size: 9, symbol: "diamond" }
+        }, {
+          type: "scattergl",
+          mode: "markers",
+          name: "Selected",
+          x: [rpoValue(selected, config.xKey)],
+          y: [rpoValue(selected, config.yKey)],
+          text: [plotlyHoverText(result, selected)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: "#ffff00", size: 10, line: { color: "#111111", width: 1 } }
+        }], layout, plotlyConfig());
+      }
+
+      function initPlotlyTimePlot(result, config, selected) {
+        var element = document.getElementById(config.id);
+        if (!element || typeof Plotly === "undefined") return;
+        var selectedDate = plotlyDate(selected);
+        var pocaDate = plotlyDate(result.minimum);
+        var layout = plotlyBaseLayout(config.title);
+        layout.xaxis.title = "UTC";
+        layout.yaxis.title = "km";
+        layout.dragmode = "pan";
+        layout.uirevision = config.id;
+        layout.shapes = [{
+          type: "line",
+          xref: "x",
+          yref: "paper",
+          x0: pocaDate,
+          x1: pocaDate,
+          y0: 0,
+          y1: 1,
+          line: { color: mapColors.conjunction, width: 1.4, dash: "dash" }
+        }, {
+          type: "line",
+          xref: "x",
+          yref: "paper",
+          x0: selectedDate,
+          x1: selectedDate,
+          y0: 0,
+          y1: 1,
+          line: { color: "#ffff00", width: 1.4, dash: "dash" }
+        }];
+
+        Plotly.newPlot(element, [{
+          type: "scattergl",
+          mode: "lines",
+          name: config.title,
+          x: result.samples.map(plotlyDate),
+          y: result.samples.map(function (sample) { return rpoValue(sample, config.key); }),
+          text: result.samples.map(function (sample) { return plotlyHoverText(result, sample); }),
+          hovertemplate: "%{text}<extra></extra>",
+          line: { color: config.color, width: 2.2 }
+        }, {
+          type: "scattergl",
+          mode: "markers",
+          name: "POCA",
+          x: [pocaDate],
+          y: [rpoValue(result.minimum, config.key)],
+          text: [plotlyHoverText(result, result.minimum)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: mapColors.conjunction, size: 8, symbol: "diamond" }
+        }, {
+          type: "scattergl",
+          mode: "markers",
+          name: "Selected",
+          x: [selectedDate],
+          y: [rpoValue(selected, config.key)],
+          text: [plotlyHoverText(result, selected)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: "#ffff00", size: 9, line: { color: "#111111", width: 1 } }
+        }], layout, plotlyConfig());
+      }
+
+      function initPlotly3dPlot(result, selected) {
+        var element = document.getElementById("plotly-rpo-3d");
+        if (!element || typeof Plotly === "undefined") return;
+        Plotly.newPlot(element, [{
+          type: "scatter3d",
+          mode: "lines",
+          name: result.second.name + " RIC path",
+          x: result.samples.map(function (sample) { return sample.relative.inTrack; }),
+          y: result.samples.map(function (sample) { return sample.relative.crossTrack; }),
+          z: result.samples.map(function (sample) { return sample.relative.radial; }),
+          text: result.samples.map(function (sample) { return plotlyHoverText(result, sample); }),
+          hovertemplate: "%{text}<extra></extra>",
+          line: { color: "#6872ff", width: 4 }
+        }, {
+          type: "scatter3d",
+          mode: "markers",
+          name: "POCA",
+          x: [result.minimum.relative.inTrack],
+          y: [result.minimum.relative.crossTrack],
+          z: [result.minimum.relative.radial],
+          text: [plotlyHoverText(result, result.minimum)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: mapColors.conjunction, size: 5, symbol: "diamond" }
+        }, {
+          type: "scatter3d",
+          mode: "markers",
+          name: "Selected",
+          x: [selected.relative.inTrack],
+          y: [selected.relative.crossTrack],
+          z: [selected.relative.radial],
+          text: [plotlyHoverText(result, selected)],
+          hovertemplate: "%{text}<extra></extra>",
+          marker: { color: "#ffff00", size: 6 }
+        }], {
+          title: { text: "3D RIC Trajectory", font: { color: "#dfe7ff", size: 15 } },
+          paper_bgcolor: "#171b20",
+          plot_bgcolor: "#171b20",
+          font: { color: "#dfe7ff", family: "Roboto, Helvetica, Arial, sans-serif" },
+          margin: { l: 0, r: 0, t: 44, b: 0 },
+          showlegend: true,
+          legend: { x: 0.02, y: 0.98, bgcolor: "rgba(0,0,0,0)", font: { color: "#dfe7ff" } },
+          scene: {
+            bgcolor: "#171b20",
+            xaxis: { title: "In-track (km)", color: "#dfe7ff", gridcolor: "#2d333b", zerolinecolor: "#4a515d" },
+            yaxis: { title: "Cross-track (km)", color: "#dfe7ff", gridcolor: "#2d333b", zerolinecolor: "#4a515d" },
+            zaxis: { title: "Radial (km)", color: "#dfe7ff", gridcolor: "#2d333b", zerolinecolor: "#4a515d" },
+            camera: { eye: { x: 1.55, y: 1.35, z: 1.05 } }
+          },
+          uirevision: "plotly-rpo-3d"
+        }, plotlyConfig());
+      }
+
+      function initRpoPlotlyProduct(result) {
+        rpoPlotlyView = null;
+        var selected = result.samples[nearestSampleIndex(result, result.minimum.date)];
+        if (typeof Plotly === "undefined") {
+          var product = document.querySelector(".rpo-product");
+          if (product) {
+            product.insertAdjacentHTML("beforeend", "<p class=\"rpo-caption\">Plotly.js did not load. Reload with network access to use zoomable and draggable RPO plots.</p>");
+          }
+          return;
+        }
+
+        var phasePlots = rpoPhaseDefinitions();
+        var timePlots = rpoTimeDefinitions();
+        rpoPlotlyView = { phasePlots: phasePlots, timePlots: timePlots };
+        phasePlots.forEach(function (config) {
+          initPlotlyPhasePlot(result, config, selected);
+        });
+        initPlotly3dPlot(result, selected);
+        timePlots.forEach(function (config) {
+          initPlotlyTimePlot(result, config, selected);
+        });
+      }
+
+      function renderRpoProduct(result) {
+        var selected = result.samples[nearestSampleIndex(result, result.minimum.date)];
+        var phasePlots = rpoPhaseDefinitions().map(function (config) {
+          return renderPlotlyPanel(config.id, config.title, false);
+        }).join("");
+        var timePlots = rpoTimeDefinitions().map(function (config) {
+          return renderPlotlyPanel(config.id, config.title, false);
+        }).join("");
+
+        return "<div class=\"rpo-product\">" +
+          "<div class=\"rpo-banner\">RPO geometry product | TOCA: " + escapeHtml(formatUtc(result.minimum.date)) +
+          " | POCA: " + result.minimum.distance.toFixed(3) + " km</div>" +
+          "<div class=\"rpo-caption\">Primary: " + escapeHtml(result.first.name) + " | Secondary: " +
+          escapeHtml(result.second.name) + " | Frame: secondary relative to primary RIC. Plotly controls: drag to pan/rotate, wheel or box-zoom to zoom, double-click to autoscale.</div>" +
+          "<div class=\"rpo-grid\">" + phasePlots + "</div>" +
+          renderPlotlyPanel("plotly-rpo-3d", "3D RIC Trajectory", true) +
+          "<div class=\"rpo-wide-grid\">" + timePlots + "</div>" +
+          "<p class=\"rpo-caption\" id=\"rpo-selected-readout\">" + escapeHtml(selectedDistanceText(selected) + " " +
+          selectedRicText(result, selected)) + "</p>" +
+          "</div>";
       }
 
       function spotReport(spots) {
@@ -1288,6 +3303,78 @@ Base Frei, -58.9600, -62.2000</textarea>
             " at lat " + pass.closest.lat.toFixed(2) + ", lon " + pass.closest.lon.toFixed(2));
         });
         return lines.join("\n");
+      }
+
+      function conjunctionReport(result) {
+        var co = result.coOrbital;
+        var lines = [
+          "TLE conjunction check",
+          "Window: " + formatUtc(result.start) + " to " + formatUtc(result.end),
+          "Object A: " + result.first.name + " | NORAD " + result.first.norad + " | " + result.first.regime,
+          "Object B: " + result.second.name + " | NORAD " + result.second.norad + " | " + result.second.regime,
+          "Threshold: " + result.threshold.km + " km (" + result.threshold.label + ")",
+          "Closest sampled/refined approach: " + result.minimum.distance.toFixed(3) + " km at " + formatUtc(result.minimum.date),
+          "Closest RIC separation " + result.second.name + " relative to " + result.first.name +
+            ": radial " + result.minimum.relative.radial.toFixed(3) +
+            " km | in-track " + result.minimum.relative.inTrack.toFixed(3) +
+            " km | cross-track " + result.minimum.relative.crossTrack.toFixed(3) + " km",
+          "Closest A subpoint: lat " + result.minimum.first.lat.toFixed(3) + ", lon " + result.minimum.first.lon.toFixed(3),
+          "Closest B subpoint: lat " + result.minimum.second.lat.toFixed(3) + ", lon " + result.minimum.second.lon.toFixed(3),
+          "",
+          "Co-orbital / co-planar analysis",
+          "Co-orbital status: " + co.coorbitalStatus,
+          "Co-planar status: " + co.coplanarStatus,
+          "Plane angle at POCA: " + co.planeAtPoca.toFixed(4) + " deg",
+          "Plane angle sampled min/mean/max: " + co.minPlaneAngle.toFixed(4) + " / " +
+            co.meanPlaneAngle.toFixed(4) + " / " + co.maxPlaneAngle.toFixed(4) + " deg",
+          "Element diagnostics: inclination delta " + co.inclinationDelta.toFixed(4) + " deg | TLE-epoch RAAN delta " +
+            co.raanDelta.toFixed(4) + " deg | eccentricity delta " + co.eccentricityDelta.toFixed(7),
+          "Co-orbital drivers: semi-major axis delta " + co.semiMajorDeltaKm.toFixed(3) +
+            " km | mean altitude delta " + co.meanAltitudeDeltaKm.toFixed(3) +
+            " km | period delta " + co.periodDeltaSeconds.toFixed(3) +
+            " s | mean-motion delta " + co.meanMotionDelta.toFixed(8) + " rev/day",
+          "RPO at POCA: radial " + co.radialAtPoca.toFixed(3) + " km | in-track " +
+            co.inTrackAtPoca.toFixed(3) + " km | cross-track " + co.crossTrackAtPoca.toFixed(3) + " km",
+          "Minimum sampled absolute cross-track: " + co.minCrossTrackAbs.toFixed(3) + " km",
+          "Sampled in-track span rate: " + co.alongTrackDriftKmDay.toFixed(3) + " km/day",
+          "Interpretation: " + co.notes.join(" "),
+          "Screening thresholds: co-planar YES <=0.25 deg propagated plane angle at POCA with small inclination delta; NEAR <=2 deg. Co-orbital YES also requires <=10 s period delta, <=10 km semi-major axis delta, and close eccentricity; NEAR allows wider drift for review.",
+          "",
+          result.hasConjunction ? "Possible conjunction: YES" : "Possible conjunction: NO"
+        ];
+
+        if (result.events.length) {
+          lines.push("", "Threshold crossings:");
+          result.events.forEach(function (event, index) {
+            lines.push((index + 1) + ". " + formatUtc(event.start) + " - " + formatUtc(event.end) +
+              " | min " + event.minimum.distance.toFixed(3) + " km at " + formatUtc(event.minimum.date));
+          });
+        } else {
+          lines.push("No samples crossed the configured threshold in the selected window.");
+        }
+
+        return lines.join("\n");
+      }
+
+      function renderConjunctionResult(result, basemap) {
+        currentConjunctionReport = conjunctionReport(result);
+        var plotContent = (typeof maplibregl === "undefined" ? renderStaticConjunctionMap(result, basemap) : renderConjunctionMapContainer()) +
+          renderObjectLegend(result) +
+          renderTimelineControl(result) +
+          renderGlobalMapSource(Boolean(basemap)) +
+          renderCoOrbitalAnalysis(result) +
+          renderDistancePlot(result) +
+          renderRelativeOrbitPlot(result) +
+          renderRpoProduct(result);
+        conjunctionOutput.innerHTML = "<div class=\"metric-row\"><span><strong>Minimum:</strong> " +
+          escapeHtml(result.minimum.distance.toFixed(3) + " km") +
+          "</span><span><strong>Threshold:</strong> " + result.threshold.km +
+          " km</span><span><strong>Conjunction:</strong> " + (result.hasConjunction ? "YES" : "NO") +
+          "</span></div><div class=\"planner-stack\">" + plotContent +
+          "<pre class=\"terminal-output\">" + escapeHtml(currentConjunctionReport) + "</pre></div>";
+        initConjunctionMap(result, basemap);
+        initRpoPlotlyProduct(result);
+        bindConjunctionTimeline(result);
       }
 
       function renderPasses(tle, data, basemap, spots) {
@@ -1346,9 +3433,63 @@ Base Frei, -58.9600, -62.2000</textarea>
         }
       }
 
+      function checkConjunction() {
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+        try {
+          var sets = parseTleSets(conjunctionInput.value);
+          var windowRange = readConjunctionWindow();
+          var result = buildConjunction(sets[0], sets[1], windowRange);
+          conjunctionOutput.innerHTML = "<p class=\"placeholder\">Checking conjunction window...</p>";
+          loadBasemap().then(function (basemap) {
+            renderConjunctionResult(result, basemap);
+          });
+        } catch (error) {
+          currentConjunctionReport = "";
+          conjunctionOutput.innerHTML = "<p class=\"placeholder\">Enter two TLE sets and run the conjunction check.</p>";
+          errorMessage.textContent = error.message;
+          errorMessage.style.display = "block";
+        }
+      }
+
       function schedulePlotPasses() {
         if (plotTimer) clearTimeout(plotTimer);
+        if (activeTab !== "orbit-tab") return;
         plotTimer = setTimeout(plotPasses, 450);
+      }
+
+      function resizeVisibleMaps() {
+        window.setTimeout(function () {
+          if (activeTab === "orbit-tab" && overpassMap && overpassMap.resize) overpassMap.resize();
+          if (activeTab === "conjunction-tab" && conjunctionMap && conjunctionMap.resize) {
+            conjunctionMap.resize();
+            fitConjunctionWorldMap(conjunctionMap);
+          }
+        }, 0);
+      }
+
+      function renderActiveTab() {
+        if (!document.body.classList.contains("unlocked")) return;
+        if (activeTab === "orbit-tab") {
+          plotPasses();
+          resizeVisibleMaps();
+        } else if (activeTab === "conjunction-tab") {
+          checkConjunction();
+          resizeVisibleMaps();
+        }
+      }
+
+      function activateTab(tabId) {
+        activeTab = tabId;
+        tabButtons.forEach(function (button) {
+          var selected = button.getAttribute("data-tab-target") === tabId;
+          button.classList.toggle("active", selected);
+          button.setAttribute("aria-selected", selected ? "true" : "false");
+        });
+        tabPanels.forEach(function (panel) {
+          panel.classList.toggle("active", panel.id === tabId);
+        });
+        renderActiveTab();
       }
 
       analyzeButton.addEventListener("click", analyze);
@@ -1356,9 +3497,11 @@ Base Frei, -58.9600, -62.2000</textarea>
         input.value = "";
         currentAnalysis = "";
         currentPassReport = "";
+        currentConjunctionReport = "";
         errorMessage.style.display = "none";
         resultOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and run the analysis.</p>";
         passesOutput.innerHTML = "<p class=\"placeholder\">Enter a TLE and plot the next 3 days.</p>";
+        conjunctionOutput.innerHTML = "<p class=\"placeholder\">Enter two TLE sets and run the conjunction check.</p>";
         input.focus();
       });
 
@@ -1382,7 +3525,19 @@ Base Frei, -58.9600, -62.2000</textarea>
 
       passesButton.addEventListener("click", plotPasses);
       spotsInput.addEventListener("input", schedulePlotPasses);
-      document.addEventListener("toolsUnlocked", plotPasses);
+      conjunctionButton.addEventListener("click", checkConjunction);
+      conjunctionStartInput.addEventListener("change", function () {
+        if (activeTab === "conjunction-tab") checkConjunction();
+      });
+      conjunctionEndInput.addEventListener("change", function () {
+        if (activeTab === "conjunction-tab") checkConjunction();
+      });
+      tabButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          activateTab(button.getAttribute("data-tab-target"));
+        });
+      });
+      document.addEventListener("toolsUnlocked", renderActiveTab);
 
       copyPassesButton.addEventListener("click", function () {
         if (!currentPassReport) return;
@@ -1402,8 +3557,29 @@ Base Frei, -58.9600, -62.2000</textarea>
         document.body.removeChild(copyArea);
       });
 
+      copyConjunctionButton.addEventListener("click", function () {
+        if (!currentConjunctionReport) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentConjunctionReport);
+          return;
+        }
+
+        var copyArea = document.createElement("textarea");
+        copyArea.value = currentConjunctionReport;
+        copyArea.setAttribute("readonly", "");
+        copyArea.style.position = "fixed";
+        copyArea.style.left = "-9999px";
+        document.body.appendChild(copyArea);
+        copyArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(copyArea);
+      });
+
+      setDefaultConjunctionWindow();
       analyze();
-      if (document.body.classList.contains("unlocked")) plotPasses();
+      if (document.body.classList.contains("unlocked")) {
+        renderActiveTab();
+      }
     })();
   </script>
 </body>
